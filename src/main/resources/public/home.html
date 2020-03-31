@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>LFA Weekend Activities</title>
+
+    <meta name="Generator" content="Cocoa H TML Writer">
+    <meta name="CocoaVersion" content="1671.6">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="249301811034-m8vbrhasmdffpcbeusn75qaab94ncjgu.apps.googleusercontent.com">
+    <title>Google Sign In</title>
+    <style>@import 'stylesheet.css';</style>
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+
+<div class="body">
+    <div class="header">
+
+    </div>
+    <a href="https://www.lfanet.org/" class="logo"><image src = "/img/logo.svg" class = "logo"></image></a>
+
+    <div class="title">
+
+        <p class="text">Lake Forest Academy Weekend Activities</p>
+
+        <div class="g-signin2" data-onsuccess="onSignIn"
+             -theme="dark" data-width="250" data-height="50"
+             data-longtitle="true"></div>
+
+
+    </div>
+    <div class = "quote">
+        <blockquote>
+            <p>
+                "Newly improved weekend sign out system... Convenient and practical"</p>
+
+        </blockquote>
+    </div>
+
+
+
+</div>
+<div class = "separator">
+
+</div>
+
+<div class="buttons">
+    <a href="/" style="text-decoration: none;"><div class="button"><p class="textInButton">Sign Up for Activity</p></div></a>
+
+    <a href="/events" style="text-decoration: none;"><div class="button"><p class="textInButton">Vote for Activities</p></div></a>
+    <a href="/" style="text-decoration: none;"><div class="button"><p class="textInButton">View Weekend Schedule</p></div></a>
+
+
+</div>
+
+<div class="contacts"></div>
+
+<script>
+function onSignIn(googleUser){
+
+      var profile = googleUser.getBasicProfile();
+      console.log(profile.getEmail());
+
+      if(profile.getEmail().includes("@students.lfanet.org")){
+            window.alert("Successfully signed in with LFA email...");
+      }
+      else {
+            window.alert("Please sign in with an LFA email account");
+            gapi.auth2.getAuthInstance().signOut();
+      }
+
+}
+</script>
+</body>
+
+</html>
