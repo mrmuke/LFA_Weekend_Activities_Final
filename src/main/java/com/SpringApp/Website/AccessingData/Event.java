@@ -13,8 +13,13 @@ public class Event {
     private String name;
     @Column(name = "timeSlot")
     private String timeSlot;
-    @Column(columnDefinition = "integer default 0")
-    private Integer upVotes;
+    @Column(name = "upVotes")
+    private Integer upVotes = 0;
+
+    @Column(name = "upVoted")
+    private Boolean upVoted;
+
+
 
 
     protected Event() {}
@@ -22,14 +27,16 @@ public class Event {
     public Event(String name, String timeSlot) {
         this.name = name;
         this.timeSlot = timeSlot;
+        upVoted = false;
+
 
 
     }
     @Override
     public String toString() {
         return String.format(
-                "Event[id=%d, upVotes = %d, name='%s', timeSlot='%s']",
-                id, name, timeSlot, upVotes);
+                "Event[id=%d, upVotes = %d, upVoted = %b, name='%s', timeSlot='%s']",
+                id, upVotes, upVoted, name, timeSlot);
     }
     public Long getId() {
         return id;
@@ -44,11 +51,23 @@ public class Event {
     }
     public void setTimeSlot(String timeSlot) {this.timeSlot = timeSlot;}
 
-    public int getUpVotes() {
+    public Integer getUpVotes() {
         return upVotes;
     }
 
-    public void setUpVotes(int upVotes) {
+    public void setUpVotes(Integer upVotes) {
         this.upVotes = upVotes;
     }
+    public boolean isUpVoted() {
+        return upVoted;
+    }
+
+    public void setUpVoted(Boolean upVoted) {
+        this.upVoted = upVoted;
+    }
+    public Boolean getUpVoted()
+    {
+        return upVoted;
+    }
+
 }

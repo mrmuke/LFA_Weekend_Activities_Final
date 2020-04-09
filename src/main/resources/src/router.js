@@ -7,8 +7,7 @@ export default new Router({
   mode: "history",
   routes: [
     {
-      path: "/",
-      alias: "/events",
+      path: "/events",
       name: "events",
       component: () => import("./components/EventList")
     },
@@ -21,6 +20,11 @@ export default new Router({
       path: "/add",
       name: "add",
       component: () => import("./components/AddEvent")
-    }
+    },
+    {
+          path: "/home",
+          name: "home",
+          component: () => import("./components/Home.vue")
+     }
   ]
 });

@@ -7,7 +7,7 @@ import java.util.List;
 public interface EventRepository extends CrudRepository<Event, Long> {
 
     List<Event> findByName(String name);
-    List<Event> findByTimeSlot(String timeSlot);
+    //ADD FIND BY MOST UP VOTES
 
 
 }

@@ -21,9 +21,7 @@ class EventDataService {
     return http.delete(`/events/${id}`);
   }
 
-  deleteAll() {
-    return http.delete(`/events`);
-  }
+
 
 
 }

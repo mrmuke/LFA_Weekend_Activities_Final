@@ -1,4 +1,5 @@
 package com.SpringApp.Website.Controller;
+
 import com.SpringApp.Website.AccessingData.Event;
 import com.SpringApp.Website.AccessingData.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,7 @@ public class EventController {
     @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<?> createEvent(@RequestBody Event event) {
         try {
+            event.setTimeSlot(event.getTimeSlot().substring(0,10));
             Event _event = eventRepository.save(new Event(event.getName(), event.getTimeSlot()));
             return new ResponseEntity<Event>(_event, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -75,7 +77,9 @@ public class EventController {
             Event _event = eventData.get();
             _event.setName(event.getName());
             _event.setTimeSlot(event.getTimeSlot());
-            _event.setUpVotes(event.getUpVotes()+1);
+            _event.setUpVotes(event.getUpVotes());
+            _event.setUpVoted(event.getUpVoted());
+
             return new ResponseEntity<Event>(eventRepository.save(_event), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

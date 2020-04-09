@@ -1,13 +1,15 @@
 <template>
   <div class="list row">
     <div class="col-md-8">
+
+    <h1>hello,{{emailAddress}}</h1>
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Search by name"
           v-model="name"/>
       </div>
     </div>
     <div class="col-md-6">
-      <h4>Events List</h4>
+      <h4>Requested Events List</h4>
       <ul class="list-group">
         <li class="list-group-item"
           :class="{ active: index == currentIndex }"
@@ -19,9 +21,6 @@
         </li>
       </ul>
 
-      <button class="m-3 btn btn-sm btn-danger" @click="removeAllEvents">
-        Remove All
-      </button>
     </div>
     <div class="col-md-6">
           <div v-if="currentEvent">
@@ -30,13 +29,15 @@
               <label><strong>Name:</strong></label> {{ currentEvent.name }}
             </div>
             <div>
-              <label><strong>Time Slot:</strong></label> {{ currentEvent.timeSlot }}
+              <label><strong>Requested Date:</strong></label> {{ currentEvent.timeSlot }}
             </div>
-            <div>
-               <label><strong>Up Votes:</strong></label> {{ currentEvent.upVotes }}
-             </div>
 
-            <button @click="upvote">Up Vote</button>
+
+            <div class="wrap">
+              <div class="votes">{{currentEvent.upVotes}}</div>
+              <div class="button" v-on:click="upvote" v-if="currentEvent.upVoted"><i class="fa fa-arrow-up"></i>UP VOTED!!!</div>
+              <div class="button" v-on:click="upvote" v-else><i class="fa fa-arrow-up"></i>VOTE THIS EVENT UP</div>
+            </div>
             <a class="badge badge-warning"
               :href="'/events/' + currentEvent.id"
             >
@@ -45,7 +46,7 @@
           </div>
           <div v-else>
             <br />
-            <p>Please click on a Event...</p>
+            <p>Click on a Event to show its information...</p>
           </div>
         </div>
   </div>
@@ -53,23 +54,31 @@
 
 <script>
 import EventDataService from "../services/EventDataService";
-
+import UserDataService from "../services/UserDataService";
 export default {
-  name: "events-list",
+  name: "event-list",
   data() {
     return {
       events: [],
+      users: [],
+      currentUserName:"",
+      emailAddress:"",
       currentEvent: null,
       currentIndex: -1,
       name: ""
+
     };
   },
   computed: {
       filteredEvents() {
+
         return this.events.filter(event => {
           return event.name.toLowerCase().includes(this.name.toLowerCase())
         })
-      }
+       }
+
+
+
   },
   methods: {
     retrieveEvents() {
@@ -78,13 +87,38 @@ export default {
           this.events = response.data;
           console.log(response.data);
         })
+
+
         .catch(e => {
           console.log(e);
         });
     },
+    retrieveUsers() {
+       UserDataService.getAll()
+                .then(response => {
+                  this.users = response.data;
+                  console.log(response.data);
+                })
+                .catch(e => {
+                  console.log(e);
+                });
+    },
+
     upvote(){
-        this.currentEvent.upVotes++;
+        this.currentEvent.upVoted = !this.currentEvent.upVoted;
+        this.currentEvent.message = !this.currentEvent.message;
         EventDataService.update(this.currentEvent.id, this.currentEvent)
+        if(this.currentEvent.upVoted == true)
+        {
+            this.currentEvent.upVotes++;
+
+
+        }
+        else
+        {
+            this.currentEvent.upVotes--;
+
+        }
     },
 
     refreshList() {
@@ -98,16 +132,7 @@ export default {
       this.currentIndex = index;
     },
 
-    removeAllEvents() {
-      EventDataService.deleteAll()
-        .then(response => {
-          console.log(response.data);
-          this.refreshList();
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
+
 
     searchName() {
 
@@ -123,8 +148,11 @@ export default {
   },
   mounted() {
     this.retrieveEvents();
+    this.retrieveUsers();
+
   }
 };
+
 </script>
 
 <style>

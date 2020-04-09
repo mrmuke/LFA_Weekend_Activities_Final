@@ -13,15 +13,8 @@
         />
       </div>
       <div class="form-group">
-              <label for="timeSlot">Time Slot</label>
-              <input
-                type = "text"
-                class="form-control"
-                id="timeSlot"
-                required
-                v-model="event.timeSlot"
-                name="timeSlot"
-              />
+              <label for="timeSlot">Preferred Date</label>
+                <datepicker v-model="event.timeSlot"></datepicker>
             </div>
 
 
@@ -37,9 +30,13 @@
 
 <script>
 import EventDataService from "../services/EventDataService";
-
+import Datepicker from 'vuejs-datepicker';
 export default {
   name: "add-event",
+  components:{
+    Datepicker
+  },
+
   data() {
     return {
       event: {
@@ -59,6 +56,12 @@ export default {
         upVotes:this.event.upVotes
       };
 
+      if(this.event.name==null||this.event.timeSlot==null)
+      {
+        alert("Please fill in all required fields...")
+      }
+      else{
+
       EventDataService.create(data)
         .then(response => {
           this.event.id = response.data.id;
@@ -68,12 +71,14 @@ export default {
         .catch(e => {
           console.log(e);
         });
+        }
     },
 
     newEvent() {
       this.submitted = false;
       this.event = {};
     }
+
   }
 };
 </script>
