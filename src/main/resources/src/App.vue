@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-       <a href="https://www.lfanet.org/" class="logo"><image src = "../public/img/logo.svg" class = "logo"></image></a>
+
       <div class="navbar-nav mr-auto">
+         <a href="/home" class="pull-left"><img src="../public/img/logo.svg"></a>
         <li class="nav-item">
           <a href="/events" class="nav-link">Events</a>
         </li>
@@ -16,18 +17,24 @@
     </nav>
 
     <div>
-      <router-view />
+        <router-view />
     </div>
   </div>
 </template>
 
 <script>
-import EventList from './components/EventList.vue';
-import Home from './components/Home.vue';
-export default {
-  name: 'app',
-  components: {
-      EventList, Home
-  }
-}
+
 </script>
+
+<style>
+.nav-item{
+    padding-left:10px;
+    text-align:center;
+    font-size:30px;
+}
+.nav-item:hover{
+    background-color: orange;
+    color:white;
+}
+
+</style>

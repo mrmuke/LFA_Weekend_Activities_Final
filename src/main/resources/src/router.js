@@ -7,8 +7,9 @@ export default new Router({
   mode: "history",
   routes: [
     {
-      path: "/events",
+      path: "/events/:emailAddress",
       name: "events",
+      props:true,
       component: () => import("./components/EventList")
     },
     {
@@ -22,9 +23,9 @@ export default new Router({
       component: () => import("./components/AddEvent")
     },
     {
-          path: "/home",
-          name: "home",
-          component: () => import("./components/Home.vue")
+      path: "/home",
+      name: "home",
+      component: () => import("./components/Home")
      }
   ]
 });

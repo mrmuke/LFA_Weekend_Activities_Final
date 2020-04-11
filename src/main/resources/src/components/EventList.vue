@@ -1,8 +1,7 @@
 <template>
   <div class="list row">
     <div class="col-md-8">
-
-    <h1>hello,{{emailAddress}}</h1>
+    <h1>hello,{{currentUserName}}</h1>
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Search by name"
           v-model="name"/>
@@ -57,12 +56,17 @@ import EventDataService from "../services/EventDataService";
 import UserDataService from "../services/UserDataService";
 export default {
   name: "event-list",
+  props:{
+    currentUserName:{
+        type:String
+
+    }
+  },
   data() {
     return {
       events: [],
       users: [],
-      currentUserName:"",
-      emailAddress:"",
+      currentUser:null,
       currentEvent: null,
       currentIndex: -1,
       name: ""
@@ -81,6 +85,16 @@ export default {
 
   },
   methods: {
+    getCurrentUser(currentUserName){
+        UserDataService.get(currentUserName)
+            .then(response => {
+               this.currentUser = response.data;
+               console.log(response.data);
+            })
+              .catch(e => {
+              console.log(e);
+            });
+    },
     retrieveEvents() {
       EventDataService.getAll()
         .then(response => {
@@ -149,6 +163,7 @@ export default {
   mounted() {
     this.retrieveEvents();
     this.retrieveUsers();
+    this.getCurrentUser(this.currentUserName);
 
   }
 };

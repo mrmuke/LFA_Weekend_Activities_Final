@@ -12,6 +12,9 @@ public class User {
     private String emailAddress;
     @Column(name = "userName")
     private String userName;
+    ////////////
+    @Column(name = "upvotes")
+    private Event[] upvotes;
 
 
     protected User() {
@@ -21,6 +24,8 @@ public class User {
         this.emailAddress = emailAddress;
         String[] words = emailAddress.split("\\.");
         this.userName = words[0];
+        /////////
+        upvotes = new Event[0];
 
 
     }
@@ -29,7 +34,7 @@ public class User {
         return String.format(
                 "User[id=%d, emailAddress = %s, userName='%s']",
                 id, emailAddress, userName);
-    }
+    }///////////////////////////////////
 
     public Long getId() {
         return id;
@@ -48,5 +53,15 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+    public Event[] getUpvotes() {
+        return upvotes;
+    }
+
+    public void setUpvotes(Event[] upvotes) {
+        this.upvotes = upvotes;
     }
 }

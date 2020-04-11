@@ -8,10 +8,8 @@ html, body {
  height:100%;
 }
 .header {
-  padding: 48px;
-  background: black;
-  color: white;
-  font-size: 30px;
+  padding: 10px;
+  background: grey;
 }
 .division{
 
@@ -33,7 +31,7 @@ html, body {
 	background-image: url(/img/body-background.jpg);
 	background-size:cover;
 	height:900px;
-	width:2000px;
+	width:1900px;
 	opacity:0.8;
 	margin:0px;
 
@@ -137,4 +135,5 @@ html, body {
 .textInButton1{
     margin-top:-5%;
 }
+
 

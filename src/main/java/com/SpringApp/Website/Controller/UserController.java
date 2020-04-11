@@ -15,12 +15,6 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     UserRepository userRepository;
-    @RequestMapping("/home")
-    @CrossOrigin(origins = "http://localhost:8081")
-    public String home() {
-
-        return "welcome";
-    }
     @GetMapping("/users")
     @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String emailAddress) {
@@ -41,6 +35,21 @@ public class UserController {
             e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    @GetMapping("/currentUser")
+    @CrossOrigin(origins = "http://localhost:8081")
+    public ResponseEntity<User> getCurrentUserByUserName(@RequestParam(required=true) String userName){
+
+        User userData = userRepository.findByUserName(userName);
+        if(userData==null)
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else
+        {
+            return new ResponseEntity<>(userData, HttpStatus.OK);
+        }
+
     }
     @GetMapping("/users/{id}")
     @CrossOrigin(origins = "http://localhost:8081")
@@ -77,6 +86,7 @@ public class UserController {
             _user.setEmailAddress(user.getEmailAddress());
             String[] words = user.getEmailAddress().split("\\.");
             _user.setUserName(words[0]);
+            _user.setUpvotes(user.getUpvotes());
             return new ResponseEntity<User>(userRepository.save(_user), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -93,5 +103,9 @@ public class UserController {
         }
 
     }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 }
