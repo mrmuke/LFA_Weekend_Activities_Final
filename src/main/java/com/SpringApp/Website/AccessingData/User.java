@@ -1,6 +1,7 @@
 package com.SpringApp.Website.AccessingData;
 
 import javax.persistence.*;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "users")
@@ -32,8 +33,8 @@ public class User {
     @Override
     public String toString() {
         return String.format(
-                "User[id=%d, emailAddress = %s, userName='%s']",
-                id, emailAddress, userName);
+                "User[id=%d, emailAddress = %s, userName='%s',upvotes = %s]",
+                id, emailAddress, userName, Arrays.toString(upvotes));
     }///////////////////////////////////
 
     public Long getId() {

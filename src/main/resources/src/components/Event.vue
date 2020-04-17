@@ -82,6 +82,11 @@ export default {
   mounted() {
     this.message = '';
     this.getEvent(this.$route.params.id);
+    if(this.$cookies.get('user')==null)
+    {
+        alert("Sign in to access this page")
+        this.$router.push('home')
+    }
   }
 };
 </script>

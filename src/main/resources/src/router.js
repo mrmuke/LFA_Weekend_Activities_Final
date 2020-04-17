@@ -7,7 +7,7 @@ export default new Router({
   mode: "history",
   routes: [
     {
-      path: "/events/:emailAddress",
+      path: "/events",
       name: "events",
       props:true,
       component: () => import("./components/EventList")

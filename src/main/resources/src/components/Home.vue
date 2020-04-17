@@ -20,18 +20,15 @@
         <div class = "quote">
               <p>"Newly improved weekend sign out system... Convenient and practical"</p>
         </div>
+        <div class = "bottom" v-if="signedIn">
+            <a href="/eventSignUp" style="text-decoration: none;"><div class="bigbutton"><p class="textInButton">Sign Up for Activity</p></div></a>
+            <a href="/events" style="text-decoration: none;"><div class="bigbutton"><p class="textInButton">Vote for Activities</p></div></a>
+            <button class = "bigbutton" type="submit" onclick="window.open('WeekendSchedule.pdf')" style="text-decoration:none;" ><p class="textInButton1">View Weekend Schedule</p></button>
+        </div>
 
 
     </div>
-    <div class="buttons">
-        <a v-if="signedIn" href="/eventSignUp" style="text-decoration: none;"><div class="bigbutton"><p class="textInButton">Sign Up for Activity</p></div></a>
-        <a v-else href="#" style="text-decoration: none;" ><div class="bigbutton"><p class="textInButton">Sign In to Continue</p></div></a>
 
-        <router-link v-if="signedIn" :to="{ name: 'events', params: {currentUserName: userName } }"><div class="bigbutton"><p class="textInButton">Vote for Activities</p></div></router-link>
-        <a v-else href="#" style="text-decoration: none;"><div class="bigbutton"><p class="textInButton">Sign In to Continue</p></div></a>
-        <button class = "bigbutton" type="submit" onclick="window.open('WeekendSchedule.pdf')" style="text-decoration:none;" ><p class="textInButton1">View Weekend Schedule</p></button>
-    </div>
-    <div class="contacts"></div>
 </div>
 
 </template>
@@ -41,6 +38,9 @@ import Vue from 'vue'
 import GSignInButton from 'vue-google-signin-button'
 Vue.use(GSignInButton)
 import UserDataService from "../services/UserDataService";
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
+
 
 export default {
     data(){
@@ -51,7 +51,9 @@ export default {
             googleSignInParams: {
                     client_id: '978419002714-0ngcjc58363k85n3a6fpmrdl0tome13b.apps.googleusercontent.com'
             },
-            user:""
+            user:"",
+            currentUser:null,
+            hello:"hello"
         };
     },
     computed:{
@@ -69,20 +71,35 @@ export default {
                 UserDataService.create(this.emailAddress)
                 this.signedIn = true
                 this.userName=this.emailAddress.substr(0, this.emailAddress.indexOf("."));
-
-
+                UserDataService.getCurrentUser(this.userName)
+                    .then(response => {
+                        this.currentUser = response.data[0];
+                        console.log(this.currentUser);
+                        this.setUserCookie()
+                    })
+                    .catch(e => {
+                         console.log(e);
+                    });
             }
             else{
                 alert("Please sign in with an LFA Email Account")
-
+                //UserDataService.create(this.emailAddress)
+                //this.signedIn = true
+                //this.userName=this.emailAddress.substr(0, this.emailAddress.indexOf("."));
                 this.signedIn=false
             }
 
+
+        },
+        setUserCookie(){
+            this.$cookies.set('user',this.currentUser);
         }
       },
       mounted() {
-
-
+        if(this.$cookies.get('user')!=null)
+        {
+            this.signedIn=true
+        }
       }
 }
 

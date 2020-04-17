@@ -37,14 +37,9 @@ html, body {
 
 }
 
-.buttons {
-    height: 700px;
+.bottom {
+    padding-top: 28%;
 
-    background-image: url(/img/background.jpg);
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-top: 5%;
-    padding-bottom: 7%;
 }
 
 .text{
@@ -110,14 +105,13 @@ html, body {
 }
 .bigbutton{
 	background-color: white;
-	width:33%;
+	width:20%;
 	font-size: 38px;
 	font-family:monospace;
 	text-align: center;
 	color: rgb(50,50,50);
-	height: 500px;
+	height: 300px;
 	float:left;
-	text-align: center;
 	border:none;
 }
 
@@ -129,7 +123,7 @@ html, body {
 }
 .textInButton{
 
-	margin-top:200px;
+	margin-top:20%;
 
 }
 .textInButton1{

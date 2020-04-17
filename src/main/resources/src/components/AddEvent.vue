@@ -79,6 +79,13 @@ export default {
       this.event = {};
     }
 
+  },
+  mounted(){
+    if(this.$cookies.get('user')==null)
+    {
+        alert("Sign in to access this page")
+        this.$router.push('home')
+    }
   }
 };
 </script>

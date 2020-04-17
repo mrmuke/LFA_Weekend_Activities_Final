@@ -10,8 +10,11 @@ class UserDataService {
      get(id) {
          return http.get(`/users/${id}`);
      }
-     get(userName){
-        return http.get('/currentUser')
+     getCurrentUser(userName){
+        return http.get(`/users?userName=`+userName);
+     }
+     update(id, data) {
+         return http.put(`/users/${id}`, data);
      }
 }
 export default new UserDataService();

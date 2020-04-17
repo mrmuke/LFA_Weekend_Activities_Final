@@ -78,7 +78,6 @@ public class EventController {
             _event.setName(event.getName());
             _event.setTimeSlot(event.getTimeSlot());
             _event.setUpVotes(event.getUpVotes());
-            _event.setUpVoted(event.getUpVoted());
 
             return new ResponseEntity<Event>(eventRepository.save(_event), HttpStatus.OK);
         } else {

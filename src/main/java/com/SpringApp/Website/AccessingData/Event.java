@@ -1,11 +1,11 @@
 package com.SpringApp.Website.AccessingData;
 
 import javax.persistence.*;
-
+import java.io.Serializable;
 
 @Entity
 @Table(name = "events")
-public class Event {
+public class Event implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -16,18 +16,18 @@ public class Event {
     @Column(name = "upVotes")
     private Integer upVotes = 0;
 
-    @Column(name = "upVoted")
-    private Boolean upVoted;
-
 
 
 
     protected Event() {}
 
+    public void setUpVotes(Integer upVotes) {
+        this.upVotes = upVotes;
+    }
+
     public Event(String name, String timeSlot) {
         this.name = name;
         this.timeSlot = timeSlot;
-        upVoted = false;
 
 
 
@@ -35,8 +35,8 @@ public class Event {
     @Override
     public String toString() {
         return String.format(
-                "Event[id=%d, upVotes = %d, upVoted = %b, name='%s', timeSlot='%s']",
-                id, upVotes, upVoted, name, timeSlot);
+                "Event[id=%d, upVotes = %d,  name='%s', timeSlot='%s']",
+                id, upVotes, name, timeSlot);
     }
     public Long getId() {
         return id;
@@ -55,19 +55,5 @@ public class Event {
         return upVotes;
     }
 
-    public void setUpVotes(Integer upVotes) {
-        this.upVotes = upVotes;
-    }
-    public boolean isUpVoted() {
-        return upVoted;
-    }
-
-    public void setUpVoted(Boolean upVoted) {
-        this.upVoted = upVoted;
-    }
-    public Boolean getUpVoted()
-    {
-        return upVoted;
-    }
 
 }

@@ -17,14 +17,14 @@ public class UserController {
     UserRepository userRepository;
     @GetMapping("/users")
     @CrossOrigin(origins = "http://localhost:8081")
-    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String emailAddress) {
+    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false, value = "userName") String userName) {
         try {
             List<User> users = new ArrayList<User>();
 
-            if (emailAddress == null)
+            if (userName == null)
                 userRepository.findAll().forEach(users::add);
             else
-                userRepository.findByEmailAddress(emailAddress).forEach(users::add);
+                users.add(userRepository.findByUserName(userName));
 
             if (users.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -36,21 +36,7 @@ public class UserController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("/currentUser")
-    @CrossOrigin(origins = "http://localhost:8081")
-    public ResponseEntity<User> getCurrentUserByUserName(@RequestParam(required=true) String userName){
 
-        User userData = userRepository.findByUserName(userName);
-        if(userData==null)
-        {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        else
-        {
-            return new ResponseEntity<>(userData, HttpStatus.OK);
-        }
-
-    }
     @GetMapping("/users/{id}")
     @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
@@ -102,6 +88,16 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
 
+    }
+    @DeleteMapping("/users/{id}")
+    @CrossOrigin(origins = "http://localhost:8081")
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") long id) {
+        try {
+            userRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

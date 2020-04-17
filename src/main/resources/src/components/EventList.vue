@@ -1,7 +1,7 @@
 <template>
   <div class="list row">
     <div class="col-md-8">
-    <h1>hello,{{currentUserName}}</h1>
+    <h1 v-if="userNotNull">hello,{{currentUser.userName}}</h1>
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Search by name"
           v-model="name"/>
@@ -34,8 +34,10 @@
 
             <div class="wrap">
               <div class="votes">{{currentEvent.upVotes}}</div>
-              <div class="button" v-on:click="upvote" v-if="currentEvent.upVoted"><i class="fa fa-arrow-up"></i>UP VOTED!!!</div>
+              <div class="button" v-on:click="down" v-if="upVoteExists"><i class="fa fa-arrow-up"></i>UP VOTED!!!</div>
               <div class="button" v-on:click="upvote" v-else><i class="fa fa-arrow-up"></i>VOTE THIS EVENT UP</div>
+
+
             </div>
             <a class="badge badge-warning"
               :href="'/events/' + currentEvent.id"
@@ -54,14 +56,12 @@
 <script>
 import EventDataService from "../services/EventDataService";
 import UserDataService from "../services/UserDataService";
+import Vue from 'vue'
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
+
 export default {
   name: "event-list",
-  props:{
-    currentUserName:{
-        type:String
-
-    }
-  },
   data() {
     return {
       events: [],
@@ -69,7 +69,10 @@ export default {
       currentUser:null,
       currentEvent: null,
       currentIndex: -1,
-      name: ""
+      name: "",
+      index:-1,
+      upvotes:[]
+
 
     };
   },
@@ -79,21 +82,30 @@ export default {
         return this.events.filter(event => {
           return event.name.toLowerCase().includes(this.name.toLowerCase())
         })
+       },
+       upVoteExists(){
+          for(var i = 0; i < this.currentUser.upvotes.length; i++){
+            if(this.currentUser.upvotes[i].name===this.currentEvent.name)
+            {
+                return true;
+            }
+          }
+          return false;
+       },
+       userNotNull(){
+        if(this.$cookies.get('user')==null)
+        {
+            return false;
+        }
+        return true;
        }
 
 
 
   },
   methods: {
-    getCurrentUser(currentUserName){
-        UserDataService.get(currentUserName)
-            .then(response => {
-               this.currentUser = response.data;
-               console.log(response.data);
-            })
-              .catch(e => {
-              console.log(e);
-            });
+    getCurrentUser(){
+         this.currentUser=this.$cookies.get('user')
     },
     retrieveEvents() {
       EventDataService.getAll()
@@ -117,23 +129,27 @@ export default {
                   console.log(e);
                 });
     },
-
     upvote(){
-        this.currentEvent.upVoted = !this.currentEvent.upVoted;
-        this.currentEvent.message = !this.currentEvent.message;
+        this.currentEvent.upVotes++;
         EventDataService.update(this.currentEvent.id, this.currentEvent)
-        if(this.currentEvent.upVoted == true)
-        {
-            this.currentEvent.upVotes++;
+        this.currentUser.upvotes.push(this.currentEvent);
+        console.log(this.currentUser.upvotes)
+        UserDataService.update(this.currentUser.id, this.currentUser)
 
-
-        }
-        else
-        {
-            this.currentEvent.upVotes--;
-
-        }
     },
+    down(){
+        this.currentEvent.upVotes--;
+        EventDataService.update(this.currentEvent.id, this.currentEvent)
+        for(var i = 0; i < this.currentUser.upvotes.length; i++) {
+            if(this.currentUser.upvotes[i].id == this.currentEvent.id) {
+                this.currentUser.upvotes.splice(i, 1);
+            }
+        }
+        console.log(this.currentUser.upvotes)
+        UserDataService.update(this.currentUser.id, this.currentUser)
+    },
+
+
 
     refreshList() {
       this.retrieveEvents();
@@ -144,27 +160,24 @@ export default {
     setActiveEvent(event, index) {
       this.currentEvent = event;
       this.currentIndex = index;
+
     },
 
-
-
-    searchName() {
-
-      EventDataService.findByName(this.name)
-        .then(response => {
-          this.events = response.data;
-          console.log(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    }
   },
+
   mounted() {
     this.retrieveEvents();
     this.retrieveUsers();
-    this.getCurrentUser(this.currentUserName);
+    if(this.$cookies.get('user')==null)
+    {
+        alert("Sign in to access this page")
+        this.$router.push('home')
+    }
 
+
+  },
+  beforeMount(){
+      this.getCurrentUser();
   }
 };
 
@@ -179,5 +192,6 @@ export default {
   max-width: 750px;
   margin: auto;
 }
+
 
 </style>
