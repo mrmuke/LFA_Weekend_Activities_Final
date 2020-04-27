@@ -2,6 +2,7 @@
   <div class="submit-form">
     <div v-if="!submitted">
       <div class="form-group">
+        <h1>Request Activity</h1>
         <label for="name">Name</label>
         <input
           type="text"
@@ -31,6 +32,7 @@
 <script>
 import EventDataService from "../services/EventDataService";
 import Datepicker from 'vuejs-datepicker';
+import { eventBus } from '../main.js';
 export default {
   name: "add-event",
   components:{
@@ -85,6 +87,12 @@ export default {
     {
         alert("Sign in to access this page")
         this.$router.push('home')
+    }
+    if(this.$cookies.get('admin')=="true"){
+        eventBus.$emit('adminSet', true);
+    }
+    if(this.$cookies.get('admin')=="false"){
+        eventBus.$emit('adminSet', false);
     }
   }
 };

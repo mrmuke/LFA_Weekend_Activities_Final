@@ -26,6 +26,22 @@ export default new Router({
       path: "/home",
       name: "home",
       component: () => import("./components/Home")
-     }
+     },
+
+     {
+      path:"/schedules",
+      name:"schedules",
+      component: () => import("./components/Schedules")
+     },
+
+     {
+      path:"/createSchedule",
+      name:"createSchedule",
+      component:() => import("./components/CreateSchedule")
+     },
+     {
+       path: "/schedules/:id",
+       component: () => import("./components/Schedule")
+     },
   ]
 });

@@ -36,7 +36,7 @@
 
 <script>
 import EventDataService from "../services/EventDataService";
-
+import { eventBus } from '../main.js';
 export default {
   name: "event",
   data() {
@@ -86,6 +86,14 @@ export default {
     {
         alert("Sign in to access this page")
         this.$router.push('home')
+    }
+    if(this.$cookies.get('admin')=="true"){
+        eventBus.$emit('adminSet', true);
+    }
+    if(this.$cookies.get('admin')=="false"){
+       eventBus.$emit('adminSet', false);
+       alert("Admin permission denied...")
+       this.$router.push('/events')
     }
   }
 };

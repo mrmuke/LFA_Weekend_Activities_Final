@@ -1,4 +1,5 @@
 <template>
+<div class = "body">
   <div class="list row">
     <div class="col-md-8">
     <h1 v-if="userNotNull">hello,{{currentUser.userName}}</h1>
@@ -8,7 +9,7 @@
       </div>
     </div>
     <div class="col-md-6">
-      <h4>Requested Events List</h4>
+      <h4>Requested Events</h4>
       <ul class="list-group">
         <li class="list-group-item"
           :class="{ active: index == currentIndex }"
@@ -40,7 +41,7 @@
 
             </div>
             <a class="badge badge-warning"
-              :href="'/events/' + currentEvent.id"
+              :href="'/events/' + currentEvent.id" v-if="admin"
             >
               Edit
             </a>
@@ -51,6 +52,7 @@
           </div>
         </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -59,6 +61,7 @@ import UserDataService from "../services/UserDataService";
 import Vue from 'vue'
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
+import { eventBus } from '../main.js';
 
 export default {
   name: "event-list",
@@ -71,7 +74,8 @@ export default {
       currentIndex: -1,
       name: "",
       index:-1,
-      upvotes:[]
+      upvotes:[],
+      admin:this.$cookies.get('admin')
 
 
     };
@@ -170,8 +174,14 @@ export default {
     this.retrieveUsers();
     if(this.$cookies.get('user')==null)
     {
-        alert("Sign in to access this page")
-        this.$router.push('home')
+       alert("Sign in to access this page")
+       this.$router.push('home')
+    }
+    if(this.$cookies.get('admin')=="true"){
+       eventBus.$emit('adminSet', true);
+    }
+    if(this.$cookies.get('admin')=="false"){
+       eventBus.$emit('adminSet', false);
     }
 
 
@@ -185,7 +195,7 @@ export default {
 
 <style>
 
-  @import '../../public/stylingvue.css';
+@import '../../public/stylingvue.css';
 
 .list {
   text-align: left;

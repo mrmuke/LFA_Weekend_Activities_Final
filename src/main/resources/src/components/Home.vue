@@ -1,6 +1,5 @@
 <template>
-<div>
-    <div class = "body">
+    <div class = "containerHome">
         <div class="title">
            <p class="text">Lake Forest Academy Weekend Activities</p>
            <g-signin-button
@@ -16,30 +15,33 @@
                Sign in with LFA Email Account
              </g-signin-button>
 
+
         </div>
-        <div class = "quote">
-              <p>"Newly improved weekend sign out system... Convenient and practical"</p>
+        <p class = "desc">Convenient and improved sign out system.</p>
+        <div class = "column" v-if="signedIn">
+            <a href="/add" class="bigbutton">Request Activities</a>
+            <a href="/events" class="bigbutton">Vote for Activities</a>
+            <a :href="'/schedules/'+ latestId" class="bigbutton">View Weekend Schedule</a>
+
         </div>
-        <div class = "bottom" v-if="signedIn">
-            <a href="/eventSignUp" style="text-decoration: none;"><div class="bigbutton"><p class="textInButton">Sign Up for Activity</p></div></a>
-            <a href="/events" style="text-decoration: none;"><div class="bigbutton"><p class="textInButton">Vote for Activities</p></div></a>
-            <button class = "bigbutton" type="submit" onclick="window.open('WeekendSchedule.pdf')" style="text-decoration:none;" ><p class="textInButton1">View Weekend Schedule</p></button>
-        </div>
+        <a href="/schedules" class="bigbutton" v-if="admin">View All Schedules</a>
 
 
     </div>
 
-</div>
+
 
 </template>
 <!-- ADD SIGN OUT WHEN NOT LFA EMAIL -->
 <script>
+import { eventBus } from '../main.js';
 import Vue from 'vue'
 import GSignInButton from 'vue-google-signin-button'
 Vue.use(GSignInButton)
 import UserDataService from "../services/UserDataService";
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
+import ScheduleDataService from "../services/ScheduleDataService";
 
 
 export default {
@@ -53,7 +55,10 @@ export default {
             },
             user:"",
             currentUser:null,
-            hello:"hello"
+            hello:"hello",
+            admin:false,
+            latestId:this.$cookies.get('latestId'),
+            schedules:[]
         };
     },
     computed:{
@@ -63,6 +68,17 @@ export default {
 
     },
      methods:{
+        retrieveSchedules(){
+            ScheduleDataService.getAll()
+              .then(response => {
+                 this.schedules = response.data;
+                 console.log(response.data);
+                 this.findLatestId()
+               })
+              .catch(e => {
+                 console.log(e);
+              });
+        },
         onSignIn(user){
             const profile = user.getBasicProfile()
             this.emailAddress =profile.getEmail()
@@ -71,15 +87,35 @@ export default {
                 UserDataService.create(this.emailAddress)
                 this.signedIn = true
                 this.userName=this.emailAddress.substr(0, this.emailAddress.indexOf("."));
+                this.admin=false
                 UserDataService.getCurrentUser(this.userName)
                     .then(response => {
                         this.currentUser = response.data[0];
                         console.log(this.currentUser);
                         this.setUserCookie()
+                        this.$cookies.set('admin', false)
+                        eventBus.$emit('adminSet', false);
                     })
                     .catch(e => {
                          console.log(e);
                     });
+            }
+            else if(this.emailAddress.indexOf("@gmail.com")>-1){
+                UserDataService.create(this.emailAddress)
+                this.signedIn = true
+                this.userName=this.emailAddress.substr(0, this.emailAddress.indexOf("."));
+                this.admin = true
+                UserDataService.getCurrentUser(this.userName)
+                    .then(response => {
+                       this.currentUser = response.data[0];
+                       console.log(this.currentUser);
+                       this.setUserCookie()
+                       this.$cookies.set('admin', true)
+                       eventBus.$emit('adminSet', true);
+                    })
+                    .catch(e => {
+                       console.log(e);
+                     });
             }
             else{
                 alert("Please sign in with an LFA Email Account")
@@ -88,11 +124,18 @@ export default {
                 //this.userName=this.emailAddress.substr(0, this.emailAddress.indexOf("."));
                 this.signedIn=false
             }
-
-
+        },
+        findLatestId(){
+            if(this.latestId ==null)
+            {
+                this.latestId=this.schedules[this.schedules.length-1].id
+                this.$cookies.set('latestId', this.latestId)
+            }
         },
         setUserCookie(){
             this.$cookies.set('user',this.currentUser);
+
+
         }
       },
       mounted() {
@@ -100,6 +143,16 @@ export default {
         {
             this.signedIn=true
         }
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if(this.$cookies.get('admin')=="true"){
+            this.admin=true;
+            eventBus.$emit('adminSet', true);
+        }
+        if(this.$cookies.get('admin')=="false"){
+            this.admin=false;
+            eventBus.$emit('adminSet', false);
+         }
+        this.retrieveSchedules()
       }
 }
 
@@ -109,23 +162,21 @@ export default {
 @import '../../public/stylesheet.css';
 
 .g-signin-button {
-  padding-top:20px;
-  padding-bottom:20px;
-  padding-left: 25px;
-  padding-right: 25px;
+  text-align:center;
+  display: table-cell; vertical-align: middle;
   background-color: white;
   color: black;
   text-decoration: none;
   font-size: 20px;
   font-family: 'Clarkson',Helvetica,sans-serif;
   letter-spacing: 2.5px;
-  font-weight: 300;
-  height:70px;
-  width:400px
+  height:4vw;
+  width:22vw;
 }
 .g-signin-button:hover {
     background-color:orange;
     color:white;
     cursor: pointer;
 }
+
 </style>

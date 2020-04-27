@@ -6,6 +6,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "events")
 public class Event implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -15,6 +16,10 @@ public class Event implements Serializable {
     private String timeSlot;
     @Column(name = "upVotes")
     private Integer upVotes = 0;
+    @Column(name="signUp")
+    private Boolean signUp = false;
+    @Column(name = "usersSignedUp")
+    private User[] usersSignedUp;
 
 
 
@@ -28,6 +33,7 @@ public class Event implements Serializable {
     public Event(String name, String timeSlot) {
         this.name = name;
         this.timeSlot = timeSlot;
+        usersSignedUp = new User[0];
 
 
 
@@ -35,8 +41,8 @@ public class Event implements Serializable {
     @Override
     public String toString() {
         return String.format(
-                "Event[id=%d, upVotes = %d,  name='%s', timeSlot='%s']",
-                id, upVotes, name, timeSlot);
+                "Event[id=%d, upVotes = %d,  name='%s', timeSlot='%s', signUp = '%B']",
+                id, upVotes, name, timeSlot, signUp);
     }
     public Long getId() {
         return id;
@@ -55,5 +61,19 @@ public class Event implements Serializable {
         return upVotes;
     }
 
+    public Boolean getSignUp() {
+        return signUp;
+    }
 
+    public void setSignUp(Boolean signUp) {
+        this.signUp = signUp;
+    }
+
+    public User[] getUsersSignedUp() {
+        return usersSignedUp;
+    }
+
+    public void setUsersSignedUp(User[] usersSignedUp) {
+        this.usersSignedUp = usersSignedUp;
+    }
 }

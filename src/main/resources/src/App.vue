@@ -1,69 +1,68 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <b-navbar toggleable="lg" type="dark" variant="dark">
+        <b-navbar-brand href="/home"><img class = "image" src="../public/img/logo.svg"></b-navbar-brand>
 
-      <div class="navbar-nav mr-auto">
-         <a href="/home" class="pull-left"><img src="../public/img/logo.svg"></a>
-         <li class="nav-item">
-                   <a href="#" class="nav-link" @click="alert" v-if="notSignedIn">Events</a>
-                   <a href="/events" class="nav-link" v-else>Events</a>
-         </li>
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-        <li class="nav-item">
-                    <a href="#" class="nav-link" @click="alert" v-if="notSignedIn">Request Event</a>
-                    <a href="/add" class="nav-link" v-else>Request Event</a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link" @click="alert" v-if="notSignedIn">Event Sign Up</a>
-            <a href="/eventSignUp" class="nav-link" v-else>Event Sign Up</a>
-         </li>
-      </div>
-    </nav>
+        <b-collapse id="nav-collapse" is-nav>
+          <b-navbar-nav>
+            <b-nav-item href="/events">Events</b-nav-item>
+            <b-nav-item href="/add">Request Event</b-nav-item>
+            <b-nav-item :href="'/schedules/'+ $cookies.get('latestId')">View Schedule</b-nav-item>
+            <b-nav-item v-if="admin" href="/schedules">All Schedules</b-nav-item>
+          </b-navbar-nav>
+
+          <b-navbar-nav class="ml-auto">
+
+          </b-navbar-nav>
+        </b-collapse>
+    </b-navbar>
 
     <div>
         <router-view />
     </div>
+
+
   </div>
 </template>
 
 <script>
+import { eventBus } from './main.js';
 import Vue from 'vue'
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue)
 export default{
     data(){
         return {
-
+            admin: this.$cookies.get('admin')
         }
     },
     computed:{
-        notSignedIn(){
-            if(this.$cookies.get('user')==null)
-            {
-                return true;
-            }
-            return false;
-        }
     },
     methods:{
-       alert(){
-          alert("Please sign in before you click these buttons...")
-       }
+
     },
-    mounted(){
+    created() {
+        eventBus.$on('adminSet', (data) => this.admin = data);
+        console.log(this.admin)
     }
 }
 </script>
-
 <style>
-.nav-item{
-    padding-left:10px;
-    text-align:center;
-    font-size:30px;
-}
-.nav-item:hover{
-    background-color: orange;
-    color:white;
+@media only screen and (max-width: 415px) {
+    .image{
+        width:200px;
+    }
 }
 
+.nav-item{
+
+    font-family: 'Clarkson',Helvetica,sans-serif;
+    text-transform:uppercase;
+
+
+}
 </style>
