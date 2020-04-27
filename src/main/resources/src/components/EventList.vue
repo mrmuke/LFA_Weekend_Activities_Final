@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="col-md-6">
-      <h4>Requested Events List</h4>
+      <h4>Requested Events</h4>
       <ul class="list-group">
         <li class="list-group-item"
           :class="{ active: index == currentIndex }"
@@ -169,10 +169,10 @@ export default {
     this.retrieveEvents();
     this.retrieveUsers();
     if(this.$cookies.get('user')==null)
-    {
-        alert("Sign in to access this page")
-        this.$router.push('home')
-    }
+         {
+             alert("Sign in to access this page")
+             this.$router.push('home')
+         }
 
 
   },

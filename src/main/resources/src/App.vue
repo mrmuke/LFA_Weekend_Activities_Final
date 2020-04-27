@@ -3,19 +3,18 @@
     <nav class="navbar navbar-expand navbar-dark bg-dark">
 
       <div class="navbar-nav mr-auto">
+        <div class = "image">
          <a href="/home" class="pull-left"><img src="../public/img/logo.svg"></a>
+         </div>
          <li class="nav-item">
-                   <a href="#" class="nav-link" @click="alert" v-if="notSignedIn">Events</a>
-                   <a href="/events" class="nav-link" v-else>Events</a>
+            <a href="/events" class="nav-link">Events</a>
          </li>
 
         <li class="nav-item">
-                    <a href="#" class="nav-link" @click="alert" v-if="notSignedIn">Request Event</a>
-                    <a href="/add" class="nav-link" v-else>Request Event</a>
+            <a href="/add" class="nav-link">Request Event</a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link" @click="alert" v-if="notSignedIn">Event Sign Up</a>
-            <a href="/eventSignUp" class="nav-link" v-else>Event Sign Up</a>
+            <a href="/eventSignUp" class="nav-link">Event Sign Up</a>
          </li>
       </div>
     </nav>
@@ -30,6 +29,8 @@
 import Vue from 'vue'
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue)
 export default{
     data(){
         return {
@@ -37,12 +38,12 @@ export default{
         }
     },
     computed:{
-        notSignedIn(){
+        signedIn(){
             if(this.$cookies.get('user')==null)
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
     },
     methods:{
@@ -57,13 +58,23 @@ export default{
 
 <style>
 .nav-item{
-    padding-left:10px;
+    width: 230px;
+    padding-top: 2%;
     text-align:center;
-    font-size:30px;
+    font-size:25px;
+    margin-bottom: -14px;
 }
 .nav-item:hover{
-    background-color: orange;
-    color:white;
-}
+    border-bottom: 13px solid orange;
 
+}
+.image{
+    vertical-align: middle;
+    height:75%;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    margin-left: 10px;
+    margin-right: 48.5px;
+    border-style: none;
+}
 </style>

@@ -21,10 +21,12 @@
               <p>"Newly improved weekend sign out system... Convenient and practical"</p>
         </div>
         <div class = "bottom" v-if="signedIn">
-            <a href="/eventSignUp" style="text-decoration: none;"><div class="bigbutton"><p class="textInButton">Sign Up for Activity</p></div></a>
-            <a href="/events" style="text-decoration: none;"><div class="bigbutton"><p class="textInButton">Vote for Activities</p></div></a>
-            <button class = "bigbutton" type="submit" onclick="window.open('WeekendSchedule.pdf')" style="text-decoration:none;" ><p class="textInButton1">View Weekend Schedule</p></button>
+            <a href="/eventSignUp" class="bigbutton">Sign Up for Activities</a>
+            <a href="/events" class="bigbutton">Vote for Activities</a>
+            <a :href="'/schedules/'+ latestId" class="bigbutton">View Weekend Schedule</a>
+
         </div>
+        <a href="/schedules" class="bigbutton" v-if="admin">View Schedules</a>
 
 
     </div>
@@ -40,6 +42,7 @@ Vue.use(GSignInButton)
 import UserDataService from "../services/UserDataService";
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
+import ScheduleDataService from "../services/ScheduleDataService";
 
 
 export default {
@@ -53,7 +56,10 @@ export default {
             },
             user:"",
             currentUser:null,
-            hello:"hello"
+            hello:"hello",
+            admin:false,
+            latestId:0,
+            schedules:[]
         };
     },
     computed:{
@@ -63,6 +69,26 @@ export default {
 
     },
      methods:{
+        retrieveSchedules(){
+            ScheduleDataService.getAll()
+              .then(response => {
+                 this.schedules = response.data;
+                 console.log(response.data);
+                 this.findLatestId()
+               })
+              .catch(e => {
+                 console.log(e);
+              });
+        },
+        findLatestId(){
+            for(var i = 0;i<this.schedules.length;i++)
+            {
+                if(this.schedules[i].id>this.latestId)
+                {
+                    this.latestId=this.schedules[i].id
+                }
+            }
+        },
         onSignIn(user){
             const profile = user.getBasicProfile()
             this.emailAddress =profile.getEmail()
@@ -71,15 +97,33 @@ export default {
                 UserDataService.create(this.emailAddress)
                 this.signedIn = true
                 this.userName=this.emailAddress.substr(0, this.emailAddress.indexOf("."));
+                this.admin=false
                 UserDataService.getCurrentUser(this.userName)
                     .then(response => {
                         this.currentUser = response.data[0];
                         console.log(this.currentUser);
                         this.setUserCookie()
+                        this.$cookies.set('admin', false)
                     })
                     .catch(e => {
                          console.log(e);
                     });
+            }
+            else if(this.emailAddress.indexOf("@gmail.com")>-1){
+                UserDataService.create(this.emailAddress)
+                this.signedIn = true
+                this.userName=this.emailAddress.substr(0, this.emailAddress.indexOf("."));
+                this.admin = true
+                UserDataService.getCurrentUser(this.userName)
+                    .then(response => {
+                       this.currentUser = response.data[0];
+                       console.log(this.currentUser);
+                       this.setUserCookie()
+                       this.$cookies.set('admin', true)
+                    })
+                    .catch(e => {
+                       console.log(e);
+                     });
             }
             else{
                 alert("Please sign in with an LFA Email Account")
@@ -88,11 +132,11 @@ export default {
                 //this.userName=this.emailAddress.substr(0, this.emailAddress.indexOf("."));
                 this.signedIn=false
             }
-
-
         },
         setUserCookie(){
             this.$cookies.set('user',this.currentUser);
+
+
         }
       },
       mounted() {
@@ -100,6 +144,11 @@ export default {
         {
             this.signedIn=true
         }
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if(this.$cookies.get('admin')=="true"){
+            this.admin=true;
+        }
+        this.retrieveSchedules()
       }
 }
 
