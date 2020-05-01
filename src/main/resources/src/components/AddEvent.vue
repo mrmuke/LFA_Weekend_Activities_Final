@@ -1,4 +1,5 @@
 <template>
+<div class = "submit-body">
   <div class="submit-form">
     <div v-if="!submitted">
       <div class="form-group">
@@ -27,6 +28,7 @@
       <button class="btn btn-success" @click="newEvent">Submit Another Event</button>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -99,6 +101,7 @@ export default {
 </script>
 
 <style>
+@import '../../public/stylingvue.css';
 .submit-form {
   max-width: 300px;
   margin: auto;

@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class = "schedule-body">
     <div class = "header">
         <h1 v-if="currentSchedule">{{this.currentSchedule.date}}</h1>
     </div>
