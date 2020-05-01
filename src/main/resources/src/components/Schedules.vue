@@ -79,7 +79,5 @@ export default{
 }
 </script>
 =======
-    }
-}
-</script>
+
 >>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31

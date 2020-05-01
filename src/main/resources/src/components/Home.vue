@@ -22,11 +22,6 @@
         <div class = "column" v-if="signedIn">
             <a href="/add" class="bigbutton">Request Activities</a>
 =======
-        <div class = "quote">
-              <p>"Newly improved weekend sign out system... Convenient and practical"</p>
-        </div>
-        <div class = "bottom" v-if="signedIn">
-            <a href="/eventSignUp" class="bigbutton">Sign Up for Activities</a>
 >>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
             <a href="/events" class="bigbutton">Vote for Activities</a>
             <a :href="'/schedules/'+ latestId" class="bigbutton">View Weekend Schedule</a>
@@ -35,7 +30,6 @@
 <<<<<<< HEAD
         <a href="/schedules" class="bigbutton" v-if="admin">View All Schedules</a>
 =======
-        <a href="/schedules" class="bigbutton" v-if="admin">View Schedules</a>
 >>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
 
 
@@ -72,7 +66,6 @@ export default {
 <<<<<<< HEAD
             latestId:this.$cookies.get('latestId'),
 =======
-            latestId:0,
 >>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
             schedules:[]
         };
@@ -191,7 +184,6 @@ export default {
             eventBus.$emit('adminSet', false);
          }
 =======
-        }
 >>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
         this.retrieveSchedules()
       }

@@ -83,15 +83,7 @@ export default{
          addNewEventSun(){
             this.schedule.sunday.push({name:'',timeSlot:'', usersSignedUp:[]});
 =======
-            this.schedule.friday.push({name:'',timeSlot:''});
-            console.log(this.schedule.friday)
-         },
-         addNewEventSat(){
-            this.schedule.saturday.push({name:'',timeSlot:''});
-            console.log(this.schedule.saturday)
-         },
-         addNewEventSun(){
-            this.schedule.sunday.push({name:'',timeSlot:''});
+
 >>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
             console.log(this.schedule.sunday)
          },

@@ -185,10 +185,6 @@ export default {
        eventBus.$emit('adminSet', false);
     }
 =======
-         {
-             alert("Sign in to access this page")
-             this.$router.push('home')
-         }
 >>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
 
 
