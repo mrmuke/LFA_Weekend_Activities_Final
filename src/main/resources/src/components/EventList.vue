@@ -173,7 +173,6 @@ export default {
     this.retrieveEvents();
     this.retrieveUsers();
     if(this.$cookies.get('user')==null)
-<<<<<<< HEAD
     {
        alert("Sign in to access this page")
        this.$router.push('home')
@@ -184,9 +183,6 @@ export default {
     if(this.$cookies.get('admin')=="false"){
        eventBus.$emit('adminSet', false);
     }
-=======
->>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
-
 
   },
   beforeMount(){

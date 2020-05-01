@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
 <div>
     <div class = "header">
         <h1 v-if="currentSchedule">{{this.currentSchedule.date}}</h1>
@@ -25,8 +24,6 @@
         <ul>
              <li v-for="(event, index) in currentSchedule.sunday" :key="index">
                  {{ event.timeSlot }} {{event.name}} <p v-if="!event.signUp"></p> <b-button v-else-if="notSignedUp(event)" @click="signUpUser(event, 'sunday', index)">Sign Up</b-button> <b-button v-else @click="removeFromList(event)">Signed Up (No.{{place(event)}} on the List)</b-button>
-=======
->>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
              </li>
         </ul>
     </div>
@@ -34,10 +31,7 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 import { eventBus } from '../main.js';
-=======
->>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
 import ScheduleDataService from '../services/ScheduleDataService'
 export default{
     data(){
@@ -49,7 +43,6 @@ export default{
 
     },
     methods:{
-<<<<<<< HEAD
         place(event){
             for(var i = 0; i<event.usersSignedUp.length;i++)
             {
@@ -89,8 +82,6 @@ export default{
             console.log(notSignedUp)
             return event.signUp && notSignedUp
         },
-=======
->>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
         getSchedule(id){
             ScheduleDataService.get(id)
                 .then(response => {
@@ -104,23 +95,14 @@ export default{
         signUpUser(event, date, index){
             if(date==='friday')
             {
-<<<<<<< HEAD
-=======
->>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
                 event.usersSignedUp=this.currentSchedule.friday[index].usersSignedUp;
             }
             if(date==='saturday')
             {
-<<<<<<< HEAD
-=======
->>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
                 event.usersSignedUp=this.currentSchedule.saturday[index].usersSignedUp;
             }
             if(date==='sunday')
             {
-<<<<<<< HEAD
-=======
->>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
                event.usersSignedUp=this.currentSchedule.sunday[index].usersSignedUp;
             }
             event.usersSignedUp.push(this.$cookies.get('user'))
@@ -136,15 +118,12 @@ export default{
     },
     mounted(){
         this.getSchedule(this.$route.params.id)
-<<<<<<< HEAD
         if(this.$cookies.get('admin')=="true"){
            eventBus.$emit('adminSet', true);
         }
         if(this.$cookies.get('admin')=="false"){
            eventBus.$emit('adminSet', false);
         }
-=======
->>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
     }
 }
 </script>

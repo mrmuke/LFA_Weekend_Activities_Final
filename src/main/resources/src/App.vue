@@ -3,7 +3,6 @@
     <b-navbar toggleable="lg" type="dark" variant="dark">
         <b-navbar-brand href="/home"><img class = "image" src="../public/img/logo.svg"></b-navbar-brand>
 
-<<<<<<< HEAD
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
@@ -19,9 +18,6 @@
           </b-navbar-nav>
         </b-collapse>
     </b-navbar>
-=======
-
->>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
 
     <div>
         <router-view />
@@ -45,9 +41,6 @@ export default{
         }
     },
     computed:{
-<<<<<<< HEAD
-=======
->>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
     },
     methods:{
 
@@ -59,7 +52,6 @@ export default{
 }
 </script>
 <style>
-<<<<<<< HEAD
 @media only screen and (max-width: 415px) {
     .image{
         width:200px;
@@ -74,6 +66,4 @@ export default{
 
 }
 </style>
-=======
 
->>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
