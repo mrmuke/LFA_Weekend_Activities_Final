@@ -17,14 +17,26 @@
 
 
         </div>
+<<<<<<< HEAD
         <p class = "desc">Convenient and improved sign out system.</p>
         <div class = "column" v-if="signedIn">
             <a href="/add" class="bigbutton">Request Activities</a>
+=======
+        <div class = "quote">
+              <p>"Newly improved weekend sign out system... Convenient and practical"</p>
+        </div>
+        <div class = "bottom" v-if="signedIn">
+            <a href="/eventSignUp" class="bigbutton">Sign Up for Activities</a>
+>>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
             <a href="/events" class="bigbutton">Vote for Activities</a>
             <a :href="'/schedules/'+ latestId" class="bigbutton">View Weekend Schedule</a>
 
         </div>
+<<<<<<< HEAD
         <a href="/schedules" class="bigbutton" v-if="admin">View All Schedules</a>
+=======
+        <a href="/schedules" class="bigbutton" v-if="admin">View Schedules</a>
+>>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
 
 
     </div>
@@ -57,7 +69,11 @@ export default {
             currentUser:null,
             hello:"hello",
             admin:false,
+<<<<<<< HEAD
             latestId:this.$cookies.get('latestId'),
+=======
+            latestId:0,
+>>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
             schedules:[]
         };
     },
@@ -79,6 +95,18 @@ export default {
                  console.log(e);
               });
         },
+<<<<<<< HEAD
+=======
+        findLatestId(){
+            for(var i = 0;i<this.schedules.length;i++)
+            {
+                if(this.schedules[i].id>this.latestId)
+                {
+                    this.latestId=this.schedules[i].id
+                }
+            }
+        },
+>>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
         onSignIn(user){
             const profile = user.getBasicProfile()
             this.emailAddress =profile.getEmail()
@@ -94,7 +122,10 @@ export default {
                         console.log(this.currentUser);
                         this.setUserCookie()
                         this.$cookies.set('admin', false)
+<<<<<<< HEAD
                         eventBus.$emit('adminSet', false);
+=======
+>>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
                     })
                     .catch(e => {
                          console.log(e);
@@ -111,7 +142,10 @@ export default {
                        console.log(this.currentUser);
                        this.setUserCookie()
                        this.$cookies.set('admin', true)
+<<<<<<< HEAD
                        eventBus.$emit('adminSet', true);
+=======
+>>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
                     })
                     .catch(e => {
                        console.log(e);
@@ -124,6 +158,7 @@ export default {
                 //this.userName=this.emailAddress.substr(0, this.emailAddress.indexOf("."));
                 this.signedIn=false
             }
+<<<<<<< HEAD
         },
         findLatestId(){
             if(this.latestId ==null)
@@ -131,6 +166,8 @@ export default {
                 this.latestId=this.schedules[this.schedules.length-1].id
                 this.$cookies.set('latestId', this.latestId)
             }
+=======
+>>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
         },
         setUserCookie(){
             this.$cookies.set('user',this.currentUser);
@@ -146,12 +183,16 @@ export default {
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if(this.$cookies.get('admin')=="true"){
             this.admin=true;
+<<<<<<< HEAD
             eventBus.$emit('adminSet', true);
         }
         if(this.$cookies.get('admin')=="false"){
             this.admin=false;
             eventBus.$emit('adminSet', false);
          }
+=======
+        }
+>>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
         this.retrieveSchedules()
       }
 }

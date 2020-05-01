@@ -69,6 +69,7 @@ export default{
     },
     mounted(){
         this.retrieveSchedules()
+<<<<<<< HEAD
         if(this.$cookies.get('admin')=='false')
         {
            alert("Sign in as an admin to access this page...")
@@ -77,3 +78,8 @@ export default{
     }
 }
 </script>
+=======
+    }
+}
+</script>
+>>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31

@@ -72,6 +72,7 @@ export default{
     methods:{
 
          addNewEventFri(){
+<<<<<<< HEAD
             this.schedule.friday.push({name:'',timeSlot:'', usersSignedUp:[]});
             console.log(this.schedule.friday)
          },
@@ -81,6 +82,17 @@ export default{
          },
          addNewEventSun(){
             this.schedule.sunday.push({name:'',timeSlot:'', usersSignedUp:[]});
+=======
+            this.schedule.friday.push({name:'',timeSlot:''});
+            console.log(this.schedule.friday)
+         },
+         addNewEventSat(){
+            this.schedule.saturday.push({name:'',timeSlot:''});
+            console.log(this.schedule.saturday)
+         },
+         addNewEventSun(){
+            this.schedule.sunday.push({name:'',timeSlot:''});
+>>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
             console.log(this.schedule.sunday)
          },
          submit(){
@@ -93,7 +105,10 @@ export default{
                 ScheduleDataService.create(data)
                     .then(response => {
                        this.schedule.id = response.data.id;
+<<<<<<< HEAD
                        this.$cookies.set('latestId', this.schedule.id)
+=======
+>>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
                        this.schedule=response.data;
                        console.log(response.data);
                        this.submitted=true;
@@ -105,6 +120,7 @@ export default{
 
 
          }
+<<<<<<< HEAD
     },
     mounted(){
         if(this.$cookies.get('admin')=='false')
@@ -112,6 +128,8 @@ export default{
            alert("Sign in as an admin to access this page...")
            this.$router.push('home')
         }
+=======
+>>>>>>> fb1ba08a534df07f0e6aeda92b72245f1f8eff31
     }
 }
 
