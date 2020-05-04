@@ -3,7 +3,7 @@
     <div class = "header">
         <h1 v-if="currentSchedule">{{this.currentSchedule.date}}</h1>
     </div>
-    <div class = "moveToMiddle" v-if="currentSchedule" >
+    <div v-if="currentSchedule">
         <h2>Friday: </h2>
         <ul>
           <li v-for="(event, index) in currentSchedule.friday" :key="index">
@@ -11,7 +11,7 @@
           </li>
         </ul>
     </div>
-    <div class = "moveToMiddle" v-if="currentSchedule">
+    <div v-if="currentSchedule">
        <h2>Saturday: </h2>
        <ul>
             <li v-for="(event, index) in currentSchedule.saturday" :key="index">
@@ -19,13 +19,53 @@
             </li>
        </ul>
     </div>
-    <div class = "moveToMiddle" v-if="currentSchedule">
+    <div v-if="currentSchedule">
        <h2>Sunday: </h2>
         <ul>
              <li v-for="(event, index) in currentSchedule.sunday" :key="index">
                  {{ event.timeSlot }} {{event.name}} <p v-if="!event.signUp"></p> <b-button v-else-if="notSignedUp(event)" @click="signUpUser(event, 'sunday', index)">Sign Up</b-button> <b-button v-else @click="removeFromList(event)">Signed Up (No.{{place(event)}} on the List)</b-button>
              </li>
         </ul>
+    </div>
+    <div v-if="$cookies.get('admin') && currentSchedule">
+        <h1> Events That Require Sign Up: </h1>
+        <ul>
+           <div v-for="(event, index) in currentSchedule.friday" :key="index">
+               <div class = "eventPeople" v-if="event.signUp">
+               <h3> {{ event.name }} </h3>
+                    <ol>
+                        <li v-for="(user, index) in event.usersSignedUp" :key = "index">
+                            {{user.userName}} {{getLastName(user)}}
+                        </li>
+                    </ol>
+               </div>
+           </div>
+        </ul>
+        <ul>
+           <div v-for="(event, index) in currentSchedule.saturday" :key="index">
+              <div class = "eventPeople" v-if="event.signUp">
+                  <h3> {{ event.name }} </h3>
+                      <ol>
+                          <li v-for="(user, index) in event.usersSignedUp" :key = "index">
+                                {{user.userName}} {{getLastName(user)}}
+                          </li>
+                      </ol>
+              </div>
+           </div>
+        </ul>
+        <ul>
+           <div v-for="(event, index) in currentSchedule.sunday" :key="index">
+               <div class = "eventPeople" v-if="event.signUp">
+                   <h3> {{ event.name }} </h3>
+                       <ol>
+                            <li v-for="(user, index) in event.usersSignedUp" :key = "index">
+                                {{user.userName}} {{getLastName(user)}}
+                            </li>
+                       </ol>
+               </div>
+           </div>
+        </ul>
+
     </div>
 </div>
 </template>
@@ -43,6 +83,9 @@ export default{
 
     },
     methods:{
+        getLastName(user){
+            return user.emailAddress.substring(user.emailAddress.indexOf(".")+1,user.emailAddress.indexOf("@"));
+        },
         place(event){
             for(var i = 0; i<event.usersSignedUp.length;i++)
             {

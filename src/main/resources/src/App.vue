@@ -34,6 +34,8 @@ import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue)
+import VueMobileDetection from 'vue-mobile-detection'
+Vue.use(VueMobileDetection)
 export default{
     data(){
         return {
