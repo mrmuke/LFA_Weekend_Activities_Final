@@ -101,7 +101,7 @@ export default {
             currentUser:null,
             hello:"hello",
             admin:false,
-            latestId:this.$cookies.get('latestId'),
+            latestId:0,
             schedules:[]
         };
     },
@@ -168,11 +168,15 @@ export default {
             }
         },
         findLatestId(){
-            if(this.latestId ==null)
-            {
-                this.latestId=this.schedules[this.schedules.length-1].id
+                this.latestId=this.schedules[0].id
+                for(var i = 0;i<this.schedules.length;i++)
+                {
+                    if(this.schedules[i].id>this.latestId)
+                    {
+                        this.latestId=this.schedules[i].id
+                    }
+                }
                 this.$cookies.set('latestId', this.latestId)
-            }
         },
         setUserCookie(){
             this.$cookies.set('user',this.currentUser);

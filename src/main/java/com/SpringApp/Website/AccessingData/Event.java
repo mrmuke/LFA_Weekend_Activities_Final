@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "events")
 public class Event implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID =2L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -20,6 +20,8 @@ public class Event implements Serializable {
     private Boolean signUp = false;
     @Column(name = "usersSignedUp")
     private User[] usersSignedUp;
+    @Column(name = "personLimit")
+    private Integer personLimit = 0;
 
 
 
@@ -75,5 +77,13 @@ public class Event implements Serializable {
 
     public void setUsersSignedUp(User[] usersSignedUp) {
         this.usersSignedUp = usersSignedUp;
+    }
+
+    public Integer getPersonLimit() {
+        return personLimit;
+    }
+
+    public void setPersonLimit(Integer personLimit) {
+        this.personLimit = personLimit;
     }
 }

@@ -7,7 +7,7 @@
         <h2>Friday: </h2>
         <ul>
           <li v-for="(event, index) in currentSchedule.friday" :key="index">
-              {{ event.timeSlot }} {{event.name}} <p v-if="!event.signUp"></p><b-button v-else-if="notSignedUp(event)" @click = "signUpUser(event, 'friday', index)">Sign Up</b-button> <b-button v-else @click="removeFromList(event)">Signed Up (No.{{place(event)}} on the List)</b-button>
+              {{ event.timeSlot }} {{event.name}} <p v-if="!event.signUp"></p><b-button v-else-if="notSignedUp(event)" @click = "signUpUser(event, 'friday', index)">Sign Up ({{spotsLeft(event)}} spots left)</b-button> <b-button v-else @click="removeFromList(event)">Signed Up (No.{{place(event)}} on the List)</b-button>
           </li>
         </ul>
     </div>
@@ -15,7 +15,7 @@
        <h2>Saturday: </h2>
        <ul>
             <li v-for="(event, index) in currentSchedule.saturday" :key="index">
-               {{ event.timeSlot }} {{event.name}} <p v-if="!event.signUp"></p><b-button v-else-if="notSignedUp(event)" @click="signUpUser(event, 'saturday', index)">Sign Up</b-button> <b-button v-else @click="removeFromList(event)">Signed Up (No.{{place(event)}} on the List)</b-button>
+               {{ event.timeSlot }} {{event.name}} <p v-if="!event.signUp"></p><b-button v-else-if="notSignedUp(event)" @click="signUpUser(event, 'saturday', index)">Sign Up ({{spotsLeft(event)}} spots left)</b-button> <b-button v-else @click="removeFromList(event)">Signed Up (No.{{place(event)}} on the List)</b-button>
             </li>
        </ul>
     </div>
@@ -23,11 +23,11 @@
        <h2>Sunday: </h2>
         <ul>
              <li v-for="(event, index) in currentSchedule.sunday" :key="index">
-                 {{ event.timeSlot }} {{event.name}} <p v-if="!event.signUp"></p> <b-button v-else-if="notSignedUp(event)" @click="signUpUser(event, 'sunday', index)">Sign Up</b-button> <b-button v-else @click="removeFromList(event)">Signed Up (No.{{place(event)}} on the List)</b-button>
+                 {{ event.timeSlot }} {{event.name}} <p v-if="!event.signUp"></p> <b-button v-else-if="notSignedUp(event)" @click="signUpUser(event, 'sunday', index)">Sign Up ({{spotsLeft(event)}} spots left)</b-button> <b-button v-else @click="removeFromList(event)">Signed Up (No.{{place(event)}} on the List)</b-button>
              </li>
         </ul>
     </div>
-    <div v-if="$cookies.get('admin') && currentSchedule">
+    <div v-if="currentSchedule">
         <h1> Events That Require Sign Up: </h1>
         <ul>
            <div v-for="(event, index) in currentSchedule.friday" :key="index">
@@ -95,22 +95,33 @@ export default{
                 }
             }
         },
+        spotsLeft(event){
+            return event.personLimit-event.usersSignedUp.length;
+        },
         removeFromList(event)
         {
-             for(var i = 0;i<event.usersSignedUp.length;i++)
-             {
-                if(event.usersSignedUp[i].userName===this.$cookies.get('user').userName)
+            if (window.confirm('Are you sure you want to be removed from the sign up list?'))
+            {
+                for(var i = 0;i<event.usersSignedUp.length;i++)
                 {
-                   event.usersSignedUp.splice(i,1);
+                    if(event.usersSignedUp[i].userName===this.$cookies.get('user').userName)
+                    {
+                        event.usersSignedUp.splice(i,1);
+                    }
                 }
+                ScheduleDataService.update(this.currentSchedule.id, this.currentSchedule)
+                   .then(response => {
+                      console.log(response.data);
+                   })
+                   .catch(e => {
+                      console.log(e);
+                   });
             }
-            ScheduleDataService.update(this.currentSchedule.id, this.currentSchedule)
-                .then(response => {
-                  console.log(response.data);
-                })
-                .catch(e => {
-                  console.log(e);
-                });
+            else
+            {
+                return;
+            }
+
 
         },
         notSignedUp(event){
@@ -168,6 +179,7 @@ export default{
            eventBus.$emit('adminSet', false);
         }
     }
+
 }
 </script>
 <style>

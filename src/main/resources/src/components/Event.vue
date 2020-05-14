@@ -3,7 +3,7 @@
     <h4>Event</h4>
     <form>
       <div class="form-group">
-        <label for="name">Event</label>
+        <label for="name">Name</label>
         <input type="text" class="form-control" id="name"
           v-model="currentEvent.name"
         />

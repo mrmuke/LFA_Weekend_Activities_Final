@@ -13,8 +13,13 @@
         <input type="text" class="form-control" v-model="event.timeSlot" placeholder="format-'5:00-6:00pm'">
         <input type="checkbox" :id="event.name" v-model="event.signUp">
         <label :for="event.name">Require Sign Up</label>
+        <div v-if="event.signUp">
+            Person Limit
+            <input type="text" class="form-control" v-model="event.personLimit" placeholder="e.x. 11">
+        </div>
     </div>
     <b-button @click="addNewEventFri">+ Add New Event</b-button>
+    <b-button variant="danger" @click="deleteEventFri">- Delete Event</b-button>
 </div>
 <div class = "saturday">
     <h1>Saturday</h1>
@@ -25,8 +30,13 @@
         <input type="text" class="form-control" v-model="event.timeSlot" placeholder="format-'4:00-7:00pm'">
         <input type="checkbox" :id="event.name" v-model="event.signUp">
         <label :for="event.name">Require Sign Up</label>
+        <div v-if="event.signUp">
+            Person Limit
+            <input type="text" class="form-control" v-model="event.personLimit" placeholder="e.x. 11">
+        </div>
     </div>
     <b-button @click="addNewEventSat">+ Add New Event</b-button>
+    <b-button variant="danger" @click="deleteEventSat">- Delete Event</b-button>
 </div>
 <div class = "sunday">
     <h1>Sunday</h1>
@@ -37,8 +47,13 @@
         <input type="text" class="form-control" v-model="event.timeSlot" placeholder="format-'11:00-12:00am'">
         <input type="checkbox" :id="event.name" v-model="event.signUp">
         <label :for="event.name">Require Sign Up</label>
+        <div v-if="event.signUp">
+            Person Limit
+            <input type="text" class="form-control" v-model="event.personLimit" placeholder="e.x. 11">
+        </div>
     </div>
     <b-button @click="addNewEventSun">+ Add New Event</b-button>
+    <b-button variant="danger" @click="deleteEventSun">- Delete Event</b-button>
 </div>
 <div class = "submit">
     <b-button @click = "submit" variant="success">Submit</b-button>
@@ -53,7 +68,7 @@
 
 <script>
 import ScheduleDataService from "../services/ScheduleDataService";
-export default{
+export default {
     data(){
         return {
           schedule: {
@@ -83,7 +98,32 @@ export default{
             this.schedule.sunday.push({name:'',timeSlot:'', usersSignedUp:[]});
             console.log(this.schedule.sunday)
          },
+         deleteEventFri(){
+            if(this.schedule.friday.length>0)
+            {
+                this.schedule.friday.pop();
+                console.log(this.schedule.friday)
+            }
+         },
+         deleteEventSat(){
+            if(this.schedule.saturday.length>0)
+            {
+                this.schedule.saturday.pop();
+                console.log(this.schedule.saturday)
+            }
+         },
+         deleteEventSun(){
+            if(this.schedule.sunday.length>0)
+            {
+                 this.schedule.sunday.pop();
+                console.log(this.schedule.sunday)
+            }
+         },
          submit(){
+                if(!confirm("Are you sure you want to submit? Check all of the input boxes..."))
+                {
+                    return;
+                }
                 var data ={
                     date:this.schedule.date,
                     friday:this.schedule.friday,
@@ -107,13 +147,16 @@ export default{
 
          }
     },
+
     mounted(){
         if(this.$cookies.get('admin')=='false')
         {
            alert("Sign in as an admin to access this page...")
            this.$router.push('home')
         }
-    }
-}
 
+    }
+
+}
+window.onbeforeunload = () => 'Are you sure you want to leave?'
 </script>

@@ -68,13 +68,12 @@ export default {
   data() {
     return {
       events: [],
-      users: [],
+      currentUserId:null,
       currentUser:null,
       currentEvent: null,
       currentIndex: -1,
       name: "",
       index:-1,
-      upvotes:[],
       admin:this.$cookies.get('admin')
 
 
@@ -109,7 +108,18 @@ export default {
   },
   methods: {
     getCurrentUser(){
-         this.currentUser=this.$cookies.get('user')
+        this.currentUser=this.$cookies.get('user')
+         this.currentUserId=this.$cookies.get('user').id
+         UserDataService.get(this.currentUserId)
+                 .then(response => {
+                   this.currentUser = response.data;
+                   console.log(response.data);
+                   this.$cookies.set('user', this.currentUser)
+                 })
+                 .catch(e => {
+                   console.log(e);
+                 });
+
     },
     retrieveEvents() {
       EventDataService.getAll()
@@ -123,22 +133,18 @@ export default {
           console.log(e);
         });
     },
-    retrieveUsers() {
-       UserDataService.getAll()
-                .then(response => {
-                  this.users = response.data;
-                  console.log(response.data);
-                })
-                .catch(e => {
-                  console.log(e);
-                });
-    },
     upvote(){
         this.currentEvent.upVotes++;
         EventDataService.update(this.currentEvent.id, this.currentEvent)
         this.currentUser.upvotes.push(this.currentEvent);
         console.log(this.currentUser.upvotes)
         UserDataService.update(this.currentUser.id, this.currentUser)
+            .then(response => {
+                  console.log(response.data);
+            })
+            .catch(e => {
+                  console.log(e);
+            });
 
     },
     down(){
@@ -171,7 +177,6 @@ export default {
 
   mounted() {
     this.retrieveEvents();
-    this.retrieveUsers();
     if(this.$cookies.get('user')==null)
     {
        alert("Sign in to access this page")

@@ -54,6 +54,7 @@ export default{
 }
 </script>
 <style>
+@import '../public/stylesheet.css';
 @media only screen and (max-width: 415px) {
     .image{
         width:200px;

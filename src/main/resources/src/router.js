@@ -37,7 +37,8 @@ export default new Router({
      {
       path:"/createSchedule",
       name:"createSchedule",
-      component:() => import("./components/CreateSchedule")
+      component:() => import("./components/CreateSchedule"),
+
      },
      {
        path: "/schedules/:id",

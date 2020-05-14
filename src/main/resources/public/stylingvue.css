@@ -77,19 +77,21 @@ body {
 }
 
 .body{
-     background-image: url(/img/event-list.jpg);
+     background-image: url(/img/new-background.jpg);
      font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;
      background-size: cover;
      background-repeat: no-repeat;
+     overflow:auto;
      height:100%;
      width:100%;
      background-position: 50% 50%;
      position:absolute;
 }
 .submit-body{
-    background-image: url(/img/add-event.jpg);
+    background-image: url(/img/new-background.jpg);
     font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;
     background-size: cover;
+    overflow:auto;
     background-repeat: no-repeat;
     height:100%;
     width:100%;
