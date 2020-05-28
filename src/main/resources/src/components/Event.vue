@@ -1,18 +1,22 @@
 <template>
+<div class = "body">
   <div v-if="currentEvent" class="edit-form">
     <h4>Event</h4>
     <form>
-      <div class="form-group">
+      <div class="form-group" style="max-width:300px">
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name"
           v-model="currentEvent.name"
         />
       </div>
-      <div class="form-group">
+      <div class="form-group" style="max-width:300px">
         <label for="timeSlot">Time Slot</label>
         <input type="text" class="form-control" id="timeSlot"
           v-model="currentEvent.timeSlot"
         />
+      </div>
+      <div v-if="currentEvent.requested!=null">
+           <label><strong>Requested By:</strong></label> {{ currentEvent.requested.emailAddress }}
       </div>
 
 
@@ -31,12 +35,11 @@
     </button>
     <p>{{ message }}</p>
   </div>
-
+</div>
 </template>
 
 <script>
 import EventDataService from "../services/EventDataService";
-import { eventBus } from '../main.js';
 export default {
   name: "event",
   data() {
@@ -77,6 +80,7 @@ export default {
         .catch(e => {
           console.log(e);
         });
+
     }
   },
   mounted() {
@@ -87,11 +91,7 @@ export default {
         alert("Sign in to access this page")
         this.$router.push('home')
     }
-    if(this.$cookies.get('admin')=="true"){
-        eventBus.$emit('adminSet', true);
-    }
-    if(this.$cookies.get('admin')=="false"){
-       eventBus.$emit('adminSet', false);
+    if(this.$cookies.get('user').admin==false){
        alert("Admin permission denied...")
        this.$router.push('/events')
     }
@@ -100,8 +100,9 @@ export default {
 </script>
 
 <style>
+@import '../../public/stylingvue.css';
 .edit-form {
-  max-width: 300px;
+  max-width: 1000px;
   margin: auto;
 }
 </style>

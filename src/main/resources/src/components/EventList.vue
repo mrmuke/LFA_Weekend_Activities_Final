@@ -1,14 +1,14 @@
 <template>
 <div class = "body">
   <div class="list row">
-    <div class="col-md-8">
+    <div class="col-md-8" style="max-width:750px">
     <h1 v-if="userNotNull">hello,{{currentUser.userName}}</h1>
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Search by name"
           v-model="name"/>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" style="max-width:750px">
       <h4>Requested Events</h4>
       <ul class="list-group">
         <li class="list-group-item"
@@ -22,7 +22,7 @@
       </ul>
 
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" style="max-width:750px">
           <div v-if="currentEvent">
             <h4>Event</h4>
             <div>
@@ -40,10 +40,10 @@
 
 
             </div>
-            <a class="badge badge-warning"
-              :href="'/events/' + currentEvent.id" v-if="admin"
+            <a class="default" style="margin-top:5px"
+              :href="'/events/' + currentEvent.id"
             >
-              Edit
+              Edit or View Info (Admin)
             </a>
           </div>
           <div v-else>
@@ -61,7 +61,6 @@ import UserDataService from "../services/UserDataService";
 import Vue from 'vue'
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
-import { eventBus } from '../main.js';
 
 export default {
   name: "event-list",
@@ -73,8 +72,7 @@ export default {
       currentEvent: null,
       currentIndex: -1,
       name: "",
-      index:-1,
-      admin:this.$cookies.get('admin')
+      index:-1
 
 
     };
@@ -108,8 +106,9 @@ export default {
   },
   methods: {
     getCurrentUser(){
-        this.currentUser=this.$cookies.get('user')
+         this.currentUser=this.$cookies.get('user')
          this.currentUserId=this.$cookies.get('user').id
+
          UserDataService.get(this.currentUserId)
                  .then(response => {
                    this.currentUser = response.data;
@@ -182,16 +181,14 @@ export default {
        alert("Sign in to access this page")
        this.$router.push('home')
     }
-    if(this.$cookies.get('admin')=="true"){
-       eventBus.$emit('adminSet', true);
-    }
-    if(this.$cookies.get('admin')=="false"){
-       eventBus.$emit('adminSet', false);
-    }
+
+
+
 
   },
   beforeMount(){
       this.getCurrentUser();
+
   }
 };
 
@@ -203,7 +200,7 @@ export default {
 
 .list {
   text-align: left;
-  max-width: 750px;
+  max-width: 1025px;
   margin: auto;
 }
 

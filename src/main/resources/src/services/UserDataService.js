@@ -10,8 +10,8 @@ class UserDataService {
      get(id) {
          return http.get(`/users/${id}`);
      }
-     getCurrentUser(userName){
-        return http.get(`/users?userName=`+userName);
+     getCurrentUser(emailAddress){
+        return http.get(`/users?emailAddress=`+emailAddress);
      }
      update(id, data) {
          return http.put(`/users/${id}`, data);

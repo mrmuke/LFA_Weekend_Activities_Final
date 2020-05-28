@@ -1,5 +1,6 @@
 <template>
-<div class = "container" v-if = "!submitted">
+<div class = "schedule-body" v-if = "!submitted">
+<div class = "container">
 <div class = "date">
     <h1>Date Range of Weekend</h1>
     <input type="text" class = "form-control" v-model="schedule.date" placeholder="format:'Month Date-Date'">
@@ -57,6 +58,7 @@
 </div>
 <div class = "submit">
     <b-button @click = "submit" variant="success">Submit</b-button>
+</div>
 </div>
 </div>
 <div class = "container" v-else>
@@ -149,7 +151,7 @@ export default {
     },
 
     mounted(){
-        if(this.$cookies.get('admin')=='false')
+        if(this.$cookies.get('user').admin==false)
         {
            alert("Sign in as an admin to access this page...")
            this.$router.push('home')
@@ -160,3 +162,6 @@ export default {
 }
 window.onbeforeunload = () => 'Are you sure you want to leave?'
 </script>
+<style>
+@import '../../public/schedule.css';
+</style>

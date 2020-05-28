@@ -1,19 +1,39 @@
 
-li:hover {
-  color: blue;
-}
+
 li.highlight{
     background:black;
 }
 
 button {
+
   &:hover {
     cursor: pointer;
+
   }
 
   &:focus {
     outline: none;
   }
+}
+.default{
+    display: inline-block;
+      border: 2px solid transparent;
+      margin: 0;
+      padding: 10px 20px;
+      background: #f37121;
+      color: #fff;
+      font-family: Futura, "Helvetica Neue", Helvetica, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 15px;
+      border-radius: 0;
+      text-align: center;
+      text-transform: uppercase;
+      -webkit-transition: .3s;
+      transition: .3s;
+}
+.default:hover{
+    opacity:0.8;
 }
 
 .wrap {

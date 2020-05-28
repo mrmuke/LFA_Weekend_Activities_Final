@@ -7,8 +7,9 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item href="/events">Events</b-nav-item>
             <b-nav-item href="/add">Request Event</b-nav-item>
+            <b-nav-item href="/events">Events</b-nav-item>
+
             <b-nav-item :href="'/schedules/'+ $cookies.get('latestId')">View Schedule</b-nav-item>
             <b-nav-item v-if="admin" href="/schedules">All Schedules</b-nav-item>
           </b-navbar-nav>
@@ -39,7 +40,7 @@ Vue.use(VueMobileDetection)
 export default{
     data(){
         return {
-            admin: this.$cookies.get('admin')
+            admin: this.$cookies.get('user').admin
         }
     },
     computed:{

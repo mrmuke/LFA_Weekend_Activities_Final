@@ -59,7 +59,9 @@ public class EventController {
     public ResponseEntity<?> createEvent(@RequestBody Event event) {
         try {
             event.setTimeSlot(event.getTimeSlot().substring(0,10));
-            Event _event = eventRepository.save(new Event(event.getName(), event.getTimeSlot()));
+            Event result = new Event(event.getName(), event.getTimeSlot());
+            result.setRequested(event.getRequested());
+            Event _event = eventRepository.save(result);
             return new ResponseEntity<Event>(_event, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<String>("Error Message", HttpStatus.EXPECTATION_FAILED);
@@ -80,7 +82,7 @@ public class EventController {
             _event.setUpVotes(event.getUpVotes());
             _event.setSignUp(event.getSignUp());
             _event.setPersonLimit(event.getPersonLimit());
-
+            _event.setRequested(event.getRequested());
             return new ResponseEntity<Event>(eventRepository.save(_event), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

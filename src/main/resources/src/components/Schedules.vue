@@ -1,7 +1,7 @@
 <template>
 <div class = "body">
     <div class = "list row">
-        <div class="col-md-8">
+        <div class="col-md-8" style="max-width:750px">
             <h1> Welcome, Admin </h1>
             <div class="input-group mb-3">
                <input type="text" class="form-control" placeholder="Search by date"
@@ -19,13 +19,13 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-6" v-if="currentSchedule">
-           <b-button
+        <div class="col-md-6" v-if="currentSchedule" >
+           <b-button class = "default"
             :href="'/schedules/' + currentSchedule.id"
            >
            View Schedule
            </b-button>
-           <b-button @click = "deleteSchedule">Delete Schedule</b-button>
+           <b-button class = "default" @click = "deleteSchedule">Delete Schedule</b-button>
         </div>
         <div class = "col-md-8">
             <div class="button_cont" style="margin-top:3%"><a class="create" href="/createSchedule" rel="nofollow noopener">Create Schedule</a></div>
@@ -120,7 +120,7 @@ export default{
     },
     mounted(){
         this.retrieveSchedules()
-        if(this.$cookies.get('admin')=='false')
+        if(this.$cookies.get('user').admin==false)
         {
            alert("Sign in as an admin to access this page...")
            this.$router.push('home')
@@ -129,9 +129,10 @@ export default{
 }
 </script>
 <style>
+@import '../../public/stylingvue.css';
 .list {
   text-align: left;
-  max-width: 750px;
+  max-width: 1025px;
   margin: auto;
 }
 .body{

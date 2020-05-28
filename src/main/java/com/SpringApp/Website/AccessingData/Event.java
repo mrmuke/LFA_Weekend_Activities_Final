@@ -22,6 +22,8 @@ public class Event implements Serializable {
     private User[] usersSignedUp;
     @Column(name = "personLimit")
     private Integer personLimit = 0;
+    @Column(name = "requested")
+    private User requested;
 
 
 
@@ -36,6 +38,7 @@ public class Event implements Serializable {
         this.name = name;
         this.timeSlot = timeSlot;
         usersSignedUp = new User[0];
+        requested = new User();
 
 
 
@@ -85,5 +88,13 @@ public class Event implements Serializable {
 
     public void setPersonLimit(Integer personLimit) {
         this.personLimit = personLimit;
+    }
+
+    public User getRequested() {
+        return requested;
+    }
+
+    public void setRequested(User requested) {
+        this.requested = requested;
     }
 }

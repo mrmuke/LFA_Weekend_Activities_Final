@@ -1,13 +1,18 @@
 <template>
+
 <div class = "schedule-body">
     <div class = "header">
-        <h1 v-if="currentSchedule">{{this.currentSchedule.date}}</h1>
+        <div class = "container">
+            <h1 v-if="currentSchedule"><u>{{this.currentSchedule.date}}</u></h1>
+        </div>
     </div>
+    <div class = "container">
+
     <div v-if="currentSchedule">
         <h2>Friday: </h2>
         <ul>
           <li v-for="(event, index) in currentSchedule.friday" :key="index">
-              {{ event.timeSlot }} {{event.name}} <p v-if="!event.signUp"></p><b-button v-else-if="notSignedUp(event)" @click = "signUpUser(event, 'friday', index)">Sign Up ({{spotsLeft(event)}} spots left)</b-button> <b-button v-else @click="removeFromList(event)">Signed Up (No.{{place(event)}} on the List)</b-button>
+              {{ event.timeSlot }} {{event.name}} <p v-if="!event.signUp"></p><button class="default" v-else-if="notSignedUp(event)" @click = "signUpUser(event, 'friday', index)">Sign Up ({{spotsLeft(event)}})</button> <button class="default" v-else @click="removeFromList(event)">Signed Up (No.{{place(event)}} on the List)</button>
           </li>
         </ul>
     </div>
@@ -15,7 +20,7 @@
        <h2>Saturday: </h2>
        <ul>
             <li v-for="(event, index) in currentSchedule.saturday" :key="index">
-               {{ event.timeSlot }} {{event.name}} <p v-if="!event.signUp"></p><b-button v-else-if="notSignedUp(event)" @click="signUpUser(event, 'saturday', index)">Sign Up ({{spotsLeft(event)}} spots left)</b-button> <b-button v-else @click="removeFromList(event)">Signed Up (No.{{place(event)}} on the List)</b-button>
+               {{ event.timeSlot }} {{event.name}} <p v-if="!event.signUp"></p><button class="default" v-else-if="notSignedUp(event)" @click="signUpUser(event, 'saturday', index)">Sign Up ({{spotsLeft(event)}})</button> <button class="default" v-else @click="removeFromList(event)">Signed Up (No.{{place(event)}} on the List)</button>
             </li>
        </ul>
     </div>
@@ -23,7 +28,7 @@
        <h2>Sunday: </h2>
         <ul>
              <li v-for="(event, index) in currentSchedule.sunday" :key="index">
-                 {{ event.timeSlot }} {{event.name}} <p v-if="!event.signUp"></p> <b-button v-else-if="notSignedUp(event)" @click="signUpUser(event, 'sunday', index)">Sign Up ({{spotsLeft(event)}} spots left)</b-button> <b-button v-else @click="removeFromList(event)">Signed Up (No.{{place(event)}} on the List)</b-button>
+                 {{ event.timeSlot }} {{event.name}} <p v-if="!event.signUp"></p> <button class="default" v-else-if="notSignedUp(event)" @click="signUpUser(event, 'sunday', index)">Sign Up ({{spotsLeft(event)}})</button> <button class="default" v-else @click="removeFromList(event)">Signed Up (No.{{place(event)}} on the List)</button>
              </li>
         </ul>
     </div>
@@ -32,46 +37,53 @@
         <ul>
            <div v-for="(event, index) in currentSchedule.friday" :key="index">
                <div class = "eventPeople" v-if="event.signUp">
-               <h3> {{ event.name }} </h3>
+               <h3><u> {{ event.name }} </u></h3>
+                <h4> Max Number of People: {{event.personLimit}}</h4>
                     <ol>
                         <li v-for="(user, index) in event.usersSignedUp" :key = "index">
-                            {{user.userName}} {{getLastName(user)}}
+                            {{user.userName}} {{getLastName(user)}} <p v-if="waitlist(event, user)"> - WaitList</p>
                         </li>
                     </ol>
+                    <button class="default" v-if="$cookies.get('user').admin" @click= "sendEmail(event)">Send Notification</button>
                </div>
            </div>
         </ul>
         <ul>
            <div v-for="(event, index) in currentSchedule.saturday" :key="index">
               <div class = "eventPeople" v-if="event.signUp">
-                  <h3> {{ event.name }} </h3>
+                  <h3><u> {{ event.name }}  </u></h3>
+                  <h4> Max Number of People: {{event.personLimit}}</h4>
                       <ol>
                           <li v-for="(user, index) in event.usersSignedUp" :key = "index">
-                                {{user.userName}} {{getLastName(user)}}
+                                {{user.userName}} {{getLastName(user)}}<p v-if="waitlist(event, user)"> - WaitList</p>
                           </li>
                       </ol>
+                      <button class="default" v-if="$cookies.get('user').admin" @click= "sendEmail(event)">Send Notification</button>
               </div>
            </div>
         </ul>
         <ul>
            <div v-for="(event, index) in currentSchedule.sunday" :key="index">
                <div class = "eventPeople" v-if="event.signUp">
-                   <h3> {{ event.name }} </h3>
+                   <h3><u> {{ event.name }} </u></h3>
+                   <h4> Max Number of People: {{event.personLimit}}</h4>
                        <ol>
                             <li v-for="(user, index) in event.usersSignedUp" :key = "index">
-                                {{user.userName}} {{getLastName(user)}}
+                                {{user.userName}} {{getLastName(user)}}<p v-if="waitlist(event, user)"> - WaitList</p>
                             </li>
                        </ol>
+                       <button class="default" v-if="$cookies.get('user').admin" @click= "sendEmail(event)">Send Notification</button>
                </div>
            </div>
         </ul>
 
     </div>
+    </div>
 </div>
 </template>
 
 <script>
-import { eventBus } from '../main.js';
+import EmailDataService from "../services/EmailDataService"
 import ScheduleDataService from '../services/ScheduleDataService'
 export default{
     data(){
@@ -86,6 +98,13 @@ export default{
         getLastName(user){
             return user.emailAddress.substring(user.emailAddress.indexOf(".")+1,user.emailAddress.indexOf("@"));
         },
+        waitlist(event, user){
+            if((event.usersSignedUp.indexOf(user)+1)>event.personLimit)
+            {
+                return true;
+            }
+            return false
+        },
         place(event){
             for(var i = 0; i<event.usersSignedUp.length;i++)
             {
@@ -95,8 +114,22 @@ export default{
                 }
             }
         },
+        sendEmail(event){
+            for(var i =0;i<event.usersSignedUp.length;i++){
+                EmailDataService.sendEmail(event.usersSignedUp[i].emailAddress, event.name, event.timeSlot)
+                console.log(event.timeSlot)
+            }
+            alert("Emails Successfully Sent!")
+
+
+        },
         spotsLeft(event){
-            return event.personLimit-event.usersSignedUp.length;
+
+            if(event.usersSignedUp.length>=event.personLimit)
+            {
+                return "Waitlist";
+            }
+            return "" + (event.personLimit-event.usersSignedUp.length) + " spots left";
         },
         removeFromList(event)
         {
@@ -172,16 +205,18 @@ export default{
     },
     mounted(){
         this.getSchedule(this.$route.params.id)
-        if(this.$cookies.get('admin')=="true"){
-           eventBus.$emit('adminSet', true);
-        }
-        if(this.$cookies.get('admin')=="false"){
-           eventBus.$emit('adminSet', false);
-        }
     }
 
 }
 </script>
 <style>
 @import '../../public/schedule.css';
+@import '../../public/stylingvue.css';
+.container{
+    margin:auto;
+    width:1020px
+}
+.default{
+    margin-top:2px;
+}
 </style>

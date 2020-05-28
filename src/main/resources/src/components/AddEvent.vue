@@ -2,7 +2,7 @@
 <div class = "submit-body">
   <div class="submit-form">
     <div v-if="!submitted">
-      <div class="form-group">
+      <div class="form-group" style="max-width:300px">
         <h1>Request Activity</h1>
         <label for="name">Name</label>
         <input
@@ -11,7 +11,8 @@
           id="name"
           required
           v-model="event.name"
-          name="name"
+          name="eventName"
+          placeholder="Be specific..."
         />
       </div>
       <div class="form-group">
@@ -20,12 +21,12 @@
             </div>
 
 
-      <button @click="saveEvent" class="btn btn-success">Submit</button>
+      <button class="default" @click="saveEvent">Submit</button>
     </div>
 
     <div v-else>
       <h4>You submitted successfully!</h4>
-      <button class="btn btn-success" @click="newEvent">Submit Another Event</button>
+      <button class="default" @click="newEvent">Submit Another Event</button>
     </div>
   </div>
 </div>
@@ -34,7 +35,6 @@
 <script>
 import EventDataService from "../services/EventDataService";
 import Datepicker from 'vuejs-datepicker';
-import { eventBus } from '../main.js';
 export default {
   name: "add-event",
   components:{
@@ -49,21 +49,32 @@ export default {
         timeSlot:"",
         upVotes: 0
       },
+      events:[],
       submitted: false
     };
   },
   methods: {
     saveEvent() {
+      for(var i=0;i<this.events.length;i++)
+      {
+          if(this.events[i].name ===this.event.name)
+          {
+            alert("An event by this name already exists...")
+            return;
+          }
+      }
       var data = {
         name: this.event.name,
         timeSlot: this.event.timeSlot,
-        upVotes:this.event.upVotes
+        upVotes:this.event.upVotes,
+        requested:this.$cookies.get('user')
       };
 
       if(this.event.name==null||this.event.timeSlot==null)
       {
         alert("Please fill in all required fields...")
       }
+
       else{
 
       EventDataService.create(data)
@@ -76,6 +87,18 @@ export default {
           console.log(e);
         });
         }
+    },
+    getEvents(){
+        EventDataService.getAll()
+          .then(response => {
+             this.events = response.data;
+             console.log(response.data);
+          })
+
+
+          .catch(e => {
+            console.log(e);
+          });
     },
 
     newEvent() {
@@ -90,12 +113,9 @@ export default {
         alert("Sign in to access this page")
         this.$router.push('home')
     }
-    if(this.$cookies.get('admin')=="true"){
-        eventBus.$emit('adminSet', true);
-    }
-    if(this.$cookies.get('admin')=="false"){
-        eventBus.$emit('adminSet', false);
-    }
+    this.getEvents()
+
+
   }
 };
 </script>
@@ -103,7 +123,9 @@ export default {
 <style>
 @import '../../public/stylingvue.css';
 .submit-form {
-  max-width: 300px;
+  width: 1000px;
   margin: auto;
+
 }
+
 </style>

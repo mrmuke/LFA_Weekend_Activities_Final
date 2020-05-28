@@ -17,17 +17,19 @@ public class User implements Serializable {
     ////////////
     @Column(name = "upvotes")
     private Event[] upvotes;
-
+    @Column(name="admin")
+    private Boolean admin;
 
     protected User() {
     }
 
-    public User(String emailAddress) {
+    public User(String emailAddress, Boolean admin) {
         this.emailAddress = emailAddress;
-        String[] words = emailAddress.split("\\.");
-        this.userName = words[0];
+        this.userName = emailAddress.substring(0,emailAddress.indexOf("."));
         /////////
         upvotes = new Event[0];
+        this.admin=admin;
+
 
 
     }
@@ -65,5 +67,13 @@ public class User implements Serializable {
 
     public void setUpvotes(Event[] upvotes) {
         this.upvotes = upvotes;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 }

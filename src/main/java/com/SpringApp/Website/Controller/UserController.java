@@ -1,6 +1,9 @@
 package com.SpringApp.Website.Controller;
+
 import com.SpringApp.Website.AccessingData.User;
 import com.SpringApp.Website.AccessingData.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,18 +16,21 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class UserController {
+    private Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     UserRepository userRepository;
+
+
+
     @GetMapping("/users")
     @CrossOrigin(origins = "http://localhost:8081")
-    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false, value = "userName") String userName) {
+    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false, value = "emailAddress") String emailAddress) {
         try {
             List<User> users = new ArrayList<User>();
 
-            if (userName == null)
+            if (emailAddress == null)
                 userRepository.findAll().forEach(users::add);
-            else
-                users.add(userRepository.findByUserName(userName));
+
 
             if (users.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -50,12 +56,22 @@ public class UserController {
     }
     @PostMapping("/users")
     @CrossOrigin(origins = "http://localhost:8081")
-    public ResponseEntity<?> createUser(@RequestBody String emailAddress) {
+    public ResponseEntity<?> createUser(@RequestBody User user) {
         try {
-            if(userRepository.findByEmailAddress(emailAddress).size()==0) {
-                User _user = userRepository.save(new User(emailAddress));
+            if(userRepository.findByEmailAddress(user.getEmailAddress())==null) {
+                User _user = userRepository.save(new User(user.getEmailAddress(), user.getAdmin()));
+
+
+
+
                 return new ResponseEntity<User>(_user, HttpStatus.CREATED);
             }
+            else if(userRepository.findByEmailAddress(user.getEmailAddress())!=null)
+            {
+                User _user = userRepository.findByEmailAddress(user.getEmailAddress());
+                return new ResponseEntity<User> (_user, HttpStatus.CREATED);
+            }
+
 
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
@@ -70,8 +86,7 @@ public class UserController {
         if (userData.isPresent()) {
             User _user = userData.get();
             _user.setEmailAddress(user.getEmailAddress());
-            String[] words = user.getEmailAddress().split("\\.");
-            _user.setUserName(words[0]);
+            _user.setUserName(user.getEmailAddress().substring(0,user.getEmailAddress().indexOf(".")));
             _user.setUpvotes(user.getUpvotes());
             return new ResponseEntity<User>(userRepository.save(_user), HttpStatus.OK);
         } else {

@@ -99,7 +99,6 @@ export default {
             },
             user:"",
             currentUser:null,
-            hello:"hello",
             admin:false,
             latestId:0,
             schedules:[]
@@ -126,46 +125,39 @@ export default {
             this.emailAddress =profile.getEmail()
             console.log(this.emailAddress)
             if(this.emailAddress.indexOf("@students.lfanet.org")>-1){
-                UserDataService.create(this.emailAddress)
                 this.signedIn = true
-                this.userName=this.emailAddress.substr(0, this.emailAddress.indexOf("."));
                 this.admin=false
-                UserDataService.getCurrentUser(this.userName)
-                    .then(response => {
-                        this.currentUser = response.data[0];
-                        console.log(this.currentUser);
-                        this.setUserCookie()
-                        this.$cookies.set('admin', false)
-                        eventBus.$emit('adminSet', false);
-                    })
-                    .catch(e => {
-                         console.log(e);
-                    });
+                eventBus.$emit('adminSet', false);
+                this.createUser()
+
             }
             else if(this.emailAddress.indexOf("@gmail.com")>-1){
-                UserDataService.create(this.emailAddress)
                 this.signedIn = true
-                this.userName=this.emailAddress.substr(0, this.emailAddress.indexOf("."));
                 this.admin = true
-                UserDataService.getCurrentUser(this.userName)
-                    .then(response => {
-                       this.currentUser = response.data[0];
-                       console.log(this.currentUser);
-                       this.setUserCookie()
-                       this.$cookies.set('admin', true)
-                       eventBus.$emit('adminSet', true);
-                    })
-                    .catch(e => {
-                       console.log(e);
-                     });
+                eventBus.$emit('adminSet', true);
+                this.createUser()
             }
             else{
                 alert("Please sign in with an LFA Email Account")
-                //UserDataService.create(this.emailAddress)
-                //this.signedIn = true
-                //this.userName=this.emailAddress.substr(0, this.emailAddress.indexOf("."));
                 this.signedIn=false
             }
+        },
+        createUser(){
+            var data = {
+                emailAddress:this.emailAddress,
+                admin:this.admin
+            };
+            UserDataService.create(data)
+                    .then(response => {
+                      this.currentUser = response.data;
+                      console.log(response.data);
+                      this.setUserCookie()
+
+                    })
+                    .catch(e => {
+                      console.log(e);
+                    });
+
         },
         findLatestId(){
                 this.latestId=this.schedules[0].id
@@ -180,6 +172,7 @@ export default {
         },
         setUserCookie(){
             this.$cookies.set('user',this.currentUser);
+            location.reload();
         }
       },
       mounted() {
@@ -187,15 +180,11 @@ export default {
         {
             this.signedIn=true
         }
+        if(this.$cookies.get('user').admin==true)
+            {
+                this.admin=true;
+            }
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        if(this.$cookies.get('admin')=="true"){
-            this.admin=true;
-            eventBus.$emit('adminSet', true);
-        }
-        if(this.$cookies.get('admin')=="false"){
-            this.admin=false;
-            eventBus.$emit('adminSet', false);
-         }
         this.retrieveSchedules()
       }
 }
