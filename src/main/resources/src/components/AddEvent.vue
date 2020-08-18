@@ -17,7 +17,7 @@
       </div>
       <div class="form-group">
               <label for="timeSlot">Preferred Date</label>
-                <datepicker v-model="event.timeSlot"></datepicker>
+                <datepicker :disabledDates="disabledDates" v-model="event.timeSlot"></datepicker>
             </div>
 
 
@@ -50,7 +50,11 @@ export default {
         upVotes: 0
       },
       events:[],
-      submitted: false
+      submitted: false,
+      disabledDates: {
+          to: new Date()
+      }
+
     };
   },
   methods: {
@@ -104,16 +108,17 @@ export default {
     newEvent() {
       this.submitted = false;
       this.event = {};
-    }
+    },
 
-  },
+    },
+
+
   mounted(){
     if(this.$cookies.get('user')==null)
     {
         alert("Sign in to access this page")
         this.$router.push('home')
     }
-    this.getEvents()
 
 
   }

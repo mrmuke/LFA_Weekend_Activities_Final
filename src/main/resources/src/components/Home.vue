@@ -20,7 +20,6 @@
                        Sign in with LFA Email Account
                      </g-signin-button>
 
-
                 </div>
                 <p class = "desc">Convenient and improved sign out system.</p>
                 <div class = "column" v-if="signedIn">
