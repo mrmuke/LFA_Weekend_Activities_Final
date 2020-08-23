@@ -13,13 +13,15 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:8081")
+
 public class ScheduleController {
 
     @Autowired
     ScheduleRepository scheduleRepository;
 
     @GetMapping("/schedules")
-    @CrossOrigin(origins = "http://localhost:8081")
+
     public ResponseEntity<List<Schedule>> getSchedules(@RequestParam(required = false) String date) {
         try {
             List<Schedule> schedules = new ArrayList<Schedule>();
@@ -41,7 +43,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/schedules/{id}")
-    @CrossOrigin(origins = "http://localhost:8081")
+
     public ResponseEntity<Schedule> getScheduleById(@PathVariable("id") long id) {
         Optional<Schedule> scheduleData = scheduleRepository.findById(id);
 
@@ -51,25 +53,27 @@ public class ScheduleController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    @GetMapping("/schedules/current")
+    public ResponseEntity<Schedule> getCurrentSchedule(){
+        Schedule schedule = scheduleRepository.findFirstByOrderByIdDesc();
+        return new ResponseEntity<>(schedule, HttpStatus.OK);
+    }
 
 
     @PostMapping("/schedules")
-    @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<?> createSchedule(@RequestBody Schedule schedule) {
         try {
 
             Schedule _schedule = scheduleRepository.save(new Schedule(schedule.getDate(), schedule.getFriday(), schedule.getSaturday(), schedule.getSunday()));
             return new ResponseEntity<Schedule>(_schedule, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<String>("Error Message", HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<String>("Error Message"+e, HttpStatus.EXPECTATION_FAILED);
         }
     }
 
 
 
     @PutMapping("/schedules/{id}")
-    @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<?> updateSchedule(@PathVariable("id") long id, @RequestBody Schedule schedule) {
         Optional<Schedule> scheduleData = scheduleRepository.findById(id);
 
@@ -88,7 +92,6 @@ public class ScheduleController {
     }
 
     @DeleteMapping("/schedules/{id}")
-    @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<HttpStatus> deleteSchedule(@PathVariable("id") long id) {
         try {
             scheduleRepository.deleteById(id);
@@ -99,7 +102,6 @@ public class ScheduleController {
     }
 
     @DeleteMapping("/schedules")
-    @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<HttpStatus> deleteAllSchedules() {
         try {
             scheduleRepository.deleteAll();

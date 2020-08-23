@@ -1,25 +1,28 @@
 package com.SpringApp.Website.Controller;
 
-import com.SpringApp.Website.AccessingData.Event;
-import com.SpringApp.Website.AccessingData.EventRepository;
+import com.SpringApp.Website.AccessingData.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.channels.SelectableChannel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:8081")
 public class EventController {
-
     @Autowired
-    EventRepository eventRepository;
+    VoteEventRepository voteEventRepository;
+    @Autowired
+    ScheduleEventRepository scheduleEventRepository;
 
-    @GetMapping("/events")
-    @CrossOrigin(origins = "http://localhost:8081")
+    /*@GetMapping("/events")
     public ResponseEntity<List<Event>> getAllEvents(@RequestParam(required = false) String name) {
         try {
             List<Event> events = new ArrayList<Event>();
@@ -38,12 +41,48 @@ public class EventController {
             e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }*/
+    @GetMapping("/voteEvents")
+    public ResponseEntity<List<VoteEvent>> getVoteEvents() {
+        try {
+            List<VoteEvent> events = new ArrayList<VoteEvent>();
+            voteEventRepository.findAll().forEach(events::add);
+            if (events.isEmpty()) {
+                return new ResponseEntity<>(events,HttpStatus.NO_CONTENT);
+            }
 
-    @GetMapping("/events/{id}")
-    @CrossOrigin(origins = "http://localhost:8081")
+            return new ResponseEntity<>(events, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    /*@GetMapping("/events/{id}")
+
     public ResponseEntity<Event> getEventById(@PathVariable("id") long id) {
         Optional<Event> eventData = eventRepository.findById(id);
+
+        if (eventData.isPresent()) {
+            return new ResponseEntity<>(eventData.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }*/
+    /*@GetMapping("/scheduleEvents/{id}")
+
+    public ResponseEntity<Event> getScheduleEventById(@PathVariable("id") long id) {
+        Optional<ScheduleEvent> eventData = scheduleEventRepository.findById(id);
+
+        if (eventData.isPresent()) {
+            return new ResponseEntity<>(eventData.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }*/
+    @GetMapping("/voteEvents/{id}")
+
+    public ResponseEntity<VoteEvent> getVoteEventById(@PathVariable("id") long id) {
+        Optional<VoteEvent> eventData = voteEventRepository.findById(id);
 
         if (eventData.isPresent()) {
             return new ResponseEntity<>(eventData.get(), HttpStatus.OK);
@@ -54,15 +93,15 @@ public class EventController {
 
 
 
-    @PostMapping("/events")
-    @CrossOrigin(origins = "http://localhost:8081")
-    public ResponseEntity<?> createEvent(@RequestBody Event event) {
+    @PostMapping("/voteEvents")
+    public ResponseEntity<?> createVoteEvent(@RequestBody VoteEvent event) {
         try {
             event.setTimeSlot(event.getTimeSlot().substring(0,10));
-            Event result = new Event(event.getName(), event.getTimeSlot());
+            VoteEvent result = new VoteEvent(event.getName(), event.getTimeSlot());
             result.setRequested(event.getRequested());
-            Event _event = eventRepository.save(result);
-            return new ResponseEntity<Event>(_event, HttpStatus.CREATED);
+            result.setDescription(event.getDescription());
+            VoteEvent _event = voteEventRepository.save(result);
+            return new ResponseEntity<VoteEvent>(_event, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<String>("Error Message", HttpStatus.EXPECTATION_FAILED);
         }
@@ -70,46 +109,31 @@ public class EventController {
 
 
 
-    @PutMapping("/events/{id}")
-    @CrossOrigin(origins = "http://localhost:8081")
-    public ResponseEntity<?> updateEvent(@PathVariable("id") long id, @RequestBody Event event) {
-        Optional<Event> eventData = eventRepository.findById(id);
+    @PutMapping("/voteEvents/{id}")
+    public ResponseEntity<?> updateVoteEvent(@PathVariable("id") long id, @RequestBody VoteEvent event) {
+        Optional<VoteEvent> eventData = voteEventRepository.findById(id);
 
         if (eventData.isPresent()) {
-            Event _event = eventData.get();
+            VoteEvent _event = eventData.get();
             _event.setName(event.getName());
             _event.setTimeSlot(event.getTimeSlot());
             _event.setUpVotes(event.getUpVotes());
-            _event.setSignUp(event.getSignUp());
-            _event.setPersonLimit(event.getPersonLimit());
             _event.setRequested(event.getRequested());
-            return new ResponseEntity<Event>(eventRepository.save(_event), HttpStatus.OK);
+
+            return new ResponseEntity<VoteEvent>(voteEventRepository.save(_event), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/events/{id}")
-    @CrossOrigin(origins = "http://localhost:8081")
-    public ResponseEntity<HttpStatus> deleteEvent(@PathVariable("id") long id) {
+    @DeleteMapping("/voteEvents/{id}")
+    public ResponseEntity<HttpStatus> deleteVoteEvent(@PathVariable("id") long id) {
         try {
-            eventRepository.deleteById(id);
+            voteEventRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
-    }
-
-    @DeleteMapping("/events")
-    @CrossOrigin(origins = "http://localhost:8081")
-    public ResponseEntity<HttpStatus> deleteAllEvents() {
-        try {
-            eventRepository.deleteAll();
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-        }
-
     }
 
 

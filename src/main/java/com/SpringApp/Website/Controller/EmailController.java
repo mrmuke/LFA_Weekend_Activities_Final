@@ -18,12 +18,13 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:8081")
 public class EmailController {
     private Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     NotificationService notificationService;
     @GetMapping("/sendEmail")
-    @CrossOrigin(origins = "http://localhost:8081")
+
     public ResponseEntity<String> sendEmail(@RequestParam(required = true, value = "params") List<String> params){
         User user = new User(params.get(0), false);
         try{

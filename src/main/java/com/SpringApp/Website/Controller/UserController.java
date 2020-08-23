@@ -2,6 +2,7 @@ package com.SpringApp.Website.Controller;
 
 import com.SpringApp.Website.AccessingData.User;
 import com.SpringApp.Website.AccessingData.UserRepository;
+import com.SpringApp.Website.AccessingData.VoteEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:8081")
 public class UserController {
     private Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
@@ -23,7 +25,6 @@ public class UserController {
 
 
     @GetMapping("/users")
-    @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false, value = "emailAddress") String emailAddress) {
         try {
             List<User> users = new ArrayList<User>();
@@ -44,18 +45,12 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
-        Optional<User> userData = userRepository.findById(id);
+        User userData = userRepository.findById(id);
 
-        if (userData.isPresent()) {
-            return new ResponseEntity<>(userData.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+            return new ResponseEntity<User>(userData, HttpStatus.OK);
     }
     @PostMapping("/users")
-    @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<?> createUser(@RequestBody User user) {
         try {
             if(userRepository.findByEmailAddress(user.getEmailAddress())==null) {
@@ -64,7 +59,7 @@ public class UserController {
 
 
 
-                return new ResponseEntity<User>(_user, HttpStatus.CREATED);
+                return new ResponseEntity<User>(_user, HttpStatus.OK);
             }
             else if(userRepository.findByEmailAddress(user.getEmailAddress())!=null)
             {
@@ -75,26 +70,28 @@ public class UserController {
 
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<String>("Error Message", HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<String>("Error Message"+e, HttpStatus.EXPECTATION_FAILED);
         }
     }
     @PutMapping("/users/{id}")
-    @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<?> updateUser(@PathVariable("id") long id, @RequestBody User user) {
-        Optional<User> userData = userRepository.findById(id);
+        User userData = userRepository.findById(id);
 
-        if (userData.isPresent()) {
-            User _user = userData.get();
+            User _user = userData;
             _user.setEmailAddress(user.getEmailAddress());
             _user.setUserName(user.getEmailAddress().substring(0,user.getEmailAddress().indexOf(".")));
             _user.setUpvotes(user.getUpvotes());
+            logger.info("update user:{}", _user);
+            //VoteEvent[] userUpvotes = new VoteEvent[];
+            //for(int i = 0;i<user.getUpvotes().length;i++)
+            //{
+            //    userUpvotes.
+            //}
+
             return new ResponseEntity<User>(userRepository.save(_user), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+
     }
     @DeleteMapping("/users")
-    @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<HttpStatus> deleteAllUsers() {
         try {
             userRepository.deleteAll();
@@ -105,7 +102,6 @@ public class UserController {
 
     }
     @DeleteMapping("/users/{id}")
-    @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") long id) {
         try {
             userRepository.deleteById(id);

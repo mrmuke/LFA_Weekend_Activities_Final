@@ -1,5 +1,7 @@
 package com.SpringApp.Website.AccessingData;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -10,13 +12,13 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Column(name = "emailAddress")
     private String emailAddress;
     @Column(name = "userName")
     private String userName;
-    ////////////
     @Column(name = "upvotes")
-    private Event[] upvotes;
+    private VoteEvent[] upvotes;
     @Column(name="admin")
     private Boolean admin;
 
@@ -27,7 +29,7 @@ public class User implements Serializable {
         this.emailAddress = emailAddress;
         this.userName = emailAddress.substring(0,emailAddress.indexOf("."));
         /////////
-        upvotes = new Event[0];
+        upvotes = new VoteEvent[0];
         this.admin=admin;
 
 
@@ -61,11 +63,11 @@ public class User implements Serializable {
 
 
     /////////////////////////////////////////////////////////////////////////////////////////
-    public Event[] getUpvotes() {
+    public VoteEvent[] getUpvotes() {
         return upvotes;
     }
 
-    public void setUpvotes(Event[] upvotes) {
+    public void setUpvotes(VoteEvent[] upvotes) {
         this.upvotes = upvotes;
     }
 
