@@ -59,12 +59,12 @@ public class UserController {
 
 
 
-                return new ResponseEntity<User>(_user, HttpStatus.OK);
+                return new ResponseEntity<>(_user,  HttpStatus.CREATED);
             }
             else if(userRepository.findByEmailAddress(user.getEmailAddress())!=null)
             {
                 User _user = userRepository.findByEmailAddress(user.getEmailAddress());
-                return new ResponseEntity<User> (_user, HttpStatus.CREATED);
+                return new ResponseEntity<User> (_user, HttpStatus.OK);
             }
 
 
