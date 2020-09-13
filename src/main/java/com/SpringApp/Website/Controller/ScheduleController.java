@@ -101,16 +101,6 @@ public class ScheduleController {
         }
     }
 
-    @DeleteMapping("/schedules")
-    public ResponseEntity<HttpStatus> deleteAllSchedules() {
-        try {
-            scheduleRepository.deleteAll();
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-        }
-
-    }
 
 
 

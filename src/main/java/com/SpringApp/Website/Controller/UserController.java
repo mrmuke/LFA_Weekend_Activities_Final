@@ -23,27 +23,6 @@ public class UserController {
     UserRepository userRepository;
 
 
-
-    @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false, value = "emailAddress") String emailAddress) {
-        try {
-            List<User> users = new ArrayList<User>();
-
-            if (emailAddress == null)
-                userRepository.findAll().forEach(users::add);
-
-
-            if (users.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-
-            return new ResponseEntity<>(users, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
         User userData = userRepository.findById(id);
@@ -90,25 +69,6 @@ public class UserController {
 
             return new ResponseEntity<User>(userRepository.save(_user), HttpStatus.OK);
 
-    }
-    @DeleteMapping("/users")
-    public ResponseEntity<HttpStatus> deleteAllUsers() {
-        try {
-            userRepository.deleteAll();
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-        }
-
-    }
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") long id) {
-        try {
-            userRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-        }
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -21,33 +21,12 @@ public class EventController {
     VoteEventRepository voteEventRepository;
     @Autowired
     ScheduleEventRepository scheduleEventRepository;
-
-    /*@GetMapping("/events")
-    public ResponseEntity<List<Event>> getAllEvents(@RequestParam(required = false) String name) {
-        try {
-            List<Event> events = new ArrayList<Event>();
-
-            if (name == null)
-                eventRepository.findAll().forEach(events::add);
-            else
-                eventRepository.findByName(name).forEach(events::add);
-
-            if (events.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-
-            return new ResponseEntity<>(events, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }*/
     @GetMapping("/voteEvents")
     public ResponseEntity<List<VoteEvent>> getVoteEvents() {
         try {
             List<VoteEvent> events = new ArrayList<VoteEvent>();
             voteEventRepository.findAll().forEach(events::add);
-            if (events.isEmpty()) {
+            if (                                                                                                                                                                                                                                                                                                                                                        events.isEmpty()) {
                 return new ResponseEntity<>(events,HttpStatus.NO_CONTENT);
             }
 
@@ -57,28 +36,6 @@ public class EventController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    /*@GetMapping("/events/{id}")
-
-    public ResponseEntity<Event> getEventById(@PathVariable("id") long id) {
-        Optional<Event> eventData = eventRepository.findById(id);
-
-        if (eventData.isPresent()) {
-            return new ResponseEntity<>(eventData.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }*/
-    /*@GetMapping("/scheduleEvents/{id}")
-
-    public ResponseEntity<Event> getScheduleEventById(@PathVariable("id") long id) {
-        Optional<ScheduleEvent> eventData = scheduleEventRepository.findById(id);
-
-        if (eventData.isPresent()) {
-            return new ResponseEntity<>(eventData.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }*/
     @GetMapping("/voteEvents/{id}")
 
     public ResponseEntity<VoteEvent> getVoteEventById(@PathVariable("id") long id) {
