@@ -23,13 +23,14 @@ public class EmailController {
     private Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     NotificationService notificationService;
+
     @GetMapping("/sendEmail")
 
-    public ResponseEntity<String> sendEmail(@RequestParam(required = true, value = "params") List<String> params){
+    public ResponseEntity<String> sendEmail(@RequestParam(required = true, value = "params") List<String> params) {
         User user = new User(params.get(0), false);
-        try{
+        try {
             notificationService.sendNotification(user, params);
-        }catch (MailException e){
+        } catch (MailException e) {
             logger.info("Error sending email: " + e.getMessage());
         }
         return new ResponseEntity<>("Sending Email", HttpStatus.OK);

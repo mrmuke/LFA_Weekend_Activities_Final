@@ -27,7 +27,7 @@ public class User implements Serializable {
 
     public User(String emailAddress, Boolean admin) {
         this.emailAddress = emailAddress;
-        this.userName = emailAddress.substring(0,emailAddress.indexOf("."));
+        this.userName = emailAddress.substring(0,emailAddress.indexOf("@"));
         /////////
         upvotes = new VoteEvent[0];
         this.admin=admin;

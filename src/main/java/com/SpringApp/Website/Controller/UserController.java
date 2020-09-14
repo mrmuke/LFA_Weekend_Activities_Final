@@ -43,7 +43,7 @@ public class UserController {
             else if(userRepository.findByEmailAddress(user.getEmailAddress())!=null)
             {
                 User _user = userRepository.findByEmailAddress(user.getEmailAddress());
-                return new ResponseEntity<User> (_user, HttpStatus.OK);
+                return new ResponseEntity<> (_user, HttpStatus.OK);
             }
 
 
@@ -58,7 +58,7 @@ public class UserController {
 
             User _user = userData;
             _user.setEmailAddress(user.getEmailAddress());
-            _user.setUserName(user.getEmailAddress().substring(0,user.getEmailAddress().indexOf(".")));
+            _user.setUserName(user.getEmailAddress().substring(0,user.getEmailAddress().indexOf("@")));
             _user.setUpvotes(user.getUpvotes());
             logger.info("update user:{}", _user);
             //VoteEvent[] userUpvotes = new VoteEvent[];
