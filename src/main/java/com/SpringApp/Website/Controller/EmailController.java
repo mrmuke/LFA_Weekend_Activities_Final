@@ -1,6 +1,8 @@
 package com.SpringApp.Website.Controller;
 
+import com.SpringApp.Website.AccessingData.ScheduleEvent;
 import com.SpringApp.Website.AccessingData.User;
+import com.SpringApp.Website.AccessingData.UserRepository;
 import com.SpringApp.Website.Service.NotificationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,12 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/api")
@@ -23,13 +20,14 @@ public class EmailController {
     private Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     NotificationService notificationService;
-
-    @GetMapping("/sendEmail")
-
-    public ResponseEntity<String> sendEmail(@RequestParam(required = true, value = "params") List<String> params) {
-        User user = new User(params.get(0), false);
+    @Autowired
+    UserRepository userRepository;
+    @PostMapping("/sendEmail")
+    public ResponseEntity<String> sendEmail(@RequestParam(required = true, value = "userId") long userId, @RequestBody ScheduleEvent event) {
+        User userData = userRepository.findById(userId);
+        logger.info(""+userData+userId);
         try {
-            notificationService.sendNotification(user, params);
+            notificationService.sendNotification(userData, event);
         } catch (MailException e) {
             logger.info("Error sending email: " + e.getMessage());
         }

@@ -1,13 +1,12 @@
 package com.SpringApp.Website.Service;
 
+import com.SpringApp.Website.AccessingData.ScheduleEvent;
 import com.SpringApp.Website.AccessingData.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class NotificationService {
@@ -17,12 +16,21 @@ public class NotificationService {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendNotification(User user, List<String> params) throws MailException {
+    public void sendNotification(User user, ScheduleEvent event) throws MailException {
         SimpleMailMessage mail = new SimpleMailMessage();
+        int place = 0;
+        for(int i = 0;i<event.getUsersSignedUp().length;i++)
+        {
+            if(event.getUsersSignedUp()[i].getId()==user.getId())
+            {
+                place=i+1;
+                break;
+            }
+        }
         mail.setTo(user.getEmailAddress());
         mail.setFrom("lfaweekendactivities@gmail.com");
-        mail.setSubject("REMINDER:" + params.get(1));
-        mail.setText("You have an activity soon:\nActivity Name: " + params.get(1) + "\nActivity Time: " + params.get(2) + "\nIf you no longer plan on coming, go to this link to cancel your sign up: " + "localhost:8081");
+        mail.setSubject("REMINDER:" + event.getName());
+        mail.setText("You have an activity soon:\nActivity Name: " + event.getName() + "\nActivity Time: " + event.getTimeSlot() +"\nOn this activity you are number " +((event.getPersonLimit()-place<0)?"WAITLIST":place)+ " on the list."+"\nIf you no longer plan on coming, go to the weekend activities site to cancel your sign up.");
         javaMailSender.send(mail);
     }
 }

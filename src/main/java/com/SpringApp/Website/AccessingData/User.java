@@ -1,7 +1,5 @@
 package com.SpringApp.Website.AccessingData;
 
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -21,15 +19,18 @@ public class User implements Serializable {
     private VoteEvent[] upvotes;
     @Column(name="admin")
     private Boolean admin;
+    @Column(name="picture")
+    private String picture;
 
     protected User() {
     }
 
-    public User(String emailAddress, Boolean admin) {
+    public User(String emailAddress, Boolean admin, String picture,String userName) {
         this.emailAddress = emailAddress;
-        this.userName = emailAddress.substring(0,emailAddress.indexOf("@"));
+        this.userName = userName;
         /////////
-        upvotes = new VoteEvent[0];
+        this.picture=picture;
+        this.upvotes = new VoteEvent[0];
         this.admin=admin;
 
 
@@ -42,23 +43,9 @@ public class User implements Serializable {
                 id, emailAddress, userName, Arrays.toString(upvotes));
     }///////////////////////////////////
 
-    public Long getId() {
-        return id;
-    }
+
     public String getEmailAddress() {
         return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
 
@@ -75,7 +62,17 @@ public class User implements Serializable {
         return admin;
     }
 
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
+    public Long getId() {
+        return id;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPicture(){
+        return picture;
+    }
+
+
 }
