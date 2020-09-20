@@ -1,21 +1,20 @@
 package com.SpringApp.Website.Controller;
 
-import com.SpringApp.Website.AccessingData.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.SpringApp.Website.AccessingData.ScheduleEventRepository;
+import com.SpringApp.Website.AccessingData.VoteEvent;
+import com.SpringApp.Website.AccessingData.VoteEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.channels.SelectableChannel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:8081")
+
 public class EventController {
     @Autowired
     VoteEventRepository voteEventRepository;

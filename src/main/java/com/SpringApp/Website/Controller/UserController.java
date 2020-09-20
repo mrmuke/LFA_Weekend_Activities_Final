@@ -1,5 +1,7 @@
 package com.SpringApp.Website.Controller;
 
+import com.SpringApp.Website.AccessingData.JwtResponse;
+import com.SpringApp.Website.AccessingData.JwtTokenUtil;
 import com.SpringApp.Website.AccessingData.User;
 import com.SpringApp.Website.AccessingData.UserRepository;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
@@ -22,12 +24,14 @@ import java.util.Collections;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:8081")
+
 public class UserController {
     private Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
@@ -35,7 +39,7 @@ public class UserController {
 
             return new ResponseEntity<User>(userData, HttpStatus.OK);
     }
-    @PostMapping("/users")
+    @PostMapping("/users/auth")
     public ResponseEntity<?> createUser(@RequestHeader("id_token") String idTokenString) throws GeneralSecurityException, IOException {
         HttpTransport transport = new NetHttpTransport();
         JsonFactory jsonFactory = new JacksonFactory();
@@ -56,17 +60,18 @@ public class UserController {
             String pictureUrl = (String) payload.get("picture");
             User user = userRepository.findByEmailAddress(email);
             if(user==null) {
+
                 User _user = userRepository.save(new User(email, email.indexOf(/*"@lfanet.org"*/"@gmail.com")>-1, pictureUrl, name));
+                String token = jwtTokenUtil.generateToken(_user);
 
 
 
-
-                return new ResponseEntity<>(_user,  HttpStatus.CREATED);
+                return new ResponseEntity<>(new JwtResponse(_user,token),  HttpStatus.CREATED);
             }
             else if(user!=null)
             {
-                User _user = userRepository.findByEmailAddress(email);
-                return new ResponseEntity<> (_user, HttpStatus.OK);
+                String token = jwtTokenUtil.generateToken(user);
+                return new ResponseEntity<> (new JwtResponse(user,token), HttpStatus.OK);
             }
             return new ResponseEntity<> (HttpStatus.OK);
 

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:8081")
 public class EmailController {
     private Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired

@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:8081")
+
 
 public class ScheduleController {
 
@@ -21,18 +21,14 @@ public class ScheduleController {
     ScheduleRepository scheduleRepository;
 
     @GetMapping("/schedules")
+    public ResponseEntity<List<Schedule>> getSchedules() {
 
-    public ResponseEntity<List<Schedule>> getSchedules(@RequestParam(required = false) String date) {
         try {
             List<Schedule> schedules = new ArrayList<Schedule>();
 
-            if (date == null)
-                scheduleRepository.findAll().forEach(schedules::add);
-            else
-                scheduleRepository.findByDate(date).forEach(schedules::add);
-
-            if (schedules.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            scheduleRepository.findAll().forEach(schedules::add);
+            if (schedules.isEmpty()){
+                return new ResponseEntity<>(schedules,HttpStatus.NO_CONTENT);
             }
 
             return new ResponseEntity<>(schedules, HttpStatus.OK);
