@@ -1,0 +1,399 @@
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by com.google.inject.internal.cglib.core.$ReflectUtils$1 (file:/usr/share/maven/lib/guice.jar) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
+WARNING: Please consider reporting this to the maintainers of com.google.inject.internal.cglib.core.$ReflectUtils$1
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-----------------------< [0;36mcom.SpringApp:Website[0;1m >------------------------[m
+[[1;34mINFO[m] [1mBuilding Website 0.0.1-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m>>> [0;32mspring-boot-maven-plugin:2.2.5.RELEASE:run[m [1m(default-cli)[0;1m > [0;1mtest-compile[m @ [36mWebsite[0;1m >>>[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] Copying 0 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:compile[m [1m(default-compile)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Nothing to compile - all classes are up to date
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:testResources[m [1m(default-testResources)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] skip non existing resourceDirectory /home/ubuntu/LFA_Weekend_Activities_Final/src/test/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:testCompile[m [1m(default-testCompile)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/ubuntu/LFA_Weekend_Activities_Final/target/test-classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m<<< [0;32mspring-boot-maven-plugin:2.2.5.RELEASE:run[m [1m(default-cli)[0;1m < [0;1mtest-compile[m @ [36mWebsite[0;1m <<<[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mspring-boot-maven-plugin:2.2.5.RELEASE:run[m [1m(default-cli)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.5.RELEASE)
+
+2020-09-07 20:45:22.806  INFO 1638 --- [           main] c.SpringApp.Website.WebsiteApplication   : Starting WebsiteApplication on ip-172-31-22-191 with PID 1638 (/home/ubuntu/LFA_Weekend_Activities_Final/target/classes started by ubuntu in /home/ubuntu/LFA_Weekend_Activities_Final)
+2020-09-07 20:45:22.809  INFO 1638 --- [           main] c.SpringApp.Website.WebsiteApplication   : No active profile set, falling back to default profiles: default
+2020-09-07 20:45:23.783  INFO 1638 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-09-07 20:45:23.867  INFO 1638 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 73ms. Found 4 JPA repository interfaces.
+2020-09-07 20:45:24.678  INFO 1638 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-09-07 20:45:24.687  INFO 1638 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-09-07 20:45:24.687  INFO 1638 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-09-07 20:45:24.786  INFO 1638 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-09-07 20:45:24.786  INFO 1638 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1916 ms
+2020-09-07 20:45:25.147  INFO 1638 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-09-07 20:45:25.192  INFO 1638 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.12.Final
+2020-09-07 20:45:25.272  INFO 1638 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-07 20:45:25.339  INFO 1638 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-09-07 20:45:25.673  INFO 1638 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-09-07 20:45:25.685  INFO 1638 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2020-09-07 20:45:26.535  INFO 1638 --- [           main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.SpringApp.Website.AccessingData.ScheduleEvent (class must be instantiated by Interceptor)
+2020-09-07 20:45:26.646  INFO 1638 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-07 20:45:26.651  INFO 1638 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-09-07 20:45:27.526  WARN 1638 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-09-07 20:45:27.728  INFO 1638 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-09-07 20:45:28.155  INFO 1638 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-09-07 20:45:28.159  INFO 1638 --- [           main] c.SpringApp.Website.WebsiteApplication   : Started WebsiteApplication in 5.806 seconds (JVM running for 6.253)
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by com.google.inject.internal.cglib.core.$ReflectUtils$1 (file:/usr/share/maven/lib/guice.jar) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
+WARNING: Please consider reporting this to the maintainers of com.google.inject.internal.cglib.core.$ReflectUtils$1
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-----------------------< [0;36mcom.SpringApp:Website[0;1m >------------------------[m
+[[1;34mINFO[m] [1mBuilding Website 0.0.1-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m>>> [0;32mspring-boot-maven-plugin:2.2.5.RELEASE:run[m [1m(default-cli)[0;1m > [0;1mtest-compile[m @ [36mWebsite[0;1m >>>[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] Copying 0 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:compile[m [1m(default-compile)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Nothing to compile - all classes are up to date
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:testResources[m [1m(default-testResources)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] skip non existing resourceDirectory /home/ubuntu/LFA_Weekend_Activities_Final/src/test/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:testCompile[m [1m(default-testCompile)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/ubuntu/LFA_Weekend_Activities_Final/target/test-classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m<<< [0;32mspring-boot-maven-plugin:2.2.5.RELEASE:run[m [1m(default-cli)[0;1m < [0;1mtest-compile[m @ [36mWebsite[0;1m <<<[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mspring-boot-maven-plugin:2.2.5.RELEASE:run[m [1m(default-cli)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.5.RELEASE)
+
+2020-09-07 20:45:45.348  INFO 1723 --- [           main] c.SpringApp.Website.WebsiteApplication   : Starting WebsiteApplication on ip-172-31-22-191 with PID 1723 (/home/ubuntu/LFA_Weekend_Activities_Final/target/classes started by ubuntu in /home/ubuntu/LFA_Weekend_Activities_Final)
+2020-09-07 20:45:45.351  INFO 1723 --- [           main] c.SpringApp.Website.WebsiteApplication   : No active profile set, falling back to default profiles: default
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  8.001 s
+[[1;34mINFO[m] Finished at: 2020-09-07T20:45:46Z
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by com.google.inject.internal.cglib.core.$ReflectUtils$1 (file:/usr/share/maven/lib/guice.jar) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
+WARNING: Please consider reporting this to the maintainers of com.google.inject.internal.cglib.core.$ReflectUtils$1
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-----------------------< [0;36mcom.SpringApp:Website[0;1m >------------------------[m
+[[1;34mINFO[m] [1mBuilding Website 0.0.1-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m>>> [0;32mspring-boot-maven-plugin:2.2.5.RELEASE:run[m [1m(default-cli)[0;1m > [0;1mtest-compile[m @ [36mWebsite[0;1m >>>[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] Copying 0 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:compile[m [1m(default-compile)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Nothing to compile - all classes are up to date
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:testResources[m [1m(default-testResources)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] skip non existing resourceDirectory /home/ubuntu/LFA_Weekend_Activities_Final/src/test/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:testCompile[m [1m(default-testCompile)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/ubuntu/LFA_Weekend_Activities_Final/target/test-classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m<<< [0;32mspring-boot-maven-plugin:2.2.5.RELEASE:run[m [1m(default-cli)[0;1m < [0;1mtest-compile[m @ [36mWebsite[0;1m <<<[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mspring-boot-maven-plugin:2.2.5.RELEASE:run[m [1m(default-cli)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.5.RELEASE)
+
+2020-09-07 20:45:57.795  INFO 1778 --- [           main] c.SpringApp.Website.WebsiteApplication   : Starting WebsiteApplication on ip-172-31-22-191 with PID 1778 (/home/ubuntu/LFA_Weekend_Activities_Final/target/classes started by ubuntu in /home/ubuntu/LFA_Weekend_Activities_Final)
+2020-09-07 20:45:57.798  INFO 1778 --- [           main] c.SpringApp.Website.WebsiteApplication   : No active profile set, falling back to default profiles: default
+2020-09-07 20:45:58.768  INFO 1778 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-09-07 20:45:58.853  INFO 1778 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 76ms. Found 4 JPA repository interfaces.
+2020-09-07 20:45:59.659  INFO 1778 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-09-07 20:45:59.668  INFO 1778 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-09-07 20:45:59.668  INFO 1778 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-09-07 20:45:59.764  INFO 1778 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-09-07 20:45:59.765  INFO 1778 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1906 ms
+2020-09-07 20:46:00.143  INFO 1778 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-09-07 20:46:00.191  INFO 1778 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.12.Final
+2020-09-07 20:46:00.278  INFO 1778 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-07 20:46:00.347  INFO 1778 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-09-07 20:46:00.679  INFO 1778 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-09-07 20:46:00.691  INFO 1778 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2020-09-07 20:46:01.706  INFO 1778 --- [           main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.SpringApp.Website.AccessingData.ScheduleEvent (class must be instantiated by Interceptor)
+2020-09-07 20:46:01.844  INFO 1778 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-07 20:46:01.853  INFO 1778 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-09-07 20:46:02.814  WARN 1778 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-09-07 20:46:03.015  INFO 1778 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-09-07 20:46:03.522  INFO 1778 --- [           main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-09-07 20:46:03.529  INFO 1778 --- [           main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-09-07 20:46:03.533 ERROR 1778 --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2020-09-07 20:46:03.536  INFO 1778 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-09-07 20:46:03.538  INFO 1778 --- [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-09-07 20:46:03.539  INFO 1778 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-09-07 20:46:03.547  INFO 1778 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;31mBUILD FAILURE[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  12.890 s
+[[1;34mINFO[m] Finished at: 2020-09-07T20:46:03Z
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;31mERROR[m] Failed to execute goal [32morg.springframework.boot:spring-boot-maven-plugin:2.2.5.RELEASE:run[m [1m(default-cli)[m on project [36mWebsite[m: [1;31mApplication finished with exit code: 1[m -> [1m[Help 1][m
+[[1;31mERROR[m] 
+[[1;31mERROR[m] To see the full stack trace of the errors, re-run Maven with the [1m-e[m switch.
+[[1;31mERROR[m] Re-run Maven using the [1m-X[m switch to enable full debug logging.
+[[1;31mERROR[m] 
+[[1;31mERROR[m] For more information about the errors and possible solutions, please read the following articles:
+[[1;31mERROR[m] [1m[Help 1][m http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+2020-09-07 20:53:08.905  INFO 1638 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-09-07 20:53:09.048  INFO 1638 --- [extShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-09-07 20:53:09.189  INFO 1638 --- [extShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-09-07 20:53:09.296  INFO 1638 --- [extShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by com.google.inject.internal.cglib.core.$ReflectUtils$1 (file:/usr/share/maven/lib/guice.jar) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
+WARNING: Please consider reporting this to the maintainers of com.google.inject.internal.cglib.core.$ReflectUtils$1
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-----------------------< [0;36mcom.SpringApp:Website[0;1m >------------------------[m
+[[1;34mINFO[m] [1mBuilding Website 0.0.1-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m>>> [0;32mspring-boot-maven-plugin:2.2.5.RELEASE:run[m [1m(default-cli)[0;1m > [0;1mtest-compile[m @ [36mWebsite[0;1m >>>[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] Copying 0 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:compile[m [1m(default-compile)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Nothing to compile - all classes are up to date
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:testResources[m [1m(default-testResources)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] skip non existing resourceDirectory /home/ubuntu/LFA_Weekend_Activities_Final/src/test/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:testCompile[m [1m(default-testCompile)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/ubuntu/LFA_Weekend_Activities_Final/target/test-classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m<<< [0;32mspring-boot-maven-plugin:2.2.5.RELEASE:run[m [1m(default-cli)[0;1m < [0;1mtest-compile[m @ [36mWebsite[0;1m <<<[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mspring-boot-maven-plugin:2.2.5.RELEASE:run[m [1m(default-cli)[m @ [36mWebsite[0;1m ---[m
+[[1;34mINFO[m] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.5.RELEASE)
+
+2020-09-07 23:01:16.479  INFO 3720 --- [           main] c.SpringApp.Website.WebsiteApplication   : Starting WebsiteApplication on ip-172-31-22-191 with PID 3720 (/home/ubuntu/LFA_Weekend_Activities_Final/target/classes started by ubuntu in /home/ubuntu/LFA_Weekend_Activities_Final)
+2020-09-07 23:01:16.482  INFO 3720 --- [           main] c.SpringApp.Website.WebsiteApplication   : No active profile set, falling back to default profiles: default
+2020-09-07 23:01:17.455  INFO 3720 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-09-07 23:01:17.540  INFO 3720 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 75ms. Found 4 JPA repository interfaces.
+2020-09-07 23:01:18.345  INFO 3720 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-09-07 23:01:18.353  INFO 3720 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-09-07 23:01:18.353  INFO 3720 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-09-07 23:01:18.447  INFO 3720 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-09-07 23:01:18.447  INFO 3720 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1903 ms
+2020-09-07 23:01:18.810  INFO 3720 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-09-07 23:01:18.856  INFO 3720 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.12.Final
+2020-09-07 23:01:18.938  INFO 3720 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-07 23:01:19.007  INFO 3720 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-09-07 23:01:19.342  INFO 3720 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-09-07 23:01:19.354  INFO 3720 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2020-09-07 23:01:20.201  INFO 3720 --- [           main] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.SpringApp.Website.AccessingData.ScheduleEvent (class must be instantiated by Interceptor)
+2020-09-07 23:01:20.313  INFO 3720 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-07 23:01:20.318  INFO 3720 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-09-07 23:01:21.192  WARN 3720 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-09-07 23:01:21.394  INFO 3720 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-09-07 23:01:21.821  INFO 3720 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-09-07 23:01:21.830  INFO 3720 --- [           main] c.SpringApp.Website.WebsiteApplication   : Started WebsiteApplication in 5.815 seconds (JVM running for 6.258)
+2020-09-07 23:02:01.591  INFO 3720 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-09-07 23:02:01.592  INFO 3720 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-09-07 23:02:01.604  INFO 3720 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
+2020-09-08 15:40:55.832  INFO 3720 --- [nio-8080-exec-7] c.S.Website.Controller.UserController    : update user:User[id=8, emailAddress = joeward1977@gmail.com, userName='joeward1977@gmail',upvotes = [VoteEvent[id=4, name = Hunger Games, timeSlot='2020-09-27']]]
+2020-09-08 15:40:59.098  INFO 3720 --- [nio-8080-exec-9] c.S.Website.Controller.UserController    : update user:User[id=8, emailAddress = joeward1977@gmail.com, userName='joeward1977@gmail',upvotes = []]
+2020-09-08 15:41:00.932  INFO 3720 --- [io-8080-exec-10] c.S.Website.Controller.UserController    : update user:User[id=8, emailAddress = joeward1977@gmail.com, userName='joeward1977@gmail',upvotes = [VoteEvent[id=5, name = Valorant Gameplay, timeSlot='2020-10-03']]]
+2020-09-08 15:41:05.312  INFO 3720 --- [nio-8080-exec-2] c.S.Website.Controller.UserController    : update user:User[id=8, emailAddress = joeward1977@gmail.com, userName='joeward1977@gmail',upvotes = [VoteEvent[id=5, name = Valorant Gameplay, timeSlot='2020-10-03'], VoteEvent[id=4, name = Hunger Games, timeSlot='2020-09-27']]]
+2020-09-08 15:41:06.945  INFO 3720 --- [nio-8080-exec-4] c.S.Website.Controller.UserController    : update user:User[id=8, emailAddress = joeward1977@gmail.com, userName='joeward1977@gmail',upvotes = [VoteEvent[id=4, name = Hunger Games, timeSlot='2020-09-27']]]
+2020-09-08 15:41:08.890  INFO 3720 --- [nio-8080-exec-5] c.S.Website.Controller.UserController    : update user:User[id=8, emailAddress = joeward1977@gmail.com, userName='joeward1977@gmail',upvotes = [VoteEvent[id=4, name = Hunger Games, timeSlot='2020-09-27'], VoteEvent[id=5, name = Valorant Gameplay, timeSlot='2020-10-03']]]
+2020-09-08 15:41:10.833  INFO 3720 --- [nio-8080-exec-8] c.S.Website.Controller.UserController    : update user:User[id=8, emailAddress = joeward1977@gmail.com, userName='joeward1977@gmail',upvotes = [VoteEvent[id=4, name = Hunger Games, timeSlot='2020-09-27']]]
+2020-09-08 15:41:19.978  INFO 3720 --- [nio-8080-exec-1] c.S.Website.Controller.UserController    : update user:User[id=8, emailAddress = joeward1977@gmail.com, userName='joeward1977@gmail',upvotes = [VoteEvent[id=4, name = Hunger Games, timeSlot='2020-09-27'], VoteEvent[id=3, name = Dog Park, timeSlot='2020-09-26']]]
+2020-09-08 15:41:21.431  INFO 3720 --- [nio-8080-exec-2] c.S.Website.Controller.UserController    : update user:User[id=8, emailAddress = joeward1977@gmail.com, userName='joeward1977@gmail',upvotes = [VoteEvent[id=4, name = Hunger Games, timeSlot='2020-09-27'], VoteEvent[id=3, name = Dog Park, timeSlot='2020-09-26'], VoteEvent[id=5, name = Valorant Gameplay, timeSlot='2020-10-03']]]
+2020-09-08 20:36:01.676  INFO 3720 --- [nio-8080-exec-9] c.S.Website.Controller.UserController    : Error sending email: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbu
+534-5.7.14 RZ7zRddBREjbUDv7dRAsDGQTY8oGBcZ5XHaf1w8v3dCXIpzBj4FEP4NLxAIj2lDzKSNmb
+534-5.7.14 NUQ8AODWp1320i6BSSB4CaZr3WSQ2DekjDFK7ESm7ZlJbeeVplC4HdZtgHwqEeTL>
+534-5.7.14 Please log in via your web browser and then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 131sm291543pfy.5 - gsmtp
+
+2020-09-08 20:36:01.676  INFO 3720 --- [io-8080-exec-10] c.S.Website.Controller.UserController    : Error sending email: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbv
+534-5.7.14 bNmKdLOdZa-6WNLmJW0_gjOQcRoCVfqiSeuHVouhNZj5fPJOsqDJNHuid1lQVeCobFniS
+534-5.7.14 JgpxYvOvDZVHPMsyjFON1ABu0aSxMYipcgLpOkZY_6DR6ue9Z8Pok9eHNVJW0Op4>
+534-5.7.14 Please log in via your web browser and then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 k3sm288404pfp.41 - gsmtp
+
+2020-09-08 20:50:27.006  INFO 3720 --- [nio-8080-exec-7] c.S.Website.Controller.UserController    : Error sending email: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbt
+534-5.7.14 dAGS8T1GPR5B7_iF0j9qIECVIZ5_S-M1LB2fumhWKVVwH4wyxy3tWATInhKGOAueU_AK8
+534-5.7.14 LunAKX1Iitksmbvqr4F3vMgVwl4sNPPL-XHtCkDx4QPFqxQmw7T0MZwDMKGRiyeB>
+534-5.7.14 Please log in via your web browser and then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 gb19sm133600pjb.38 - gsmtp
+
+2020-09-08 20:54:04.146  INFO 3720 --- [nio-8080-exec-5] c.S.Website.Controller.UserController    : Error sending email: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbt
+534-5.7.14 S3GPJa2GbvZCKa6P72Mk0j95cZ5jKJUJGu1ue2jPdBv1x0jyM3YtfUaXqYkN4Xhfz_igc
+534-5.7.14 UIKAOALgQ53IncKGPjyBHW_Bm0xPpI7k2e7na4DzVKEPL6wYPB5J36QEg7t709YD>
+534-5.7.14 Please log in via your web browser and then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 x3sm317997pfq.49 - gsmtp
+
+2020-09-08 20:54:04.150  INFO 3720 --- [nio-8080-exec-4] c.S.Website.Controller.UserController    : Error sending email: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbv
+534-5.7.14 RHA7rmjDQqgBqC_aZcD1w76iQIJAqpb2vEFenO5MgCbvIVxwggp71oEMr-j7QVV0eOmtx
+534-5.7.14 _JqE8oLX9yX0SvEdFIw2Os9jfAKhycTWOtCqAGBvnp_O7rpfS9Gfx6vM5UjMSSxA>
+534-5.7.14 Please log in via your web browser and then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 gx5sm128477pjb.57 - gsmtp
+
+2020-09-08 20:55:15.511  INFO 3720 --- [nio-8080-exec-9] c.S.Website.Controller.UserController    : Error sending email: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbs
+534-5.7.14 I3uaUTTXuDHEc7N5UlmrGfkGxhwRngAJAwNPZ4xbZvV0FaW5vJ17b9Q9RgWHMT3ah8DxB
+534-5.7.14 KWarhgWhXvEdhc7351VsUfZ4TdCFsG9QgwqFX7Ck7tWbK691oMMRKQZt4dOThipD>
+534-5.7.14 Please log in via your web browser and then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 n127sm293544pfn.155 - gsmtp
+
+2020-09-08 20:55:15.527  INFO 3720 --- [io-8080-exec-10] c.S.Website.Controller.UserController    : Error sending email: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbs
+534-5.7.14 hbLXB_zlDHZoT09BUhqrGl5yQi1aBVo0_K5Z4oT_xh-7LKcVfIB82Y61vY_E79O2CBSVZ
+534-5.7.14 sf655UjYBdEhXkN_RcjPbypZVaYdj4qQl8dvm5p4ad2-Z4aZ8PYVS4HaNl-W-kqG>
+534-5.7.14 Please log in via your web browser and then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 f19sm300146pfj.25 - gsmtp
+
+2020-09-08 20:58:56.038  INFO 3720 --- [nio-8080-exec-8] c.S.Website.Controller.UserController    : Error sending email: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbu
+534-5.7.14 3ViZ1jjePkOGmFPplSG0eqBG5Q7iUU_w2OJ7SPAqwlNVfuAUdqIBwUfb-9eO4FXmz9sCK
+534-5.7.14 OP5u_PrzpCQzSwRlO8Ey97JIggQatGD5aL-YDEW8q5MZiFc10jI3fm7P2ausUzhD>
+534-5.7.14 Please log in via your web browser and then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 l7sm131767pjz.56 - gsmtp
+
+2020-09-08 20:58:56.045  INFO 3720 --- [nio-8080-exec-1] c.S.Website.Controller.UserController    : Error sending email: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbv
+534-5.7.14 6bOw0TbcmbWASJ9pP2_5JekJtyXhc98f4fb6eYQuzsJmeV1SVhUvFVI3pCAS6RJ8iFNR3
+534-5.7.14 lqfgUjzo7sJucwOPVQK6Kc7QA9mtyuraZQ4vxawhkU7vCvSZma0iK8JNUObaw1w3>
+534-5.7.14 Please log in via your web browser and then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 x4sm312783pfm.86 - gsmtp
+
+2020-09-14 14:44:44.804  INFO 3720 --- [nio-8080-exec-3] c.S.Website.Controller.UserController    : Error sending email: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbs
+534-5.7.14 N-BkvC1LCQDajEQ0m7jx45l7YNMUNpiYOFW0urUWnt8cA4gWE0FOZWpaDdvDRMhZcrud4
+534-5.7.14 di9x_G0IoyUnst7WJ5-B2_2DOBE0faD0VSsPcanwrGP8OaSJm38JMbYfivJM8LaX>
+534-5.7.14 Please log in via your web browser and then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 b2sm4087245pfp.3 - gsmtp
+
+2020-09-14 14:44:44.803  INFO 3720 --- [nio-8080-exec-1] c.S.Website.Controller.UserController    : Error sending email: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbv
+534-5.7.14 gOsog71I9ZF2vzBFm5yRqmt5XdBsfCYO9KyRfqZYM8A3Y1M5EF9Q54CFPHr7WfYZMygLm
+534-5.7.14 twssMo0m0Y2730uaqLdGXmCncplbm2uH8SAJkbZq5sGXpjtufOfzc4zjWPb4yblR>
+534-5.7.14 Please log in via your web browser and then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 64sm10582113pfg.98 - gsmtp
+
+2020-09-14 14:45:46.791  INFO 3720 --- [nio-8080-exec-2] c.S.Website.Controller.UserController    : Error sending email: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbv
+534-5.7.14 vjU0Ux9hPgbk9KLFJrwCBo5r7912jnAArf_kBjVVLY4Bo9cd68pjDwr-iZgYvQvCFToX5
+534-5.7.14 Xrs2sa2RZpi650z7WK1zbRfE18p47jcMqP6QAkeoR0fOb45wUpej4lm74yDJDB_K>
+534-5.7.14 Please log in via your web browser and then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 i9sm10978530pfq.53 - gsmtp
+
+2020-09-14 14:45:46.793  INFO 3720 --- [nio-8080-exec-6] c.S.Website.Controller.UserController    : Error sending email: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbv
+534-5.7.14 5YiNS1uk2CfPnS7aB-4NTb2seI3Ugn6wFvbZWKByLWZL7vbpgrGcK5z5dnUX8oHg69VPZ
+534-5.7.14 _OBwy6d3XipM9JH8M7BjGWvLBLIFioXjOGSsUp3Blo6j5aM0n0r9jbfgVYnmdKz9>
+534-5.7.14 Please log in via your web browser and then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 q190sm11371259pfq.99 - gsmtp
+
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;31mBUILD FAILURE[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  26 d 17:11 h
+[[1;34mINFO[m] Finished at: 2020-10-04T16:13:05Z
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;31mERROR[m] Failed to execute goal [32morg.springframework.boot:spring-boot-maven-plugin:2.2.5.RELEASE:run[m [1m(default-cli)[m on project [36mWebsite[m: [1;31mApplication finished with exit code: 137[m -> [1m[Help 1][m
+[[1;31mERROR[m] 
+[[1;31mERROR[m] To see the full stack trace of the errors, re-run Maven with the [1m-e[m switch.
+[[1;31mERROR[m] Re-run Maven using the [1m-X[m switch to enable full debug logging.
+[[1;31mERROR[m] 
+[[1;31mERROR[m] For more information about the errors and possible solutions, please read the following articles:
+[[1;31mERROR[m] [1m[Help 1][m http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

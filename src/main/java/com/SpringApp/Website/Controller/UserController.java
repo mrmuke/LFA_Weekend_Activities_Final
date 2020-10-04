@@ -40,7 +40,7 @@ public class UserController {
             return new ResponseEntity<User>(userData, HttpStatus.OK);
     }
     @PostMapping("/users/auth")
-    public ResponseEntity<?> createUser(@RequestHeader("id_token") String idTokenString) throws GeneralSecurityException, IOException {
+    public ResponseEntity<?> createUser(@RequestHeader("id") String idTokenString) throws GeneralSecurityException, IOException {
         HttpTransport transport = new NetHttpTransport();
         JsonFactory jsonFactory = new JacksonFactory();
 
