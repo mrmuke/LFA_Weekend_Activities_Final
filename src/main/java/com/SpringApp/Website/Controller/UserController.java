@@ -52,7 +52,7 @@ public class UserController {
             Payload payload = idToken.getPayload();
 
             String email = payload.getEmail();
-            if(email.indexOf("@lfanet.org")==-1 && email.indexOf("@students.lfanet.org")==-1 && email.indexOf("@gmail.com")==-1)
+            if(email.indexOf("@lfanet.org")==-1 && email.indexOf("@students.lfanet.org")==-1)
             {
                 return new ResponseEntity<String>("Sign in With LFA Email", HttpStatus.EXPECTATION_FAILED);
             }
