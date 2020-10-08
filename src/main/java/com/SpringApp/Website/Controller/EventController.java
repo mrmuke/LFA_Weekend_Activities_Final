@@ -48,7 +48,7 @@ public class EventController {
     }
 
 
-    @GetMapping("/voteEvents/upvote/{id}")
+    @PostMapping("/voteEvents/upvote/{id}")
     public ResponseEntity<?> upvoteEvent(@PathVariable("id") long id) {
         Optional<VoteEvent> eventData = voteEventRepository.findById(id);
 
@@ -61,7 +61,7 @@ public class EventController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping("/voteEvents/downvote/${id}")
+    @PostMapping("/voteEvents/downvote/{id}")
     public ResponseEntity<?> downvoteEvent(@PathVariable("id") long id) {
         Optional<VoteEvent> eventData = voteEventRepository.findById(id);
 
