@@ -48,7 +48,32 @@ public class EventController {
     }
 
 
+    @PutMapping("/voteEvents/upvote/${id}")
+    public ResponseEntity<?> upvoteEvent(@PathVariable("id") long id) {
+        Optional<VoteEvent> eventData = voteEventRepository.findById(id);
 
+        if (eventData.isPresent()) {
+            VoteEvent _event = eventData.get();
+            _event.setUpVotes(_event.getUpVotes()+1);
+
+            return new ResponseEntity<VoteEvent>(voteEventRepository.save(_event), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @PutMapping("/voteEvents/downvote/${id}")
+    public ResponseEntity<?> downvoteEvent(@PathVariable("id") long id) {
+        Optional<VoteEvent> eventData = voteEventRepository.findById(id);
+
+        if (eventData.isPresent()) {
+            VoteEvent _event = eventData.get();
+            _event.setUpVotes(_event.getUpVotes()-1);
+
+            return new ResponseEntity<VoteEvent>(voteEventRepository.save(_event), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @PostMapping("/voteEvents")
     public ResponseEntity<?> createVoteEvent(@RequestBody VoteEvent event) {
         try {
@@ -62,6 +87,7 @@ public class EventController {
             return new ResponseEntity<String>("Error Message", HttpStatus.EXPECTATION_FAILED);
         }
     }
+
 
 
 
