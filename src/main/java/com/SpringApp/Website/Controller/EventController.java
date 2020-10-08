@@ -48,7 +48,7 @@ public class EventController {
     }
 
 
-    @PutMapping("/voteEvents/upvote/{id}")
+    @GetMapping("/voteEvents/upvote/{id}")
     public ResponseEntity<?> upvoteEvent(@PathVariable("id") long id) {
         Optional<VoteEvent> eventData = voteEventRepository.findById(id);
 
@@ -74,7 +74,7 @@ public class EventController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping("/voteEvents")
+    @PostMapping("/voteEvents")
     public ResponseEntity<?> createVoteEvent(@RequestBody VoteEvent event) {
         try {
             event.setTimeSlot(event.getTimeSlot().substring(0,10));
