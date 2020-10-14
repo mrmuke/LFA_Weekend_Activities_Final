@@ -1,9 +1,6 @@
 package com.SpringApp.Website.Controller;
 
-import com.SpringApp.Website.AccessingData.JwtResponse;
-import com.SpringApp.Website.AccessingData.JwtTokenUtil;
-import com.SpringApp.Website.AccessingData.User;
-import com.SpringApp.Website.AccessingData.UserRepository;
+import com.SpringApp.Website.AccessingData.*;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
@@ -92,6 +89,32 @@ public class UserController {
             return new ResponseEntity<User>(userRepository.save(_user), HttpStatus.OK);
 
     }
+    @PostMapping("/users/upvote/{id}")
+    public ResponseEntity<?> upvoteEvent(@PathVariable("id") long id, @RequestBody VoteEvent event) {
+        User user = userRepository.findById(id);
+        VoteEvent[] array = new VoteEvent[user.getUpvotes().length+1];
+
+        for (int i = 0; i < user.getUpvotes().length; i++) {
+            array[i]=user.getUpvotes()[i];
+        }
+        array[user.getUpvotes().length]=event;
+        user.setUpvotes(array);
+        return new ResponseEntity<User>(userRepository.save(user), HttpStatus.OK);
+    }
+    @PostMapping("/users/downvote/{id}")
+    public ResponseEntity<?> downvoteEvent(@PathVariable("id") long id, @RequestBody VoteEvent event) {
+       User user = userRepository.findById(id);
+       VoteEvent[] array = new VoteEvent[user.getUpvotes().length-1];
+
+        for (int i = 0, k = 0; i < user.getUpvotes().length; i++) {
+            if(!(user.getUpvotes()[i].equals(event))) {
+                array[k++]=user.getUpvotes()[i];
+            }
+        }
+        user.setUpvotes(array);
+        return new ResponseEntity<User>(userRepository.save(user), HttpStatus.OK);
+    }
+
 
 
 
