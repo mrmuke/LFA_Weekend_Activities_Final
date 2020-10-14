@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -104,15 +106,13 @@ public class UserController {
     @PostMapping("/users/downvote/{id}")
     public ResponseEntity<?> downvoteEvent(@PathVariable("id") long id, @RequestBody VoteEvent event) {
        User user = userRepository.findById(id);
-       VoteEvent[] array = new VoteEvent[user.getUpvotes().length-1];
-
-        for (int i = 0, k = 0; i < user.getUpvotes().length; i++) {
-            if(!user.getUpvotes()[i].equals(event)) {
-                array[k]=user.getUpvotes()[i];
-                k++;
+        List<VoteEvent> list= new ArrayList<VoteEvent>();
+        for (VoteEvent voteEvent: user.getUpvotes()) {
+            if(voteEvent!=event) {
+                list.add(voteEvent);
             }
         }
-        user.setUpvotes(array);
+        user.setUpvotes((VoteEvent[]) list.toArray());
         return new ResponseEntity<User>(userRepository.save(user), HttpStatus.OK);
     }
 
