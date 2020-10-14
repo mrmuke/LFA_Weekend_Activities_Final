@@ -106,13 +106,15 @@ public class UserController {
     @PostMapping("/users/downvote/{id}")
     public ResponseEntity<?> downvoteEvent(@PathVariable("id") long id, @RequestBody VoteEvent event) {
        User user = userRepository.findById(id);
-        List<VoteEvent> list= new ArrayList<VoteEvent>();
-        for (VoteEvent voteEvent: user.getUpvotes()) {
-            if(voteEvent!=event) {
-                list.add(voteEvent);
+        VoteEvent[] list = new VoteEvent[user.getUpvotes().length-1];
+        for (int i =0,j=0;i<user.getUpvotes().length-1;i++) {
+            if(event.equals(user.getUpvotes()[i])) {
+               continue;
             }
+            list[j++]=user.getUpvotes()[i]
         }
-        user.setUpvotes((VoteEvent[]) list.toArray());
+        user.setUpvotes(list);
+
         return new ResponseEntity<User>(userRepository.save(user), HttpStatus.OK);
     }
 
