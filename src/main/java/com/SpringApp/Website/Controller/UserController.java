@@ -107,7 +107,7 @@ public class UserController {
        VoteEvent[] array = new VoteEvent[user.getUpvotes().length-1];
 
         for (int i = 0, k = 0; i < user.getUpvotes().length; i++) {
-            if(!(user.getUpvotes()[i].equals(event))) {
+            if(!user.getUpvotes()[i].equals(event)) {
                 array[k]=user.getUpvotes()[i];
                 k++;
             }
