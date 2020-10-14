@@ -108,7 +108,8 @@ public class UserController {
 
         for (int i = 0, k = 0; i < user.getUpvotes().length; i++) {
             if(!(user.getUpvotes()[i].equals(event))) {
-                array[k++]=user.getUpvotes()[i];
+                array[k]=user.getUpvotes()[i];
+                k++;
             }
         }
         user.setUpvotes(array);
