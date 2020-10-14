@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -111,7 +109,7 @@ public class UserController {
             if(event.equals(user.getUpvotes()[i])) {
                continue;
             }
-            list[j++]=user.getUpvotes()[i]
+            list[j++]=user.getUpvotes()[i];
         }
         user.setUpvotes(list);
 
