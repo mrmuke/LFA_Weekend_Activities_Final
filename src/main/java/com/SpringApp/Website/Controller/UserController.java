@@ -49,7 +49,7 @@ public class UserController {
             Payload payload = idToken.getPayload();
 
             String email = payload.getEmail();
-            if(email.indexOf("@lfanet.org")==-1 && email.indexOf("@students.lfanet.org")==-1)
+            if(email.indexOf("@gmail.com")==-1 && email.indexOf("@students.lfanet.org")==-1)
             {
                 return new ResponseEntity<String>("Sign in With LFA Email", HttpStatus.EXPECTATION_FAILED);
             }
@@ -58,7 +58,7 @@ public class UserController {
             User user = userRepository.findByEmailAddress(email);
             if(user==null) {
 
-                User _user = userRepository.save(new User(email, email.indexOf("@lfanet.org")>-1, pictureUrl, name));
+                User _user = userRepository.save(new User(email, email.indexOf("@gmail.com")>-1, pictureUrl, name));
                 String token = jwtTokenUtil.generateToken(_user);
 
 
