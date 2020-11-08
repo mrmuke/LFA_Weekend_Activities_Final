@@ -2,7 +2,6 @@ package com.SpringApp.Website.AccessingData;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Arrays;
 
 @Entity
 @Table(name = "users")
@@ -15,8 +14,6 @@ public class User implements Serializable {
     private String emailAddress;
     @Column(name = "userName")
     private String userName;
-    @Column(name = "upvotes")
-    private VoteEvent[] upvotes;
     @Column(name="admin")
     private Boolean admin;
     @Column(name="picture")
@@ -30,7 +27,7 @@ public class User implements Serializable {
         this.userName = userName;
         /////////
         this.picture=picture;
-        this.upvotes = new VoteEvent[0];
+
         this.admin=admin;
 
 
@@ -39,8 +36,8 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return String.format(
-                "User[id=%d, emailAddress = %s, userName='%s',upvotes = %s]",
-                id, emailAddress, userName, Arrays.toString(upvotes));
+                "User[id=%d, emailAddress = %s, userName='%s']",
+                id, emailAddress, userName);
     }///////////////////////////////////
 
 
@@ -49,14 +46,6 @@ public class User implements Serializable {
     }
 
 
-    /////////////////////////////////////////////////////////////////////////////////////////
-    public VoteEvent[] getUpvotes() {
-        return upvotes;
-    }
-
-    public void setUpvotes(VoteEvent[] upvotes) {
-        this.upvotes = upvotes;
-    }
 
     public Boolean getAdmin() {
         return admin;

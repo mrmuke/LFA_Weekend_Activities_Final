@@ -49,28 +49,24 @@ public class UserController {
             Payload payload = idToken.getPayload();
 
             String email = payload.getEmail();
-            if(email.indexOf("@lfanet.org")==-1 && email.indexOf("@students.lfanet.org")==-1)
-            {
+            if (email.indexOf("@lfanet.org") == -1 && email.indexOf("@students.lfanet.org") == -1) {
                 return new ResponseEntity<String>("Sign in With LFA Email", HttpStatus.EXPECTATION_FAILED);
             }
             String name = (String) payload.get("name");
             String pictureUrl = (String) payload.get("picture");
             User user = userRepository.findByEmailAddress(email);
-            if(user==null) {
+            if (user == null) {
 
-                User _user = userRepository.save(new User(email, email.indexOf("@lfanet.org")>-1, pictureUrl, name));
+                User _user = userRepository.save(new User(email, email.indexOf("@lfanet.org") > -1, pictureUrl, name));
                 String token = jwtTokenUtil.generateToken(_user);
 
 
-
-                return new ResponseEntity<>(new JwtResponse(_user,token),  HttpStatus.CREATED);
-            }
-            else if(user!=null)
-            {
+                return new ResponseEntity<>(new JwtResponse(_user, token), HttpStatus.CREATED);
+            } else if (user != null) {
                 String token = jwtTokenUtil.generateToken(user);
-                return new ResponseEntity<> (new JwtResponse(user,token), HttpStatus.OK);
+                return new ResponseEntity<>(new JwtResponse(user, token), HttpStatus.OK);
             }
-            return new ResponseEntity<> (HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
 
 
         } else {
@@ -78,18 +74,7 @@ public class UserController {
         }
 
     }
-    @PutMapping("/users/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable("id") long id, @RequestBody User user) {
-        User userData = userRepository.findById(id);
-
-            User _user = userData;
-            _user.setUpvotes(user.getUpvotes());
-
-
-            return new ResponseEntity<User>(userRepository.save(_user), HttpStatus.OK);
-
-    }
-    @PostMapping("/users/upvote/{id}")
+    /*@PostMapping("/users/upvote/{id}")
     public ResponseEntity<?> upvoteEvent(@PathVariable("id") long id, @RequestBody VoteEvent event) {
         User user = userRepository.findById(id);
         VoteEvent[] array = new VoteEvent[user.getUpvotes().length+1];
@@ -97,7 +82,7 @@ public class UserController {
         for (int i = 0; i < user.getUpvotes().length; i++) {
             array[i]=user.getUpvotes()[i];
         }
-        array[user.getUpvotes().length]=event;
+        array[array.length]=event;
         user.setUpvotes(array);
         return new ResponseEntity<User>(userRepository.save(user), HttpStatus.OK);
     }
@@ -106,7 +91,7 @@ public class UserController {
        User user = userRepository.findById(id);
         VoteEvent[] list = new VoteEvent[user.getUpvotes().length-1];
         for (int i =0,j=0;i<user.getUpvotes().length-1;i++) {
-            if(event.equals(user.getUpvotes()[i])) {
+            if(event.getId()==user.getUpvotes()[i].getId()) {
                continue;
             }
             list[j++]=user.getUpvotes()[i];
@@ -114,7 +99,7 @@ public class UserController {
         user.setUpvotes(list);
 
         return new ResponseEntity<User>(userRepository.save(user), HttpStatus.OK);
-    }
+    }*/
 
 
 

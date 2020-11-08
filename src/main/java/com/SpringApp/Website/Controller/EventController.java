@@ -49,12 +49,17 @@ public class EventController {
 
 
     @PostMapping("/voteEvents/upvote/{id}")
-    public ResponseEntity<?> upvoteEvent(@PathVariable("id") long id) {
+    public ResponseEntity<?> upvoteEvent(@PathVariable("id") long id, @RequestParam(required = true, value = "email") String email) {
         Optional<VoteEvent> eventData = voteEventRepository.findById(id);
 
         if (eventData.isPresent()) {
             VoteEvent _event = eventData.get();
-            _event.setUpVotes(_event.getUpVotes()+1);
+            String[] list = new String[_event.getUpvotes().length+1];
+            for(int i = 0;i<_event.getUpvotes().length;i++){
+                list[i] = _event.getUpvotes()[i];
+            }
+            list[list.length-1]=email;
+            _event.setUpvotes(list);
 
             return new ResponseEntity<VoteEvent>(voteEventRepository.save(_event), HttpStatus.OK);
         } else {
@@ -62,13 +67,19 @@ public class EventController {
         }
     }
     @PostMapping("/voteEvents/downvote/{id}")
-    public ResponseEntity<?> downvoteEvent(@PathVariable("id") long id) {
+    public ResponseEntity<?> downvoteEvent(@PathVariable("id") long id, @RequestParam(required = true, value = "email") String email) {
         Optional<VoteEvent> eventData = voteEventRepository.findById(id);
 
         if (eventData.isPresent()) {
             VoteEvent _event = eventData.get();
-            _event.setUpVotes(_event.getUpVotes()-1);
-
+            String[] list = new String[_event.getUpvotes().length-1];
+            for (int i =0,j=0;i<_event.getUpvotes().length-1;i++) {
+                if(email.equals(_event.getUpvotes()[i])) {
+                    continue;
+                }
+                list[j++]=_event.getUpvotes()[i];
+            }
+            _event.setUpvotes(list);
             return new ResponseEntity<VoteEvent>(voteEventRepository.save(_event), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -99,7 +110,6 @@ public class EventController {
             VoteEvent _event = eventData.get();
             _event.setName(event.getName());
             _event.setTimeSlot(event.getTimeSlot());
-            _event.setUpVotes(event.getUpVotes());
             _event.setRequested(event.getRequested());
 
             return new ResponseEntity<VoteEvent>(voteEventRepository.save(_event), HttpStatus.OK);
