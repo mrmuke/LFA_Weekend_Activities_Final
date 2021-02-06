@@ -7,7 +7,6 @@ import com.SpringApp.Website.AccessingData.ScheduleEvent;
 import com.SpringApp.Website.AccessingData.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -21,7 +20,7 @@ public class NotificationService {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendNotification(User user, ScheduleEvent event) throws MailException, MessagingException {
+    public void sendNotification(User user, ScheduleEvent event) throws MessagingException{
         int place = 0;
         for(int i = 0;i<event.getUsersSignedUp().length;i++)
         {
