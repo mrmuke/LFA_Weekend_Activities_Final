@@ -30,7 +30,7 @@ public class NotificationService {
         mail.setTo(user.getEmailAddress());
         mail.setFrom("lfaweekendactivities@gmail.com");
         mail.setSubject("REMINDER:" + event.getName());
-        mail.setText("<strong><u>You have an activity soon:</u></strong><br/><b>Activity Name:</b> " + event.getName() + "<br/><b>Activity Time:</b> " + event.getTimeSlot() +"<br/>On this activity you are number " +((event.getPersonLimit()-place<0)?"WAITLIST":place)+ " on the list."+"<br/>If you no longer plan on coming, go to <a>wa.lfaapps.com</a> to cancel your sign up.", true);
+        mail.setText("<strong><u>You have an activity soon:</u></strong><br/><b>Activity Name:</b> " + event.getName() + "<br/><b>Activity Time:</b> " + event.getTimeSlot() +"<br/>On this activity you are number " +((event.getPersonLimit()-place<0)?"WAITLIST":place)+ " on the list."+"<br/>If you no longer plan on coming, go to <a>wa.lfaapps.com</a> to cancel your sign up.");
         javaMailSender.send(mail);
     }
 }
