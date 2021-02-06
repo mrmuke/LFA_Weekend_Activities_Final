@@ -75,6 +75,7 @@ public class ScheduleController {
 
         if (scheduleData.isPresent()) {
             Schedule _schedule = scheduleData.get();
+            _schedule.setDate(schedule.getDate());
             _schedule.setFriday(schedule.getFriday());
             _schedule.setSaturday(schedule.getSaturday());
             _schedule.setSunday(schedule.getSunday());
