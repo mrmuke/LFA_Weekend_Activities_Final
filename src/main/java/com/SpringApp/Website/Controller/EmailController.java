@@ -24,7 +24,6 @@ public class EmailController {
     @PostMapping("/sendEmail")
     public ResponseEntity<String> sendEmail(@RequestParam(required = true, value = "userId") long userId, @RequestBody ScheduleEvent event) {
         User userData = userRepository.findById(userId);
-        logger.info(""+userData+userId);
         try {
             notificationService.sendNotification(userData, event);
         } catch (MailException e) {

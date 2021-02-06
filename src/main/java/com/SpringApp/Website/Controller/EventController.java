@@ -51,7 +51,6 @@ public class EventController {
     @PostMapping("/voteEvents/upvote/{id}")
     public ResponseEntity<?> upvoteEvent(@PathVariable("id") long id, @RequestParam(required = true, value = "email") String email) {
         Optional<VoteEvent> eventData = voteEventRepository.findById(id);
-
         if (eventData.isPresent()) {
             VoteEvent _event = eventData.get();
             String[] list = new String[_event.getUpvotes().length+1];
