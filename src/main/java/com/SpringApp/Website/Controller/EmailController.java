@@ -1,5 +1,7 @@
 package com.SpringApp.Website.Controller;
 
+import javax.mail.MessagingException;
+
 import com.SpringApp.Website.AccessingData.ScheduleEvent;
 import com.SpringApp.Website.AccessingData.User;
 import com.SpringApp.Website.AccessingData.UserRepository;
@@ -24,10 +26,9 @@ public class EmailController {
     @PostMapping("/sendEmail")
     public ResponseEntity<String> sendEmail(@RequestParam(required = true, value = "userId") long userId, @RequestBody ScheduleEvent event) {
         User userData = userRepository.findById(userId);
-        logger.info(""+userData+userId);
         try {
             notificationService.sendNotification(userData, event);
-        } catch (MailException e) {
+        } catch (MessagingException e) {
             logger.info("Error sending email: " + e.getMessage());
         }
         return new ResponseEntity<>("Sending Email", HttpStatus.OK);
