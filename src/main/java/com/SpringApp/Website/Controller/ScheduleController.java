@@ -14,7 +14,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 
-
 public class ScheduleController {
 
     @Autowired
@@ -55,19 +54,15 @@ public class ScheduleController {
         return new ResponseEntity<>(schedule, HttpStatus.OK);
     }
 
-
     @PostMapping("/schedules")
     public ResponseEntity<?> createSchedule(@RequestBody Schedule schedule) {
         try {
-
-            Schedule _schedule = scheduleRepository.save(new Schedule(schedule.getDate(), schedule.getFriday(), schedule.getSaturday(), schedule.getSunday()));
+            Schedule _schedule = scheduleRepository.save(new Schedule(schedule.getDate(), schedule.getFriday(), schedule.getSaturday(), schedule.getSunday(), schedule.getPhoneNumbers()));
             return new ResponseEntity<Schedule>(_schedule, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<String>("Error Message"+e, HttpStatus.EXPECTATION_FAILED);
         }
     }
-
-
 
     @PutMapping("/schedules/{id}")
     public ResponseEntity<?> updateSchedule(@PathVariable("id") long id, @RequestBody Schedule schedule) {
@@ -79,7 +74,7 @@ public class ScheduleController {
             _schedule.setFriday(schedule.getFriday());
             _schedule.setSaturday(schedule.getSaturday());
             _schedule.setSunday(schedule.getSunday());
-
+            _schedule.setPhoneNumbers(schedule.getPhoneNumbers());
 
             return new ResponseEntity<Schedule>(scheduleRepository.save(_schedule), HttpStatus.OK);
         } else {
@@ -96,8 +91,4 @@ public class ScheduleController {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
     }
-
-
-
-
 }
