@@ -22,7 +22,7 @@ public class WeeklyEmail {
     @Scheduled(fixedRate = 50000)
     public void reportCurrentTime() {
         try {
-            notificationService.sendWeekly("heewoong.kim@students.lfanet.org");
+            notificationService.sendWeekly("michael.xing@students.lfanet.org");
         } catch (MessagingException e) {
         }
         log.info("The time is now {}", dateFormat.format(new Date()));
