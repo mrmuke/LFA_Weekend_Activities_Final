@@ -17,15 +17,18 @@ public class Schedule {
     private ScheduleEvent[] saturday;
     @Column(name = "sunday")
     private ScheduleEvent[] sunday;
+    @Column(name = "phone")
+    private PhoneNumber[] phoneNumbers;
 
     protected Schedule(){}
 
-    public Schedule(String date, ScheduleEvent[] friday, ScheduleEvent[] saturday, ScheduleEvent[] sunday)
+    public Schedule(String date, ScheduleEvent[] friday, ScheduleEvent[] saturday, ScheduleEvent[] sunday, PhoneNumber[] phoneNumbers)
     {
         this.date = date;
         this.friday = friday;
         this.saturday = saturday;
         this.sunday = sunday;
+        this.phoneNumbers = phoneNumbers;
 
     }
     public long getId() {
@@ -66,5 +69,13 @@ public class Schedule {
 
     public void setSunday(ScheduleEvent[] sunday) {
         this.sunday = sunday;
+    }
+
+    public PhoneNumber[] getPhoneNumbers(){
+        return this.phoneNumbers;
+    }
+
+    public void setPhoneNumbers(PhoneNumber[] phoneNumbers){
+        this.phoneNumbers = phoneNumbers;
     }
 }
