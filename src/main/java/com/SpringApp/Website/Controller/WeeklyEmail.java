@@ -19,7 +19,7 @@ public class WeeklyEmail {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     @Autowired
     NotificationService notificationService;
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 50000)
     public void reportCurrentTime() {
         try {
             notificationService.sendWeekly("heewoong.kim@students.lfanet.org");
