@@ -19,7 +19,7 @@ public class NotificationService {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendNotification(User user, ScheduleEvent event) throws MessagingException{
+    public void sendNotification(User user, ScheduleEvent event, String text) throws MessagingException{
         int place = 0;
         for(int i = 0;i<event.getUsersSignedUp().length;i++)
         {
@@ -35,7 +35,11 @@ public class NotificationService {
         MimeMessageHelper helper;
         helper = new MimeMessageHelper(message, true);
         helper.setFrom("lfaweekendactivities@gmail.com");
-        helper.setText("<strong><u>You have an activity soon:</u></strong><br/><b>Activity Name:</b> " + event.getName() + "<br/><b>Activity Time:</b> " + event.getTimeSlot() +"<br/>On this activity you are number " +((event.getPersonLimit()-place<0)?"WAITLIST":place)+ " on the list.<br/>If you no longer plan on coming, go to wa.lfaapps.com to cancel your sign up.", true);
+        String body ="<strong><u>You have an activity soon:</u></strong><br/><b>Activity Name:</b> " + event.getName() + "<br/><b>Activity Time:</b> " + event.getTimeSlot() +"<br/>On this activity you are number " +((event.getPersonLimit()-place<0)?"WAITLIST":place)+ " on the list.<br/>If you no longer plan on coming, go to wa.lfaapps.com to cancel your sign up.";
+        if(text.length()>0){
+            body+="<br/><strong>Additional Message:</strong><br/>"+text;
+        }
+        helper.setText(body, true);
         helper.setTo(user.getEmailAddress());
         
         javaMailSender.send(message);
