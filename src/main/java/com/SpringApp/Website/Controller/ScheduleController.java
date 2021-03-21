@@ -1,6 +1,7 @@
 package com.SpringApp.Website.Controller;
 
 import com.SpringApp.Website.AccessingData.Schedule;
+import com.SpringApp.Website.AccessingData.ScheduleDay;
 import com.SpringApp.Website.AccessingData.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,7 +58,12 @@ public class ScheduleController {
     @PostMapping("/schedules")
     public ResponseEntity<?> createSchedule(@RequestBody Schedule schedule) {
         try {
-            Schedule _schedule = scheduleRepository.save(new Schedule(schedule.getDate(), schedule.getFriday(), schedule.getSaturday(), schedule.getSunday(), schedule.getPhoneNumbers()));
+            ScheduleDay[] scheduleDay = new ScheduleDay[]{
+                new ScheduleDay("Friday", schedule.getFriday()),
+                new ScheduleDay("Saturday", schedule.getSaturday()),
+                new ScheduleDay("Sunday", schedule.getSunday())
+            };
+            Schedule _schedule = scheduleRepository.save(new Schedule(schedule.getDate(), schedule.getFriday(), schedule.getSaturday(), schedule.getSunday(), schedule.getPhoneNumbers(), scheduleDay));
             return new ResponseEntity<Schedule>(_schedule, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<String>("Error Message"+e, HttpStatus.EXPECTATION_FAILED);
@@ -75,6 +81,7 @@ public class ScheduleController {
             _schedule.setSaturday(schedule.getSaturday());
             _schedule.setSunday(schedule.getSunday());
             _schedule.setPhoneNumbers(schedule.getPhoneNumbers());
+            _schedule.setScheduleDays(schedule.getScheduleDays());
 
             return new ResponseEntity<Schedule>(scheduleRepository.save(_schedule), HttpStatus.OK);
         } else {
