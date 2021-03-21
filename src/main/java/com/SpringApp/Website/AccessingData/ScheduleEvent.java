@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "schedule_events")
 public class ScheduleEvent extends Event {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -12,6 +13,8 @@ public class ScheduleEvent extends Event {
     private Boolean signUp = false;
     @Column(name = "usersSignedUp")
     private User[] usersSignedUp;
+    @Column(name = "waitlist")
+    private User[] waitlist;
     @Column(name = "personLimit")
     private Integer personLimit = 0;
 
@@ -19,10 +22,19 @@ public class ScheduleEvent extends Event {
     public ScheduleEvent(String name, String timeSlot) {
         super(name, timeSlot);
         usersSignedUp = new User[0];
+        waitlist= new User[0];
 
 
 
 
+    }
+
+    public User[] getWaitlist() {
+        return waitlist;
+    }
+
+    public void setWaitlist(User[] waitlist) {
+        this.waitlist = waitlist;
     }
 
     public Long getId() {

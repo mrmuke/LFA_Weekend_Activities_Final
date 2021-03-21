@@ -1,7 +1,6 @@
 package com.SpringApp.Website.AccessingData;
 
 import javax.persistence.*;
-import java.util.Arrays;
 
 @Entity
 @Table(name = "schedule")
@@ -21,6 +20,8 @@ public class Schedule {
     private PhoneNumber[] phoneNumbers;
     @Column(name = "schedule")
     private ScheduleDay[] scheduleDays;
+    @Column(name="displayed")
+    private boolean displayed;
 
     protected Schedule(){}
 
@@ -32,6 +33,14 @@ public class Schedule {
         this.sunday = sunday;
         this.phoneNumbers = phoneNumbers;
         this.scheduleDays = scheduleDays;
+    }
+
+    public boolean getDisplayed() {
+        return displayed;
+    }
+
+    public void setDisplayed(boolean displayed) {
+        this.displayed = displayed;
     }
 
     public long getId() {
