@@ -23,10 +23,6 @@ public class ScheduleEvent extends Event {
         super(name, timeSlot);
         usersSignedUp = new User[0];
         waitlist= new User[0];
-
-
-
-
     }
 
     public User[] getWaitlist() {
