@@ -5,7 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "schedule_events")
 public class ScheduleEvent extends Event {
-    private static final long serialVersionUID = -3588755195428018248L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
