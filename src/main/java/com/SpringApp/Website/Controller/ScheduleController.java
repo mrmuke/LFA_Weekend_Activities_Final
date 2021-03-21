@@ -22,19 +22,14 @@ public class ScheduleController {
     @GetMapping("/schedules")
     public ResponseEntity<List<Schedule>> getSchedules() {
 
-        try {
-            List<Schedule> schedules = new ArrayList<Schedule>();
 
-            scheduleRepository.findAll().forEach(schedules::add);
-            if (schedules.isEmpty()){
-                return new ResponseEntity<>(schedules,HttpStatus.NO_CONTENT);
-            }
-
-            return new ResponseEntity<>(schedules, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        List<Schedule> schedules =getAllSchedules();
+        if (schedules.isEmpty()){
+            return new ResponseEntity<>(schedules,HttpStatus.NO_CONTENT);
         }
+
+        return new ResponseEntity<>(schedules, HttpStatus.OK);
+
     }
 
     @GetMapping("/schedules/{id}")
@@ -50,10 +45,37 @@ public class ScheduleController {
     }
     @GetMapping("/schedules/current")
     public ResponseEntity<Schedule> getCurrentSchedule(){
-        Schedule schedule = scheduleRepository.findFirstByOrderByIdDesc();
-        return new ResponseEntity<>(schedule, HttpStatus.OK);
+        //Schedule schedule = scheduleRepository.findFirstByOrderByIdDesc();
+        Optional<Schedule> schedule = scheduleRepository.findByDisplayed(true);
+        return new ResponseEntity<>(schedule.get(), HttpStatus.OK);
     }
+    public List<Schedule> getAllSchedules(){
+        List<Schedule> schedules = new ArrayList<Schedule>();
 
+        scheduleRepository.findByOrderByIdDesc().forEach(schedules::add);
+        if (schedules.isEmpty()){
+            return schedules;
+        }
+
+        return schedules;
+
+    }
+    @PostMapping("/schedules/publish/{id}")
+    public ResponseEntity<List<Schedule>> publishSchedule(@PathVariable("id") long id ){
+        Optional<Schedule> s = scheduleRepository.findByDisplayed(true);
+        if(s.isPresent()){
+            Schedule sch = s.get();
+            sch.setDisplayed(false);
+            scheduleRepository.save(sch);
+        }
+
+        Optional<Schedule> scheduleData = scheduleRepository.findById(id);
+        Schedule _schedule = scheduleData.get();
+        _schedule.setDisplayed(true);
+        scheduleRepository.save(_schedule);
+        List<Schedule> schedules = getAllSchedules();
+        return new ResponseEntity<>(schedules, HttpStatus.OK);
+    }
     @PostMapping("/schedules")
     public ResponseEntity<?> createSchedule(@RequestBody Schedule schedule) {
         try {
