@@ -79,7 +79,7 @@ public class ScheduleController {
     @PostMapping("/schedules")
     public ResponseEntity<?> createSchedule(@RequestBody Schedule schedule) {
         try {
-            Schedule _schedule = scheduleRepository.save(new Schedule(schedule.getDate(), schedule.getFriday(), schedule.getSaturday(), schedule.getSunday(), schedule.getPhoneNumbers()));
+            Schedule _schedule = scheduleRepository.save(new Schedule(schedule.getDate(), schedule.getPhoneNumbers(), schedule.getScheduleDays()));
             return new ResponseEntity<Schedule>(_schedule, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<String>("Error Message"+e, HttpStatus.EXPECTATION_FAILED);
@@ -93,10 +93,8 @@ public class ScheduleController {
         if (scheduleData.isPresent()) {
             Schedule _schedule = scheduleData.get();
             _schedule.setDate(schedule.getDate());
-            _schedule.setFriday(schedule.getFriday());
-            _schedule.setSaturday(schedule.getSaturday());
-            _schedule.setSunday(schedule.getSunday());
             _schedule.setPhoneNumbers(schedule.getPhoneNumbers());
+            _schedule.setScheduleDays(schedule.getScheduleDays());
 
             return new ResponseEntity<Schedule>(scheduleRepository.save(_schedule), HttpStatus.OK);
         } else {
