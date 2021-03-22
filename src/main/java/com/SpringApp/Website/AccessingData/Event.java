@@ -15,7 +15,6 @@ import java.io.Serializable;
 //@RequiredArgsConstructor
 @MappedSuperclass
 public class Event implements Serializable {
-    private static final long serialVersionUID = -3588755195428018248L;
 
     @Column(name="name")
     protected String name;

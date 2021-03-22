@@ -11,6 +11,7 @@ public class ScheduleEvent extends Event {
     private Long id;
     @Column(name="signUp")
     private Boolean signUp = false;
+
     @Column(name = "usersSignedUp")
     private User[] usersSignedUp;
     @Column(name = "waitlist")
