@@ -58,7 +58,7 @@ public class UserController {
             User user = userRepository.findByEmailAddress(email);
             if (user == null) {
 
-                User _user = userRepository.save(new User(email, email.indexOf("@lfanet.org") > -1||email.equals("michael.xing@finalsite.com"), pictureUrl, name));
+                User _user = userRepository.save(new User(email, email.indexOf("@lfanet.org") > -1||email.equals("michael.xing@students.lfanet.org"), pictureUrl, name));
                 String token = jwtTokenUtil.generateToken(_user);
 
 
