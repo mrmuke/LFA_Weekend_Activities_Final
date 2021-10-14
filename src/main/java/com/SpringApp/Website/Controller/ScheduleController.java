@@ -68,7 +68,6 @@ public class ScheduleController {
             sch.setDisplayed(false);
             scheduleRepository.save(sch);
         }
-
         Optional<Schedule> scheduleData = scheduleRepository.findById(id);
         Schedule _schedule = scheduleData.get();
         _schedule.setDisplayed(true);
