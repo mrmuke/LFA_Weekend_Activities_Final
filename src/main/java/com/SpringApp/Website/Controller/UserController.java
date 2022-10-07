@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -33,8 +34,7 @@ public class UserController {
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
         User userData = userRepository.findById(id);
-
-            return new ResponseEntity<User>(userData, HttpStatus.OK);
+        return new ResponseEntity<User>(userData, HttpStatus.OK);
     }
     @PostMapping("/users/auth")
     public ResponseEntity<?> createUser(@RequestHeader("id") String idTokenString) throws GeneralSecurityException, IOException {
@@ -50,7 +50,7 @@ public class UserController {
 
             String email = payload.getEmail();
             //joanna.ashlock@finalsite.com
-            if (email.indexOf("@lfanet.org") == -1 && email.indexOf("@students.lfanet.org") == -1 && email.indexOf("eglazer@imsa.edu")==-1) {
+            if (email.indexOf("@lfanet.org") == -1 && email.indexOf("@students.lfanet.org") == -1) {
                 return new ResponseEntity<String>("Sign in With LFA Email", HttpStatus.EXPECTATION_FAILED);
             }
             String name = (String) payload.get("name");
@@ -58,9 +58,8 @@ public class UserController {
             User user = userRepository.findByEmailAddress(email);
             if (user == null) {
 
-                User _user = userRepository.save(new User(email, email.indexOf("@lfanet.org") > -1||email.equals("michael.xing@students.lfanet.org")||email.equals("eglazer@imsa.edu"), pictureUrl, name));
+                User _user = userRepository.save(new User(email, email.indexOf("@lfanet.org") > -1||email.equals("conghoang.le@students.lfanet.org"), pictureUrl, name, 0));
                 String token = jwtTokenUtil.generateToken(_user);
-
 
                 return new ResponseEntity<>(new JwtResponse(_user, token), HttpStatus.CREATED);
             } else if (user != null) {
@@ -69,40 +68,28 @@ public class UserController {
             }
             return new ResponseEntity<>(HttpStatus.OK);
 
-
         } else {
             return new ResponseEntity<String>("Invalid ID Token", HttpStatus.EXPECTATION_FAILED);
         }
 
     }
-    /*@PostMapping("/users/upvote/{id}")
-    public ResponseEntity<?> upvoteEvent(@PathVariable("id") long id, @RequestBody VoteEvent event) {
-        User user = userRepository.findById(id);
-        VoteEvent[] array = new VoteEvent[user.getUpvotes().length+1];
 
-        for (int i = 0; i < user.getUpvotes().length; i++) {
-            array[i]=user.getUpvotes()[i];
-        }
-        array[array.length]=event;
-        user.setUpvotes(array);
-        return new ResponseEntity<User>(userRepository.save(user), HttpStatus.OK);
+    @PostMapping("/users/strike")
+    public ResponseEntity<?> strikeUser(@RequestBody int Id) {
+        User userData = userRepository.findById(Id);
+        userData.setStrikes(userData.getStrikes() + 1);
+        return new ResponseEntity<>(userRepository.save(userData), HttpStatus.OK);
     }
-    @PostMapping("/users/downvote/{id}")
-    public ResponseEntity<?> downvoteEvent(@PathVariable("id") long id, @RequestBody VoteEvent event) {
-       User user = userRepository.findById(id);
-        VoteEvent[] list = new VoteEvent[user.getUpvotes().length-1];
-        for (int i =0,j=0;i<user.getUpvotes().length-1;i++) {
-            if(event.getId()==user.getUpvotes()[i].getId()) {
-               continue;
-            }
-            list[j++]=user.getUpvotes()[i];
-        }
-        user.setUpvotes(list);
 
-        return new ResponseEntity<User>(userRepository.save(user), HttpStatus.OK);
-    }*/
+    @GetMapping("/users/all")
+    public ResponseEntity<?> getAllUsers(){
+        return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
+    }
 
-
-
-
+    @PostMapping("/users/resetStrike")
+    public ResponseEntity<?> resetStrike(@RequestBody int Id){
+        User userData = userRepository.findById(Id);
+        userData.setStrikes(0);
+        return new ResponseEntity<>(userRepository.save(userData), HttpStatus.OK);
+    }
 }
