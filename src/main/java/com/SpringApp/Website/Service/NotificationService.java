@@ -52,7 +52,7 @@ public class NotificationService {
         MimeMessageHelper helper;
         helper = new MimeMessageHelper(message, true);
         helper.setFrom("lfaweekendactivities@gmail.com");
-        helper.setText("Please back of my mom and create a comapny and stop being so fat.", true);
+        helper.setText("Testing.,.", true);
         helper.setTo(email);
 
         javaMailSender.send(message);
