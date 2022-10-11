@@ -50,7 +50,7 @@ public class UserController {
 
             String email = payload.getEmail();
             //joanna.ashlock@finalsite.com
-            if (email.indexOf("@lfanet.org") == -1 && email.indexOf("@students.lfanet.org") == -1||email.equals("eglazer@imsa.edu")) {
+            if (email.indexOf("@lfanet.org") == -1 && email.indexOf("@students.lfanet.org") == -1&&!email.equals("eglazer@imsa.edu")&&!email.equals("m.xingster@gmail.com")) {
                 return new ResponseEntity<String>("Sign in With LFA Email", HttpStatus.EXPECTATION_FAILED);
             }
             String name = (String) payload.get("name");
