@@ -3,6 +3,7 @@ package com.SpringApp.Website.AccessingData;
 import java.io.Serializable;
 
 public class ScheduleDay implements Serializable{
+
     private String date;
     private ScheduleEvent[] events;
     
