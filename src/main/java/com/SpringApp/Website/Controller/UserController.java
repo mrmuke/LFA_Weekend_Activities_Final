@@ -1,6 +1,9 @@
 package com.SpringApp.Website.Controller;
 
-import com.SpringApp.Website.AccessingData.*;
+import com.SpringApp.Website.AccessingData.JwtResponse;
+import com.SpringApp.Website.AccessingData.JwtTokenUtil;
+import com.SpringApp.Website.AccessingData.User;
+import com.SpringApp.Website.AccessingData.UserRepository;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
@@ -18,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -49,7 +51,6 @@ public class UserController {
             Payload payload = idToken.getPayload();
 
             String email = payload.getEmail();
-            //joanna.ashlock@finalsite.com
             if (email.indexOf("@lfanet.org") == -1 && email.indexOf("@students.lfanet.org") == -1&&!email.equals("eglazer@imsa.edu")&&!email.equals("m.xingster@gmail.com")) {
                 return new ResponseEntity<String>("Sign in With LFA Email", HttpStatus.EXPECTATION_FAILED);
             }
@@ -58,7 +59,7 @@ public class UserController {
             User user = userRepository.findByEmailAddress(email);
             if (user == null) {
 
-                User _user = userRepository.save(new User(email, email.indexOf("@lfanet.org") > -1||email.equals("conghoang.le@students.lfanet.org")||email.equals("eglazer@imsa.edu"), pictureUrl, name, 0));
+                User _user = userRepository.save(new User(email, email.indexOf("@lfanet.org") > -1||email.equals("michael.xing@students.lfanet.org")||email.equals("eglazer@imsa.edu"), pictureUrl, name, 0));
                 String token = jwtTokenUtil.generateToken(_user);
 
                 return new ResponseEntity<>(new JwtResponse(_user, token), HttpStatus.CREATED);
