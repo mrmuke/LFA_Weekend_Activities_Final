@@ -3,7 +3,7 @@ package com.SpringApp.Website.AccessingData;
 import java.io.Serializable;
 
 public class UserDate implements Serializable{
-    private static final long serialVersionUID = 6529685267757690L;
+    private static final long serialVersionUID = 112893798L;
     String dateString;
     String userName;
 
