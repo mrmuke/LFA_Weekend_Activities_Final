@@ -33,10 +33,8 @@ public class ScheduleController {
     }
 
     @GetMapping("/schedules/{id}")
-
     public ResponseEntity<Schedule> getScheduleById(@PathVariable("id") long id) {
         Optional<Schedule> scheduleData = scheduleRepository.findById(id);
-
         if (scheduleData.isPresent()) {
             return new ResponseEntity<>(scheduleData.get(), HttpStatus.OK);
         } else {
@@ -58,7 +56,6 @@ public class ScheduleController {
         }
 
         return schedules;
-
     }
     @PostMapping("/schedules/publish/{id}")
     public ResponseEntity<List<Schedule>> publishSchedule(@PathVariable("id") long id ){
@@ -84,7 +81,6 @@ public class ScheduleController {
             return new ResponseEntity<String>("Error Message"+e, HttpStatus.EXPECTATION_FAILED);
         }
     }
-
     @PutMapping("/schedules/{id}")
     public ResponseEntity<?> updateSchedule(@PathVariable("id") long id, @RequestBody Schedule schedule) {
         Optional<Schedule> scheduleData = scheduleRepository.findById(id);
@@ -100,7 +96,6 @@ public class ScheduleController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
     @DeleteMapping("/schedules/{id}")
     public ResponseEntity<HttpStatus> deleteSchedule(@PathVariable("id") long id) {
         try {

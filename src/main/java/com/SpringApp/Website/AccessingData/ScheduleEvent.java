@@ -1,5 +1,6 @@
 package com.SpringApp.Website.AccessingData;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -14,10 +15,13 @@ public class ScheduleEvent extends Event {
 
     @Column(name = "usersSignedUp")
     private User[] usersSignedUp;
+    @Column(name = "unsignedUp")
+    private UserDate[] unsignedUp;
     @Column(name = "waitlist")
     private User[] waitlist;
     @Column(name = "personLimit")
     private Integer personLimit = 0;
+
 
 
     public ScheduleEvent(String name, String timeSlot) {
@@ -32,6 +36,14 @@ public class ScheduleEvent extends Event {
 
     public void setWaitlist(User[] waitlist) {
         this.waitlist = waitlist;
+    }
+
+    public UserDate[] getUnsignedUp() {
+        return unsignedUp;
+    }
+
+    public void setUnsignedUp(UserDate[] unsignedUp) {
+        this.unsignedUp = unsignedUp;
     }
 
     public Long getId() {
