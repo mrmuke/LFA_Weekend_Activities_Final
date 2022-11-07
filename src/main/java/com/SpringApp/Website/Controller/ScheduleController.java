@@ -84,7 +84,7 @@ public class ScheduleController {
     @PutMapping("/schedules/{id}")
     public ResponseEntity<?> updateSchedule(@PathVariable("id") long id, @RequestBody Schedule schedule) {
         Optional<Schedule> scheduleData = scheduleRepository.findById(id);
-
+        System.out.println(schedule.getScheduleDays()[0].getEvents()[0].getUnsignedUp().length);
         if (scheduleData.isPresent()) {
             Schedule _schedule = scheduleData.get();
             _schedule.setDate(schedule.getDate());
