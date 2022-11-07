@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "schedule_events")
 public class ScheduleEvent extends Event implements Serializable {
-    private static final long serialVersionUID = 65296850967757690L;
+    private static final long serialVersionUID = 123987198237L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -16,7 +16,7 @@ public class ScheduleEvent extends Event implements Serializable {
 
     @Column(name = "usersSignedUp")
     private User[] usersSignedUp;
-    @Column(name = "unsignedUp")
+    @Column(name = "unsignedUp",columnDefinition = "int default 0")
     private UserDate[] unsignedUp;
     @Column(name = "waitlist")
     private User[] waitlist;
