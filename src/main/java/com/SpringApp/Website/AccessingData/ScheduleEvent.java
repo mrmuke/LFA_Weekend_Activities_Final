@@ -13,7 +13,6 @@ public class ScheduleEvent extends Event implements Serializable {
     private Long id;
     @Column(name="signUp")
     private Boolean signUp = false;
-
     @Column(name = "usersSignedUp")
     private User[] usersSignedUp;
     @Column(name = "unsignedUp")
