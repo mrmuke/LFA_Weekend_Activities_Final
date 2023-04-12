@@ -20,6 +20,7 @@ public class EventController {
     VoteEventRepository voteEventRepository;
     @Autowired
     ScheduleEventRepository scheduleEventRepository;
+    
     @GetMapping("/voteEvents")
     public ResponseEntity<List<VoteEvent>> getVoteEvents() {
         try {

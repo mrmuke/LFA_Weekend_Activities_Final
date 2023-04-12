@@ -9,5 +9,4 @@ public interface ScheduleRepository extends CrudRepository<Schedule, Long> {
     List<Schedule> findByDate(String date);
     Optional<Schedule> findByDisplayed(boolean displayed);
     List<Schedule> findByOrderByIdDesc();
-
 }

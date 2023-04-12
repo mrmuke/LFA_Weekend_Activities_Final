@@ -59,7 +59,7 @@ public class UserController {
             User user = userRepository.findByEmailAddress(email);
             if (user == null) {
 
-                User _user = userRepository.save(new User(email, email.indexOf("@lfanet.org") > -1||email.equals("michael.xing@students.lfanet.org")||email.equals("eglazer@imsa.edu"), pictureUrl, name, 0));
+                User _user = userRepository.save(new User(email, email.indexOf("@lfanet.org") > -1||email.equals("eglazer@imsa.edu"), pictureUrl, name, 0));
                 String token = jwtTokenUtil.generateToken(_user);
 
                 return new ResponseEntity<>(new JwtResponse(_user, token), HttpStatus.CREATED);
@@ -68,7 +68,6 @@ public class UserController {
                 return new ResponseEntity<>(new JwtResponse(user, token), HttpStatus.OK);
             }
             return new ResponseEntity<>(HttpStatus.OK);
-
         } else {
             return new ResponseEntity<String>("Invalid ID Token", HttpStatus.EXPECTATION_FAILED);
         }
