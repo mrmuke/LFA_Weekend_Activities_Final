@@ -19,10 +19,10 @@ public class ScheduleEvent extends Event implements Serializable {
     private UserDate[] unsignedUp;
     @Column(name = "waitlist")
     private User[] waitlist;
+    @Column(name = "permanent_waitlist")
+    private User[] permanentWaitlist;
     @Column(name = "personLimit")
     private Integer personLimit = 0;
-
-
 
     public ScheduleEvent(String name, String timeSlot) {
         super(name, timeSlot);
@@ -65,6 +65,14 @@ public class ScheduleEvent extends Event implements Serializable {
 
     public void setUsersSignedUp(User[] usersSignedUp) {
         this.usersSignedUp = usersSignedUp;
+    }
+
+    public User[] getPermanentWaitlist(){
+        return this.permanentWaitlist;
+    }
+
+    public void setPermanentWaitlist(User[] permanentWaitlist){
+        this.permanentWaitlist = permanentWaitlist;
     }
 
     public Integer getPersonLimit() {

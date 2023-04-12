@@ -33,7 +33,7 @@ public class JwtFilter extends HttpFilter {
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, id, token");
 
-        if(!(request.getRequestURI().contains("auth")||request.getMethod().equals("OPTIONS")))
+        if(!(request.getRequestURI().contains("auth")||request.getMethod().equals("OPTIONS")||request.getRequestURI().contains("connect")))
 
         {
         String token = request.getHeader("token");

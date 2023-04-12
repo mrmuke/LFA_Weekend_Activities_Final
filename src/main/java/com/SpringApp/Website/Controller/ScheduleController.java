@@ -47,6 +47,7 @@ public class ScheduleController {
         Optional<Schedule> schedule = scheduleRepository.findByDisplayed(true);
         return new ResponseEntity<>(schedule.get(), HttpStatus.OK);
     }
+    
     public List<Schedule> getAllSchedules(){
         List<Schedule> schedules = new ArrayList<Schedule>();
 
