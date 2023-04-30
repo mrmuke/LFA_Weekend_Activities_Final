@@ -3,16 +3,21 @@ package com.SpringApp.Website.PostSchemas;
 import com.SpringApp.Website.AccessingData.User;
 
 public class Drop {
-    private String action;
+    private String sendArr;
+    private String receivedArr;
     private int day;
     private int event;
-    private User first_user;
-    private User second_user;
+    private User firstUser;
+    private User secondUser;
 
     public Drop(){}
 
-    public String getAction(){
-        return this.action;
+    public String getSendArr(){
+        return this.sendArr;
+    }
+
+    public String getReceivedArr(){
+        return this.receivedArr;
     }
 
     public int getDay(){
@@ -24,10 +29,10 @@ public class Drop {
     }
 
     public User getFirstUser(){
-        return this.first_user;
+        return this.firstUser;
     }
 
     public User getSecondUser(){
-        return this.second_user;
+        return this.secondUser;
     }
 }

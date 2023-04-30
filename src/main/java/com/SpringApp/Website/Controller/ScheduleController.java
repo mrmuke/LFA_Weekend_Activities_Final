@@ -120,7 +120,7 @@ public class ScheduleController {
         }
     }
 
-    @PostMapping("/admin/schedules/{id}/remove")
+    @PostMapping("/schedules/{id}/remove")
     public ResponseEntity<?> removeUser(@PathVariable("id") long id, @RequestBody EditUsersSignedUp edit){
         Optional<Schedule> scheduleData = scheduleRepository.findById(id);
         if (scheduleData.isPresent()) {
@@ -134,7 +134,7 @@ public class ScheduleController {
         }
     }
 
-    @PostMapping("/schedules/{id}/bump")
+    @PostMapping("/admin/schedules/{id}/bump")
     public ResponseEntity<?> bumpUser(@PathVariable("id") long id, @RequestBody EditUsersSignedUp edit){
         Optional<Schedule> scheduleData = scheduleRepository.findById(id);
         if (scheduleData.isPresent()) {
@@ -148,14 +148,14 @@ public class ScheduleController {
         }
     }
 
-    @PostMapping("/schedules/{id}/swap")
+    @PostMapping("/admin/schedules/{id}/swap")
     public ResponseEntity<?> swapUser(@PathVariable("id") long id, @RequestBody Drop edit){
         Optional<Schedule> scheduleData = scheduleRepository.findById(id);
         if (scheduleData.isPresent()) {
             Schedule _schedule = scheduleData.get();
             ScheduleDay scheduleDay = _schedule.getScheduleDays()[edit.getDay()];
             ScheduleEvent scheduleEvent = scheduleDay.getEvents()[edit.getEvent()];
-            //scheduleEvent.bumpUser(edit.getUser());
+            scheduleEvent.swapUser(edit.getSendArr(), edit.getReceivedArr(), edit.getFirstUser(), edit.getSecondUser());
             return new ResponseEntity<Schedule>(scheduleRepository.save(_schedule), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
