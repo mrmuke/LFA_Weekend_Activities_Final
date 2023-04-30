@@ -3,8 +3,10 @@ package com.SpringApp.Website.AccessingData;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 @Entity
 @Table(name = "schedule_events")
@@ -75,6 +77,11 @@ public class ScheduleEvent extends Event implements Serializable {
         this.personLimit = personLimit;
     }
 
+    /*
+     * al == usersSignedUp in arraylist form
+     * wl == waitlist in arraylist form
+     */
+
     public void addUsersSignedUp(User user){
         ArrayList<User> al = new ArrayList<User>(Arrays.asList(this.usersSignedUp));
         if(al.size() < this.personLimit){
@@ -87,10 +94,10 @@ public class ScheduleEvent extends Event implements Serializable {
     }
 
     public void addWaitlist(User user){
-        ArrayList<User> al = new ArrayList<User>(Arrays.asList(this.waitlist));
-        al.add(user);
-        while(al.remove(null)){}
-        this.waitlist = al.toArray(new User[al.size()]);
+        ArrayList<User> wl = new ArrayList<User>(Arrays.asList(this.waitlist));
+        wl.add(user);
+        while(wl.remove(null)){}
+        this.waitlist = wl.toArray(new User[wl.size()]);
     }
 
     public void removeUser(User user){
@@ -105,12 +112,17 @@ public class ScheduleEvent extends Event implements Serializable {
             }
             if(curUser.getEmailAddress().equals(user.getEmailAddress())){
                 al.remove(i);
+                if(wl.size() > 0){
+                    al.add(wl.get(0));
+                    wl.remove(0);
+                }
+                ArrayList<UserDate> ul = new ArrayList<UserDate>(Arrays.asList(this.unsignedUp));
+                Date d = new Date();
+                SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy, hh:mm:ss");
+                ul.add(new UserDate(formatter.format(d), user.getUserName()));
+                this.unsignedUp = ul.toArray(new UserDate[ul.size()]);
                 break;
             }
-        }
-        if(wl.size() > 0){
-            al.add(wl.get(0));
-            wl.remove(0);
         }
         this.usersSignedUp = al.toArray(new User[al.size()]);
 
@@ -155,16 +167,73 @@ public class ScheduleEvent extends Event implements Serializable {
         this.usersSignedUp = al.toArray(new User[al.size()]);
     }
 
-    public void swapUser(String action, User first_user, User second_user){
-        ArrayList<User> receiveArr;
-        ArrayList<User> sendArr;
-
-        if(action.equals("waitlist")){
-            receiveArr = new ArrayList<User>(Arrays.asList(this.waitlist));
-            sendArr = new ArrayList<User>(Arrays.asList(this.usersSignedUp));
+    public void swapUser(String send_arr, String received_arr, User first_user, User second_user){
+        ArrayList<User> al = new ArrayList<User>(Arrays.asList(this.usersSignedUp));
+        ArrayList<User> wl = new ArrayList<User>(Arrays.asList(this.waitlist));
+        int first_index = -1;
+        int second_index = -1;
+        if(send_arr.equals(received_arr)){
+            if(send_arr.equals("usersSignedUp")){
+                for(int i = 0; i < al.size(); i++){
+                    if(al.get(i).getEmailAddress().equals(first_user.getEmailAddress())){
+                        first_index = i;
+                    } else if(al.get(i).getEmailAddress().equals(second_user.getEmailAddress())){
+                        second_index = i;
+                    }
+                }
+                if(first_index == -1 || second_index == -1 || first_index > second_index){
+                    return;
+                }
+                al.set(first_index, second_user);
+                al.set(second_index, first_user);
+            } else {
+                for(int i = 0; i < wl.size(); i++){
+                    if(wl.get(i).getEmailAddress().equals(first_user.getEmailAddress())){
+                        first_index = i;
+                    } else if(wl.get(i).getEmailAddress().equals(second_user.getEmailAddress())){
+                        second_index = i;
+                    }
+                }
+                if(first_index == -1 || second_index == -1 || first_index > second_index){
+                    return;
+                }
+                wl.set(first_index, second_user);
+                wl.set(second_index, first_user);
+            }
         } else {
-            receiveArr = new ArrayList<User>(Arrays.asList(this.usersSignedUp));
-            sendArr = new ArrayList<User>(Arrays.asList(this.waitlist));
+            for(int i = 0; i < al.size(); i++){
+                if(al.get(i).getEmailAddress().equals(first_user.getEmailAddress())){
+                    first_index = i;
+                    break;
+                }
+                if(al.get(i).getEmailAddress().equals(second_user.getEmailAddress())){
+                    second_index = i;
+                    break;
+                }
+            }
+            for(int i = 0; i < wl.size(); i++){
+                if(wl.get(i).getEmailAddress().equals(first_user.getEmailAddress())){
+                    first_index = i;
+                    break;
+                }
+                if(wl.get(i).getEmailAddress().equals(second_user.getEmailAddress())){
+                    second_index = i;
+                    break;
+                }
+            }
+            if(first_index == -1 || second_index == -1){
+                return;
+            }
+            if(send_arr.equals("usersSignedUp")){
+                al.set(first_index, second_user);
+                wl.set(second_index, first_user);
+            } else {
+                wl.set(first_index, second_user);
+                al.set(second_index, first_user);
+            }
         }
+        
+        this.waitlist = wl.toArray(new User[wl.size()]);
+        this.usersSignedUp = al.toArray(new User[al.size()]);
     }
 }
