@@ -58,7 +58,7 @@ public class ScheduleController {
 
         return schedules;
     }
-    @PostMapping("/schedules/publish/{id}")
+    @PostMapping("/admin/schedules/publish/{id}")
     public ResponseEntity<List<Schedule>> publishSchedule(@PathVariable("id") long id ){
         Optional<Schedule> s = scheduleRepository.findByDisplayed(true);
         if(s.isPresent()){
@@ -73,7 +73,7 @@ public class ScheduleController {
         List<Schedule> schedules = getAllSchedules();
         return new ResponseEntity<>(schedules, HttpStatus.OK);
     }
-    @PostMapping("/schedules")
+    @PostMapping("/admin/schedules")
     public ResponseEntity<?> createSchedule(@RequestBody Schedule schedule) {
         try {
             Schedule _schedule = scheduleRepository.save(new Schedule(schedule.getDate(), schedule.getPhoneNumbers(), schedule.getScheduleDays()));
@@ -97,7 +97,7 @@ public class ScheduleController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @DeleteMapping("/schedules/{id}")
+    @DeleteMapping("/admin/schedules/{id}")
     public ResponseEntity<HttpStatus> deleteSchedule(@PathVariable("id") long id) {
         try {
             scheduleRepository.deleteById(id);

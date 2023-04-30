@@ -32,16 +32,14 @@ public class JwtFilter extends HttpFilter {
         response.setHeader("Access-Control-Allow-Methods",  "POST, PUT, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, id, token");
-
         if(!(request.getRequestURI().contains("auth")||request.getMethod().equals("OPTIONS")||request.getRequestURI().contains("connect")))
-
         {
         String token = request.getHeader("token");
         logger.info(token);// (1)
 
         User userData = userRepository.findByEmailAddress(jwtTokenUtil.getEmailFromToken(token));
-
-        if (!jwtTokenUtil.validateToken(token,userData)) {  // (2)
+           
+        if (!jwtTokenUtil.validateToken(token,userData)|| (request.getServletPath().startsWith("/api/admin/")&&!userData.getAdmin())) {  // (2)
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // HTTP 401.
             return;
         }
