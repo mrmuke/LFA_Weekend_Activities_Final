@@ -1,7 +1,12 @@
 package com.SpringApp.Website.Controller;
 
 import com.SpringApp.Website.AccessingData.Schedule;
+import com.SpringApp.Website.AccessingData.ScheduleDay;
+import com.SpringApp.Website.AccessingData.ScheduleEvent;
 import com.SpringApp.Website.AccessingData.ScheduleRepository;
+import com.SpringApp.Website.PostSchemas.Drop;
+import com.SpringApp.Website.PostSchemas.EditUsersSignedUp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -85,7 +90,6 @@ public class ScheduleController {
     @PutMapping("/schedules/{id}")
     public ResponseEntity<?> updateSchedule(@PathVariable("id") long id, @RequestBody Schedule schedule) {
         Optional<Schedule> scheduleData = scheduleRepository.findById(id);
-        System.out.println(schedule.getScheduleDays()[0].getEvents()[0].getUnsignedUp().length);
         if (scheduleData.isPresent()) {
             Schedule _schedule = scheduleData.get();
             _schedule.setDate(schedule.getDate());
@@ -97,6 +101,67 @@ public class ScheduleController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping("/schedules/{id}/add")
+    public ResponseEntity<?> addUser(@PathVariable("id") long id, @RequestBody EditUsersSignedUp edit){
+        Optional<Schedule> scheduleData = scheduleRepository.findById(id);
+        if (scheduleData.isPresent() && edit.getDay() != -1 && edit.getEvent() != -1) {
+            Schedule _schedule = scheduleData.get();
+            ScheduleDay scheduleDay = _schedule.getScheduleDays()[edit.getDay()];
+            ScheduleEvent scheduleEvent = scheduleDay.getEvents()[edit.getEvent()];
+            if(edit.getAction().equals("waitlist")){
+                scheduleEvent.addWaitlist(edit.getUser());
+            } else if (edit.getAction().equals("usersSignedUp")){
+                scheduleEvent.addUsersSignedUp(edit.getUser());
+            }
+            return new ResponseEntity<Schedule>(scheduleRepository.save(_schedule), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/admin/schedules/{id}/remove")
+    public ResponseEntity<?> removeUser(@PathVariable("id") long id, @RequestBody EditUsersSignedUp edit){
+        Optional<Schedule> scheduleData = scheduleRepository.findById(id);
+        if (scheduleData.isPresent()) {
+            Schedule _schedule = scheduleData.get();
+            ScheduleDay scheduleDay = _schedule.getScheduleDays()[edit.getDay()];
+            ScheduleEvent scheduleEvent = scheduleDay.getEvents()[edit.getEvent()];
+            scheduleEvent.removeUser(edit.getUser());
+            return new ResponseEntity<Schedule>(scheduleRepository.save(_schedule), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/schedules/{id}/bump")
+    public ResponseEntity<?> bumpUser(@PathVariable("id") long id, @RequestBody EditUsersSignedUp edit){
+        Optional<Schedule> scheduleData = scheduleRepository.findById(id);
+        if (scheduleData.isPresent()) {
+            Schedule _schedule = scheduleData.get();
+            ScheduleDay scheduleDay = _schedule.getScheduleDays()[edit.getDay()];
+            ScheduleEvent scheduleEvent = scheduleDay.getEvents()[edit.getEvent()];
+            scheduleEvent.bumpUser(edit.getUser());
+            return new ResponseEntity<Schedule>(scheduleRepository.save(_schedule), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/schedules/{id}/swap")
+    public ResponseEntity<?> swapUser(@PathVariable("id") long id, @RequestBody Drop edit){
+        Optional<Schedule> scheduleData = scheduleRepository.findById(id);
+        if (scheduleData.isPresent()) {
+            Schedule _schedule = scheduleData.get();
+            ScheduleDay scheduleDay = _schedule.getScheduleDays()[edit.getDay()];
+            ScheduleEvent scheduleEvent = scheduleDay.getEvents()[edit.getEvent()];
+            //scheduleEvent.bumpUser(edit.getUser());
+            return new ResponseEntity<Schedule>(scheduleRepository.save(_schedule), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @DeleteMapping("/admin/schedules/{id}")
     public ResponseEntity<HttpStatus> deleteSchedule(@PathVariable("id") long id) {
         try {
