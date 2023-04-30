@@ -74,7 +74,7 @@ public class UserController {
 
     }
 
-    @PostMapping("/users/strike")
+    @PostMapping("/admin/users/strike")
     public ResponseEntity<?> strikeUser(@RequestBody int Id) {
         User userData = userRepository.findById(Id);
         userData.setStrikes(userData.getStrikes() + 1);
@@ -86,7 +86,7 @@ public class UserController {
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping("/users/resetStrike")
+    @PostMapping("/admin/users/resetStrike")
     public ResponseEntity<?> resetStrike(@RequestBody int Id){
         User userData = userRepository.findById(Id);
         userData.setStrikes(0);

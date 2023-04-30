@@ -44,17 +44,5 @@ public class NotificationService {
         
         javaMailSender.send(message);
     }
-    public void sendWeekly(String email) throws MessagingException{
-
-        MimeMessage message = javaMailSender.createMimeMessage();
-
-        message.setSubject("Remember Heewoong is a Doctor");
-        MimeMessageHelper helper;
-        helper = new MimeMessageHelper(message, true);
-        helper.setFrom("lfaweekendactivities@gmail.com");
-        helper.setText("Testing.,.", true);
-        helper.setTo(email);
-
-        javaMailSender.send(message);
-    }
+    
 }
