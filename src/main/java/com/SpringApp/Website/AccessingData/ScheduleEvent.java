@@ -3,6 +3,8 @@ package com.SpringApp.Website.AccessingData;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "schedule_events")
@@ -19,8 +21,6 @@ public class ScheduleEvent extends Event implements Serializable {
     private UserDate[] unsignedUp;
     @Column(name = "waitlist")
     private User[] waitlist;
-    @Column(name = "permanent_waitlist")
-    private User[] permanentWaitlist;
     @Column(name = "personLimit")
     private Integer personLimit = 0;
 
@@ -67,14 +67,6 @@ public class ScheduleEvent extends Event implements Serializable {
         this.usersSignedUp = usersSignedUp;
     }
 
-    public User[] getPermanentWaitlist(){
-        return this.permanentWaitlist;
-    }
-
-    public void setPermanentWaitlist(User[] permanentWaitlist){
-        this.permanentWaitlist = permanentWaitlist;
-    }
-
     public Integer getPersonLimit() {
         return personLimit;
     }
@@ -83,4 +75,96 @@ public class ScheduleEvent extends Event implements Serializable {
         this.personLimit = personLimit;
     }
 
+    public void addUsersSignedUp(User user){
+        ArrayList<User> al = new ArrayList<User>(Arrays.asList(this.usersSignedUp));
+        if(al.size() < this.personLimit){
+            al.add(user);
+            while(al.remove(null)){}
+            this.usersSignedUp = al.toArray(new User[al.size()]);
+        } else {
+            addWaitlist(user);
+        }
+    }
+
+    public void addWaitlist(User user){
+        ArrayList<User> al = new ArrayList<User>(Arrays.asList(this.waitlist));
+        al.add(user);
+        while(al.remove(null)){}
+        this.waitlist = al.toArray(new User[al.size()]);
+    }
+
+    public void removeUser(User user){
+        ArrayList<User> al = new ArrayList<User>(Arrays.asList(this.usersSignedUp));
+        ArrayList<User> wl = new ArrayList<User>(Arrays.asList(this.waitlist));
+
+        while(al.remove(null)){}
+        for(int i = 0; i < al.size(); i++){
+            User curUser = al.get(i);
+            if(curUser == null){
+                continue;
+            }
+            if(curUser.getEmailAddress().equals(user.getEmailAddress())){
+                al.remove(i);
+                break;
+            }
+        }
+        if(wl.size() > 0){
+            al.add(wl.get(0));
+            wl.remove(0);
+        }
+        this.usersSignedUp = al.toArray(new User[al.size()]);
+
+        while(wl.remove(null)){}
+        for(int i = 0; i < wl.size(); i++){
+            User curUser = wl.get(i);
+            if(curUser == null){
+                continue;
+            }
+            if(curUser.getEmailAddress().equals(user.getEmailAddress())){
+                wl.remove(i);
+                break;
+            }
+        }
+        this.waitlist = wl.toArray(new User[wl.size()]);
+    }
+
+    public void bumpUser(User user){
+        int index = -1;
+        ArrayList<User> al = new ArrayList<User>(Arrays.asList(this.usersSignedUp));
+        ArrayList<User> wl = new ArrayList<User>(Arrays.asList(this.waitlist));
+
+        for(int i = 0; i < this.usersSignedUp.length; i++){
+            if(this.usersSignedUp[i].getEmailAddress().equals(user.getEmailAddress())){
+                index = i;
+                break;
+            }
+        }
+        if(index == -1){
+            return;
+        }
+        al.remove(index);
+
+        if(wl.size() > 0){
+            al.add(wl.get(0));
+            wl.remove(0);
+        }
+        
+        wl.add(user);
+
+        this.waitlist = wl.toArray(new User[wl.size()]);
+        this.usersSignedUp = al.toArray(new User[al.size()]);
+    }
+
+    public void swapUser(String action, User first_user, User second_user){
+        ArrayList<User> receiveArr;
+        ArrayList<User> sendArr;
+
+        if(action.equals("waitlist")){
+            receiveArr = new ArrayList<User>(Arrays.asList(this.waitlist));
+            sendArr = new ArrayList<User>(Arrays.asList(this.usersSignedUp));
+        } else {
+            receiveArr = new ArrayList<User>(Arrays.asList(this.usersSignedUp));
+            sendArr = new ArrayList<User>(Arrays.asList(this.waitlist));
+        }
+    }
 }
